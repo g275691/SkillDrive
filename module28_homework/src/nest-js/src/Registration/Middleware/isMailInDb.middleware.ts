@@ -1,15 +1,16 @@
 import { Request, Response, NextFunction } from 'express';
 import { Injectable, NestMiddleware } from '@nestjs/common';
-import { InjectModel } from '@nestjs/mongoose';
-import { Model } from 'mongoose';
-import { RegistrationDocument } from '../Entities/registration.entity';
+import { getMongoManager } from 'typeorm';
+import { RegistrationEntity } from '../entities/registration.entity';
 
 @Injectable()
 export class isMailInDb implements NestMiddleware {
-  constructor ( @InjectModel('Users') private userModel: Model<RegistrationDocument> ) {}
+
   async use(req: Request, res: Response, next: NextFunction) {
-    const {mail} = req.body;
-    let findMail : any = await this.userModel.findOne( {mail} ).exec();
+    const { mail } = req.body;
+
+    const manager = getMongoManager();
+    let findMail = await manager.findOne( RegistrationEntity, { mail } )
     if(findMail) return res.status(401).send("Такой почтовый ящик уже зарегистрирован");
     next();
   }

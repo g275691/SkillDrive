@@ -7,9 +7,11 @@ import { editFileName, imgFileFilter } from '../config/filterEditName';
 import { newUserDto } from '../dto/newUser.dto';
 import { removeDto } from '../dto/remove.dto';
 
-@Controller('users/registration')
+
+@Controller('registration/users')
 export class RegistrationController  {
-    constructor(private RegistrationService: RegistrationService) {}
+    constructor(private RegistrationService: RegistrationService,
+      ) {}
 
     @Post('step1')
     @HttpCode(200)
@@ -44,11 +46,9 @@ export class RegistrationController  {
         destination: ('./uploads/docs')
         , filename: editFileName
       }),
-
       fileFilter: imgFileFilter
     }))
     step3UploadDocs(@UploadedFiles() files: any) {
-      console.log(files);
       return files.map(el => {
         return {
           "img": el.filename,

@@ -1,5 +1,5 @@
 import { Column, Entity, ObjectIdColumn } from "typeorm";
-import { OwnerRentCar } from "./owner-rent-car";
+import { RegistrationEntity as owner} from "../../Registration/Entities/registration.entity";
 
 @Entity("RentCar")
 export class RentCar {
@@ -7,13 +7,31 @@ export class RentCar {
     _id;
 
     @Column()
-    name: string;
+    brand: string;
     
     @Column()
-    price: number;
+    model: string;
 
-    // @Column(()=>OwnerRentCar)
-    // owner: OwnerRentCar;
+    @Column()
+    year: string;
+
+    @Column()
+    engine: string;
+
+    @Column()
+    power: string;
+
+    @Column()
+    transmission: string;
+
+    @Column()
+    driveUnit: string;
+
+    @Column()
+    price: string;
+
+    @Column(()=> owner )
+    owner: owner;
 
     @Column()
     city: string;
@@ -22,7 +40,7 @@ export class RentCar {
     category: string;
 
     @Column()
-    power: number;
+    rating: string;
 
     @Column()
     photo: string

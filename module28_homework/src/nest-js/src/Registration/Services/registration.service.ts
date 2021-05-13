@@ -15,19 +15,19 @@ export class RegistrationService {
     ) {}
 
     async step3removeDoc(req, res) {
+        console.log(req)
         fsPromises
         .rm(`uploads/${req.fileType=="doc" ? "docs" : "avatar"}/${req.fileName}`)
-        .then(()=>res.status(200).send())
+        .then(()=>res.status(200).send("Delete"))
         .catch(err=> console.log(err))
     }
+
     async step3registration(newUserDto: newUserDto, res) {
         newUserDto.password = bcrypt.hashSync(newUserDto.password, bcrypt.genSaltSync(10));
-        const uniqID = uuidv4();
-        const userFolder = `users/${uniqID}`;
+        const userFolder = `users/${newUserDto.mail}`;
 
         const newUser = new RegistrationEntity();
 
-        newUser._id = uniqID;
         newUser.name = newUserDto.name;
         newUser.password = newUserDto.password;
         newUser.birthday = newUserDto.birthday;
