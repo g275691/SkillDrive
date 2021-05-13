@@ -1,0 +1,12 @@
+{
+  "name": "SkillDriver",
+  "version": "1.0.0",
+  "description": "SkillDriver project",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "watch-sass": "sass --watch sass/base.scss:css/style.css"
+  },
+  "author": "g275691",
+  "license": "ISC"
+}

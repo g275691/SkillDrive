@@ -1,0 +1,26 @@
+@import 'glyphter.scss';
+@import 'font-rule.scss';
+@import "breakpoints.scss";
+@import "normalize.scss";
+@import "keyframes.scss";
+@import "../components/Global/Header.scss";
+@import "../components/Global/footer.scss";
+/*Home-page*/
+//@import "../components/Home-page/heading.scss";
+@import "../components/Home-page/heading.scss";
+@import "../components/Home-page/description.scss";
+@import "../components/Home-page/rentRule.scss";
+@import "../components/Home-page/profit.scss";
+@import "../components/Home-page/CirclesBlock.scss";
+@import "../components/Home-page/review.scss";
+@import "../components/Home-page/cta.scss";
+/*About-page*/
+@import "../components/about-page/descrContacts.scss";
+@import "../components/about-page/Team.scss";
+/*Questions-page*/
+@import "../components/questions-page/Questions.scss";
+@import "../components/global/Page404.scss";
+
+html {
+    overflow-x: hidden;
+}

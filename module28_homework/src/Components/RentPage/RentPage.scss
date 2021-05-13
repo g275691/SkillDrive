@@ -1,0 +1,55 @@
+.rent-page {
+    display: flex;
+    
+
+    justify-content: center;
+    margin-top: 136px;
+    &-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        
+        width: 90%;
+        &__filter {
+            display: flex;
+            width: 100%;
+
+            margin-top: 50px;
+            &__city {
+                
+                
+                
+            }
+            .button-wrapper {
+                width: 25%;
+                
+                button {
+                    width: 100%;
+                }
+            }
+        }
+        span {
+            font-size: 36px;
+            font-weight: 500;
+
+            margin-top: 100px;
+        }
+        &__cars {
+            display: flex;
+            flex-wrap: wrap;
+            width: 100%;
+            margin-top: 35px;
+            
+            .car-frame {
+                width: calc(33% - 25px);
+                height: 242px;
+                margin: 15px 12.5px;
+
+                border-radius: 10px;
+                background: red;
+                
+            }
+        }
+    }
+
+}

@@ -1,0 +1,282 @@
+/* generic */
+@media screen and (max-width: 1199px) {
+  .is-desktop {
+    display: none !important;
+  }
+}
+
+@media screen and (min-width: 1200px) {
+  .is-mobile {
+    display: none !important;
+  }
+}
+
+@media screen and (max-width: 1199px) {
+  h1 {
+    font-size: 32px;
+  }
+}
+
+@media screen and (max-width: 1199px) {
+  h2 {
+    font-size: 24px;
+  }
+}
+
+.is-animated {
+  transition: all 400ms ease;
+}
+
+nav {
+  height: 90px;
+  width: 100%;
+}
+nav .navbar__container {
+  display: flex;
+  padding-left: 40px;
+  padding-right: 40px;
+  transform: translate(0%, 50%);
+  justify-content: space-between;
+  align-items: center;
+}
+nav .navbar__container .navbar__menu {
+  display: flex;
+  align-items: center;
+}
+nav .navbar__container .navbar__menu-item {
+  margin-right: 30px;
+  font-size: 16px;
+}
+nav .navbar__container .navbar__menu-item:hover {
+  color: cadetblue;
+  font-size: 20px;
+  cursor: pointer;
+}
+nav .navbar__container .navbar__menu-login {
+  padding: 12px 36px 12px 36px;
+  border: 1px solid;
+  border-radius: 8px;
+  font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
+  font-size: 16px;
+}
+nav .navbar__container .navbar__menu-login:hover {
+  background: cadetblue;
+  cursor: pointer;
+}
+
+.description__container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 116px;
+}
+@media screen and (max-width: 1199px) {
+  .description__container {
+    padding-top: 60px;
+  }
+}
+@media screen and (max-width: 1199px) {
+  .description__container img {
+    width: 75%;
+  }
+}
+.description__container h1 {
+  padding-top: 61px;
+}
+@media screen and (max-width: 1199px) {
+  .description__container h1 {
+    padding-top: 40px;
+  }
+}
+.description__container-text {
+  font-size: 24px;
+  width: 70%;
+  max-width: 100;
+  text-align: center;
+  line-height: 147.3%;
+}
+@media screen and (max-width: 1199px) {
+  .description__container-text {
+    font-size: 16px;
+  }
+}
+
+.contacts__container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: #F7F9FB;
+  width: 100%;
+  height: 341px;
+  margin-top: 80px;
+}
+@media screen and (max-width: 1199px) {
+  .contacts__container {
+    margin-top: 40px;
+    text-align: center;
+    height: 237px;
+  }
+}
+.contacts__container h2 {
+  margin-bottom: 43px;
+}
+@media screen and (max-width: 1199px) {
+  .contacts__container h2 {
+    margin-bottom: 20px;
+  }
+}
+.contacts__container .address__container {
+  display: flex;
+  width: 35%;
+  justify-content: space-between;
+}
+@media screen and (max-width: 1199px) {
+  .contacts__container .address__container {
+    flex-direction: column;
+  }
+}
+.contacts__container .address__container-heading {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  line-height: 17px;
+}
+@media screen and (max-width: 1199px) {
+  .contacts__container .address__container-heading {
+    line-height: 14px;
+  }
+}
+@media screen and (max-width: 1199px) {
+  .contacts__container .address__container-heading:last-child {
+    padding-top: 20px;
+  }
+}
+.contacts__container .address__container span:first-child {
+  font-size: 14px;
+  color: #4F4F4F;
+}
+@media screen and (max-width: 1199px) {
+  .contacts__container .address__container span:first-child {
+    font-size: 12px;
+  }
+}
+.contacts__container .address__container span:last-child {
+  font-size: 20px;
+}
+@media screen and (max-width: 1199px) {
+  .contacts__container .address__container span:last-child {
+    font-size: 14px;
+  }
+}
+
+.teams__container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  margin-top: 80px;
+}
+@media screen and (max-width: 1199px) {
+  .teams__container {
+    margin-top: 40px;
+  }
+}
+.teams__container .teams__item-container {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-top: 55px;
+}
+@media screen and (max-width: 1199px) {
+  .teams__container .teams__item-container img {
+    width: 80px;
+  }
+}
+.teams__container .teams__item-container .teams__item {
+  text-align: center;
+  margin-right: 80px;
+  flex-basis: 15%;
+}
+@media screen and (max-width: 1199px) {
+  .teams__container .teams__item-container .teams__item {
+    flex-basis: 45%;
+    margin-right: 0;
+  }
+}
+.teams__container .teams__item-container .teams__item-name-text {
+  margin-top: 23px;
+  margin-bottom: 60px;
+  line-height: 30px;
+}
+@media screen and (max-width: 1199px) {
+  .teams__container .teams__item-container .teams__item-name-text {
+    margin-bottom: 30px;
+    line-height: 23px;
+  }
+}
+.teams__container .teams__item-container .teams__item-name-text > span:first-child {
+  font-size: 20px;
+  font-weight: 600;
+}
+@media screen and (max-width: 1199px) {
+  .teams__container .teams__item-container .teams__item-name-text > span:first-child {
+    font-size: 16px;
+  }
+}
+.teams__container .teams__item-container .teams__item-name-text > span:last-child {
+  font-family: Roboto;
+  font-size: 14px;
+  color: #828282;
+}
+@media screen and (max-width: 1199px) {
+  .teams__container .teams__item-container .teams__item-name-text > span:last-child {
+    font-size: 12px;
+  }
+}
+
+.footer__container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0px 40px 0px 40px;
+  height: 124px;
+  margin-top: 120px;
+  background: #3F3D56;
+}
+@media screen and (max-width: 1199px) {
+  .footer__container {
+    justify-content: center;
+    margin-top: 60px;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 0px 0px 0px 20px;
+  }
+}
+@media screen and (max-width: 1199px) {
+  .footer__container * {
+    padding-top: 16px;
+  }
+}
+.footer__container-copyright {
+  font-size: 16px;
+  color: rgba(255, 255, 255, 0.4);
+}
+.footer__container-social-media > a {
+  color: white;
+  font-size: 26.7px;
+  margin-left: 19.3px;
+}
+@media screen and (max-width: 1199px) {
+  .footer__container-social-media > a {
+    margin-left: 0;
+    padding-top: 16px;
+  }
+}
+.footer__container-social-media > a:hover {
+  color: yellow;
+  text-shadow: 0px 0px 10px rgba(255, 255, 255, 0.8);
+  cursor: pointer;
+}
+
+/*# sourceMappingURL=style.css.map */

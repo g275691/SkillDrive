@@ -1,0 +1,52 @@
+
+th {
+  color: #B1B1B1 !important;
+
+}
+
+td {
+  vertical-align: middle;
+}
+
+.ui-icon {
+  color: green !important;
+}
+
+.ui-datepicker-calendar {
+    width: 0% !important;
+    margin-top: 10px !important;
+  }
+  
+  .ui-datepicker {
+    width: 17em !important;
+  }
+  
+  .ui-widget-header {
+    background: none !important;
+    border: none !important;
+    font-size: 20px !important;
+  }
+
+  .ui-state-default {
+  
+    background: none !important;
+    border: none !important;
+    text-align: center !important;
+    padding: 9px 9px !important;
+    @include breakpoint (medium) {
+      padding: 9px 9px !important;
+    }
+  }
+  
+  .ui-state-active {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: $green-rect !important;
+    border-radius: 50% !important;
+  
+  }
+
+  .ui-datepicker-prev, .ui-datepicker-next{
+    text-align: center;
+  }

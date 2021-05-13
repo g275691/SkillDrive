@@ -1,0 +1,29 @@
+doctype html
+head
+  meta(charset='UTF-8')
+  meta(name='viewport' content='width=device-width, initial-scale=1.0')
+  link(rel='stylesheet' href='dist/main.css')
+  link(href='https://fonts.googleapis.com/css2?family=Roboto:wght@500&display=swap' rel='stylesheet')
+  link(href='https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap' rel='stylesheet')
+  title &Vcy;&ocy;&pcy;&rcy;&ocy;&scy;&ycy;.SkillDrive
+include ./header.pug
+main
+  .questions__container
+    img(src='../src/img/Question-woman.svg' alt='Woman with questions')
+    h1 &CHcy;&acy;&scy;&tcy;&ycy;&iecy; &vcy;&ocy;&pcy;&rcy;&ocy;&scy;&ycy;
+    span &Ocy;&tcy;&vcy;&iecy;&chcy;&acy;&iecy;&mcy; &ncy;&acy; &vcy;&ocy;&pcy;&rcy;&ocy;&scy;&ycy;, &kcy;&ocy;&tcy;&ocy;&rcy;&ycy;&iecy; &ucy; &vcy;&acy;&scy; &mcy;&ocy;&gcy;&ucy;&tcy; &vcy;&ocy;&zcy;&ncy;&icy;&kcy;&ncy;&ucy;&tcy;&softcy;.
+    mixin answers(question)
+      .questions__container-rect=question
+        .icon-arrow
+      .questions__container-answer="Данный вопрос обсуждается с собственником, но как правило автомобиль нужно вернуть туда, где вы его получили."
+
+    +answers("Могу ли я отменить бронь?")
+    +answers("Могу ли я вернуть деньги, если не подошёл автомобиль?")
+    +answers("Что делать, если случилось ДТП?")
+    +answers("Могу ли я оставить автомобиль в удобном для меня месте?")
+    +answers("Что делать, если собственник просит заплатить ему напрямую?")
+    +answers("Что делать, если собственник просит заплатить ему напрямую?")
+    +answers("Должен ли я заправлять автомобиль?")
+
+include ./footer.pug
+script(src='dist/main.js')

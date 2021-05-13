@@ -1,0 +1,148 @@
+header {
+  background: rgba(255, 255, 255, 0.95);
+  transition: all 0.5s ease-in;
+}
+
+nav {
+  height: 90px;
+  width: 100%;
+
+    .navbar__container {
+      display: flex;
+
+      padding-left: 40px;
+      padding-right: 40px;
+      padding-top: 31px;
+      justify-content: space-between;
+      align-items: center;
+      @include breakpoint(medium) {
+        padding-top: 20px;
+        padding-left: 20px;
+      }
+
+      .navbar__menu {
+        display: flex;
+        align-items: center;
+
+        &-item {
+          margin-right: 30px;
+          font-size: 16px;
+          &:hover {
+            color: $nav-font-hover;
+            font-size: 20px;
+            cursor:pointer;
+          }
+        }
+                
+        &-login {
+            padding: 12px 36px 12px 36px;
+            border: 1px solid;
+            border-radius: 8px;
+            font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+            font-size: 16px;
+            cursor:pointer;
+            &:hover {
+              background: $nav-font-hover;
+              color: rgb(253, 241, 241);
+            }
+          }
+      }
+    }
+  }
+
+/* Menu */
+
+.mobile__burger {
+  position: fixed;
+  z-index: 6;
+  width: 18px;
+  height: 12px;
+  left: 85%;
+  top: 28px;
+  cursor: pointer;
+  &.is-active {
+    position: absolute;
+  }
+  &-rect {
+    position: absolute;
+    width: 100%;
+    height: 20%;
+    background: black;
+    &:nth-child(1) { 
+      top: 0%; 
+    }
+    &:nth-child(2) { 
+      top: 40%; 
+    }
+    &:nth-child(3) { 
+      top: 80%; 
+    }
+  }
+}
+
+.mobile__wrapper {
+  background: white;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 100%;
+  pointer-events: all;
+  opacity: 0.95;
+  &.is-active {
+    pointer-events: none;
+    opacity: 0;
+  }
+}
+
+.navbar__brand-mobil {
+  position: absolute;
+  z-index: 11;
+  padding-top: 20px;
+  padding-left: 20px;
+}
+
+.menu__mobile-container {
+  display: flex;
+  justify-content: center;
+}
+
+.menu__mobile {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 100%;
+  justify-content: center;
+  &-link {
+    cursor: pointer;
+    color: black;
+  }
+  &-rect {
+    background: #DCE0ED;
+    height: 1px;
+    width: 90%;
+  }
+  & * {
+    margin-bottom: 18px;
+  }
+}
+.menu__login {
+  position: absolute;
+  z-index: 12;
+  bottom: 20px;
+
+  width: 90%;
+  display: flex;
+  justify-content: center;
+  border: 1px solid;
+  border-radius: 8px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  font-weight: 500;
+  &:hover {
+    color: white;
+    background: green;
+  }
+}

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SkillDrive</title>
+
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+
+
+</head>
+<body>
+  <div id="root"></div>
+  <script>
+    $.datepicker.regional['ru'] = {
+      closeText: 'Закрыть',
+      prevText: 'Предыдущий',
+      nextText: 'Следующий',
+      currentText: 'Сегодня',
+      monthNames: ['Январь','Февраль','Март','Апрель','Май','Июнь','Июль','Август','Сентябрь','Октябрь','Ноябрь','Декабрь'],
+      monthNamesShort: ['Янв','Фев','Мар','Апр','Май','Июн','Июл','Авг','Сен','Окт','Ноя','Дек'],
+      dayNames: ['воскресенье','понедельник','вторник','среда','четверг','пятница','суббота'],
+      dayNamesShort: ['вск','пнд','втр','срд','чтв','птн','сбт'],
+      dayNamesMin: ['вс','пн','вт','ср','чт','пт','сб'],
+      weekHeader: 'Не',
+      dateFormat: 'dd.mm.yy',
+      firstDay: 1,
+      isRTL: false,
+      showMonthAfterYear: false,
+      yearSuffix: ''
+    };
+    $.datepicker.setDefaults($.datepicker.regional['ru']);
+  </script>
+</body>
+</html>
