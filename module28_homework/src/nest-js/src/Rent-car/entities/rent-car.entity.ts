@@ -1,8 +1,5 @@
 import { Column, Entity, ObjectIdColumn } from "typeorm";
 import { OwnerRentCar } from "./owner-rent-car";
-import { Document } from 'mongoose';
-
-export type RegistrationDocument = typeof RentCar & Document;
 
 @Entity("RentCar")
 export class RentCar {
@@ -12,21 +9,21 @@ export class RentCar {
     @Column()
     name: string;
     
-    // @Column()
-    // price: number;
+    @Column()
+    price: number;
 
-    // // @Column(()=>OwnerRentCar)
-    // // owner: OwnerRentCar;
+    // @Column(()=>OwnerRentCar)
+    // owner: OwnerRentCar;
 
-    // @Column()
-    // city: string;
+    @Column()
+    city: string;
 
-    // @Column()
-    // category: string;
+    @Column()
+    category: string;
 
-    // @Column()
-    // power: number;
+    @Column()
+    power: number;
 
-    // @Column()
-    // photo: string
+    @Column()
+    photo: string
 }
