@@ -1,19 +1,19 @@
 export const defaultState = {
-  userData: false
-//   {
-//     "name": "JackyChan",
-//     "birthday": [2001,2,6],
-//     "mail": "test@yandex.ru",
-//     "phone": "89081245672",
-//     "passport": "1234567890",
-//     "passportDate": "2001-09-29",
-//     "passportOrgan": "Passportnaya",
-//     "passportCode": "123456",
-//     "driver": "1234567890",
-//     "driverDate": "2001-09-29",
-//     "password": "qwerty",
-//     "passwordRepeat": "qwerty"
-// }
+  userData: 
+  {
+    "name": "JackyChan",
+    "birthday": "2001-09-26",
+    "mail": "test@yandex.ru",
+    "phone": "89081245672",
+    "passport": "1234567890",
+    "passportDate": "2001-09-29",
+    "passportOrgan": "Passportnaya",
+    "passportCode": "123456",
+    "driver": "1234567890",
+    "driverDate": "2001-09-29",
+    "password": "qwerty",
+    "passwordRepeat": "qwerty"
+}
 ,
   imgAvatar: false ,
   imgAvatarFile: null,

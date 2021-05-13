@@ -1,6 +1,8 @@
 import { Column, Entity, ObjectIdColumn } from "typeorm";
+import { Document } from 'mongoose';
+export type RegistrationDocument = typeof RegistrationEntity & Document;
 
-@Entity("RegistrationEntity")
+@Entity("Users")
 export class RegistrationEntity {
     @ObjectIdColumn()
     _id;
@@ -9,7 +11,7 @@ export class RegistrationEntity {
     name: string;
     
     @Column()
-    birthday: number;
+    birthday: string;
 
     @Column()
     mail: string;
@@ -18,13 +20,13 @@ export class RegistrationEntity {
     phone: string;
 
     @Column()
-    passport: number;
+    passport: string;
 
     @Column()
     passportDate: string
 
     @Column()
-    passportOrgan: number;
+    passportOrgan: string;
 
     @Column()
     passportCode: string;
@@ -33,8 +35,14 @@ export class RegistrationEntity {
     driver: string;
 
     @Column()
-    driverDate: number;
+    driverDate: string;
 
     @Column()
     password: string
+
+    @Column()
+    imgAvatar: string;
+
+    @Column()
+    photosDoc: Array<any>
 }

@@ -1,28 +1,11 @@
 import { RegistrationService } from './../Services/registration.service';
-import { registrationDto } from './../dto/registration.dto';
+import { step1ValidateDto } from '../dto/step1ValidateDto';
 import { Body, Controller, Post, HttpCode, Response, UseInterceptors, UploadedFile, Get, UploadedFiles } from '@nestjs/common';
 import { FileInterceptor, FilesInterceptor } from '@nestjs/platform-express';
 import { diskStorage } from 'multer';
-import * as path from 'path';
-
-const fs = require('fs'); 
-
-const imgFileFilter = (req, file, cb) => {
-    if(!file.originalname.match(/\.(jpg|jpeg|png|gif)$/)){
-        return cb(new Error('Only image files are allowed!'), false);
-    } 
-    return cb(null, true);
-    }
-
-const editFileName = (req, file, callback) => {
-  const name = file.originalname.split('.')[0];
-  const fileExtName = path.extname(file.originalname);
-  const randomName = Array(4)
-    .fill(null)
-    .map(() => Math.round(Math.random() * 16).toString(16))
-    .join('');
-  callback(null, `${name}-${randomName}${fileExtName}`);
-};
+import { editFileName, imgFileFilter } from '../config/filterEditName';
+import { newUserDto } from '../dto/newUser.dto';
+import { removeDto } from '../dto/remove.dto';
 
 @Controller('users/registration')
 export class RegistrationController  {
@@ -30,9 +13,9 @@ export class RegistrationController  {
 
     @Post('step1')
     @HttpCode(200)
-    step1(@Body() registrationDto: registrationDto, @Response() res: any) {
-      console.log(registrationDto)
-      return this.RegistrationService.step1(registrationDto, res);
+    step1Validate(@Body() step1ValidateDto: step1ValidateDto) {
+      console.log(step1ValidateDto);
+      return;
     }
 
     @Post('uploadAvatar')
@@ -48,6 +31,7 @@ export class RegistrationController  {
       console.log(file);
       return {"img": file.filename};
     }
+
     @Get('toStep3')
     toStep3() {
       console.log("req")
@@ -73,14 +57,15 @@ export class RegistrationController  {
         }
       })
     }
+
     @Post('removePhoto')
-    removeDoc(@Body() registrationDto: registrationDto, @Response() res: any) {
-      return this.RegistrationService.step3removeDoc(registrationDto, res)
+    removeDoc(@Body() removeDto: removeDto, @Response() res: any) {
+      return this.RegistrationService.step3removeDoc(removeDto, res)
     }
 
     @Post('toSuccess')
-    toSuccess(@Body() registrationDto: registrationDto, @Response() res: any) {
-      console.log(registrationDto);
-      return this.RegistrationService.step3registration(registrationDto, res);
+    toSuccess(@Body() newUserDto: newUserDto, @Response() res: any) {
+      console.log(newUserDto);
+      return this.RegistrationService.step3registration(newUserDto, res);
     }
 }

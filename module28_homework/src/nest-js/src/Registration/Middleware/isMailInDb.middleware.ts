@@ -2,7 +2,7 @@ import { Request, Response, NextFunction } from 'express';
 import { Injectable, NestMiddleware } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
-import { RegistrationDocument } from 'src/Schemas/registration.schema';
+import { RegistrationDocument } from '../Entities/registration.entity';
 
 @Injectable()
 export class isMailInDb implements NestMiddleware {

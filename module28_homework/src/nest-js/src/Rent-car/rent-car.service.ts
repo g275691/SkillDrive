@@ -6,9 +6,9 @@ const fs = require('fs');
 
 @Injectable()
 export class RentCarService {
-  constructor(private rentCarRepository: RentCarRepository) {
-
-  }
+  constructor(private rentCarRepository: RentCarRepository
+    
+    ) {}
 
   async create(createRentCarDto: CreateRentCarDto) {
     

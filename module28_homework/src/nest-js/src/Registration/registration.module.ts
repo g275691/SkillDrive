@@ -12,8 +12,8 @@ import { RegistrationRepository } from './Repositories/registration.repository';
 })
 export class RegistrationModule implements NestModule {
     configure(consumer: MiddlewareConsumer) {
-        consumer
-        .apply(isMailInDb)
-        .forRoutes('users/registration/step1')
+        // consumer
+        // .apply(isMailInDb)
+        // .forRoutes('users/registration/step1')
     }
 }
