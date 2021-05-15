@@ -4,6 +4,7 @@
 
 /uploads
 /users
+!test0@yandex.ru
 
 # Logs
 logs

@@ -8,7 +8,7 @@ import { newUserDto } from '../dto/newUser.dto';
 import { removeDto } from '../dto/remove.dto';
 
 
-@Controller('registration/users')
+@Controller('users/registration')
 export class RegistrationController  {
     constructor(private RegistrationService: RegistrationService,
       ) {}

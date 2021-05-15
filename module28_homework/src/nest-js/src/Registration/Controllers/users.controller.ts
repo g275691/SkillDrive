@@ -1,6 +1,6 @@
 import { testDto } from '../dto/testDto';
 import { UsersService } from '../Services/users.service';
-import { Body, Controller, Post, HttpCode, Response, UseInterceptors, UploadedFile, Get, UploadedFiles } from '@nestjs/common';
+import { Body, Controller, Query, Post, HttpCode, Response, UseInterceptors, UploadedFile, Get, UploadedFiles } from '@nestjs/common';
 
 @Controller('users')
 export class UsersController  {
@@ -8,8 +8,7 @@ export class UsersController  {
       ) {}
 
       @Get()
-      getUser(@Body() req: testDto) {
-        return this.UsersService.getUser(req);
+      getUser(@Query() param: string) {
+        return this.UsersService.getUser(param);
       }
-
 }

@@ -14,7 +14,7 @@ export class RegistrationEntity {
     birthday: string;
 
     @Column()
-    mail: string;
+    mail: any;
 
     @Column()
     phone: string;

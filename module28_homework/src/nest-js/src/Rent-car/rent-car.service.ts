@@ -28,6 +28,7 @@ export class RentCarService {
     newRentCar.category = createRentCarDto.category;
     newRentCar.rating = createRentCarDto.rating;
     newRentCar.photo = createRentCarDto.photo;
+    
     newRentCar.owner = new RegistrationEntity();
     newRentCar.owner.mail = createRentCarDto.owner;
 

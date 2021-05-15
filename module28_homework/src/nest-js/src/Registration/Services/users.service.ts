@@ -4,9 +4,24 @@ import { RegistrationEntity } from '../entities/registration.entity';
 
 @Injectable()
 export class UsersService {
-    async getUser(req) {
-        const { mail } = req;
+    async getUser(param) {
+        const { mail } = param;
         const manager = getMongoManager();
-        return await manager.findOne( RegistrationEntity, { mail } );
+        console.log(param);
+
+       return await manager.find( RegistrationEntity, param )
+
+        // return Object.values(param).length
+        // ? await manager.find( RegistrationEntity,
+        //      {
+        //         "mail": { $exists: false },
+        //         "phone": param.phone
+        // }
+        
+        // )
+
+
+
+        // : await manager.find( RegistrationEntity, {} );
     }
 }
