@@ -3,8 +3,8 @@
 /node_modules
 
 /uploads
-/users
-!test0@yandex.ru
+users/
+!users/test0@yandex.ru
 
 # Logs
 logs
