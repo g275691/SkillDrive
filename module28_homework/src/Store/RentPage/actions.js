@@ -1,6 +1,8 @@
 import { createAction } from "@reduxjs/toolkit";
 import * as error from '../Constants/Errors';
 
+export const setCarsList = createAction('SET_CAR_LIST');
+
 export const onAuthRequest = createAction('ON_AUTH_REQUEST');
 export const onAuthSuccess = createAction('ON_AUTH_SUCCESS');
 export const onAuthFailure = createAction('ON_AUTH_FAILURE');

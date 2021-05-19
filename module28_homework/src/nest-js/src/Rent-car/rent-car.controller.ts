@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Query, Post, Body, Param, Delete } from '@nestjs/common';
 import { RentCarService } from './rent-car.service';
 import { CreateRentCarDto } from './dto/create-rent-car.dto';
 import { testDto } from 'src/Registration/dto/testDto';
@@ -17,23 +17,19 @@ export class RentCarController {
   //   return this.rentCarService.findAll();
   // }
 
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.rentCarService.findOne(+id);
+  @Get()
+  find(@Query() param: any) {
+    return this.rentCarService.find(param);
   }
 
-  @Get()
-  GetByOwner(@Body() testDto: testDto) {
-    return this.rentCarService.getByOwner(testDto)
+  @Get(':mail')
+  GetByOwner(@Param() param: string) {
+    console.log(param);
+    return this.rentCarService.getByOwner(param)
   }
 
   @Delete(':id')
   remove(@Param('id') id: string) {
     return this.rentCarService.remove(+id);
-  }
-
-  @Get('/test')
-  testAll() {
-    return this.rentCarService.testAll();
   }
 }

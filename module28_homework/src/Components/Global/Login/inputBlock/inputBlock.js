@@ -1,13 +1,15 @@
 import React, { memo, useState } from 'react';
+import styled from 'styled-components';
 
 const InputBlock = React.forwardRef(({
     type, label, name, autoComplete="off",
     errorName,
     triggerForSubmit,
     onClick,
+    value, focusDefault = false,
     resetPass}, ref) => {
     
-    let [isFocus, setFocus] = useState(false);
+    let [isFocus, setFocus] = useState(focusDefault);
     if(errorName) {
         if(errorName.type == "required") { errorName.message = "Поле не должно оставаться пустым" }
         else if(errorName.type == "minLength") { errorName.message = "Поле должно содержать больше символов" }
@@ -17,13 +19,15 @@ const InputBlock = React.forwardRef(({
     }
 
     return ( <>
+
         <div className="input-container">
 
             <input type={type} ref={ref} name={name} autoComplete={autoComplete} 
-            onChange={triggerForSubmit} onBlur={e=>{
+            onChange={triggerForSubmit} value ={value} onBlur={e=>{
                 e.target.value != "" ? setFocus(true) : setFocus(false); 
                 triggerForSubmit()}} 
                 onFocus={e => {
+                    e.target.style.border = "green";
                     setFocus(true); 
                     triggerForSubmit()}} 
             className={errorName ? "is-valid" : ""} />
@@ -43,7 +47,7 @@ const InputBlock = React.forwardRef(({
             
         </div>
        
-
+ 
 </>
     )
 })

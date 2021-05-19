@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 
-import { RentPage } from '../../Components/RentPage/RentPage';
+import { RentPageCar } from '../../Components/RentPage/RentPageCar';
 
 import { setCarsList } from '../../Store/RentPage/actions';
 
@@ -13,4 +13,4 @@ const mapDispatchToProps = dispatch => ({
     setCarsList: text => dispatch(setCarsList(text)),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(RentPage);
+export default connect(mapStateToProps, mapDispatchToProps)(RentPageCar);

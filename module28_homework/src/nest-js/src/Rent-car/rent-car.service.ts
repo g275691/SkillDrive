@@ -35,6 +35,13 @@ export class RentCarService {
     return await this.rentCarRepository.create(newRentCar);
   }
 
+  async find(param) {
+    const manager = getMongoManager();
+    console.log(param);
+
+   return await manager.find( RentCarEntity, param )
+  }
+
   async getByOwner(req) {
     const manager = getMongoManager()
     return await manager.find(RentCarEntity, {
@@ -44,30 +51,7 @@ export class RentCarService {
     })
   }
 
-  findAll() {
-    return `This action returns all rentCar`;
-  }
-
-  findOne(id: number) {
-    //return `This action retu2rns a #${id} rentCar`;
-    let carsList = [];
-    let test = fs.readdir('./uploads/cars', (err, files) => {
-      if(err) { console.log(err) }
-      else {files.forEach(el=>carsList.push(`http://localhost:8000/static/cars/${el}`))}
-    });
-    
-    console.log(carsList);
-  }
-
   remove(id: number) {
     return `This action removes a #${id} rentCar`;
-  }
-
-  testAll() {
-    fs.readdir('../uploads/cars', (err, items)=>console.log(items))
-    console.log("yes")
-    return {
-      1: ""
-    }
   }
 }

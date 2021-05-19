@@ -26,7 +26,7 @@ export const Header = ({ isMain, loginIsClose, closeLogin }) => {
                             <Link to={isAuth ? "/rent-page" : "/about"} className="navbar__menu-item is-animated" rel="nofollow">{isAuth ? "Бронирования" : "О нас"}</Link>
                             <div className="navbar__menu-item is-animated" rel="nofollow">{isAuth ? "Мои автомобили" : "Условия"}</div>
                             <Link to="/questions" className="navbar__menu-item is-animated" rel="nofollow">{isAuth ? "Сообщения" : "Частые вопросы"}</Link>
-                            {isAuth ? "" 
+                            {!isAuth ? "" 
                             : <div className="navbar__menu-login is-animated" href="" target="_blank" rel="nofollow" onClick={open}>Войти</div>}
                     </div>
                 </div>
