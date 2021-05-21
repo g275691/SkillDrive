@@ -3,25 +3,25 @@ import Header from '../../Containers/Header/Header';
 import DatePicker from '../Global/Datepicker/DatePicker';
 import Footer from '../Global/Footer/Footer';
 import RentPageCar from '../../Containers/RentPage/RentPageCar';
-import Select from '@material-ui/core/Select';
 
-import MenuItem from '@material-ui/core/MenuItem';
 import InputBlock from '../Global/Login/inputBlock/inputBlock';
 import { useForm  } from 'react-hook-form';
 import InputMenu from '../Global/InputMenu/InputMenu';
+import FormBlock from '../Registr-page/Step1/Formblocks/FormBlock';
  
 
-export const RentPage = ({carsList
-    , setCarsList}) => {
+export const RentPage = ({carsList, carsListFilter
+    , setCarsList, setCarsListFilter, sortCarsList
+    ,}) => {
     let [carsCity, setCarsCity] = useState([]);
     let [carsCategory, setCarsCategory] = useState([]);
-
+        
     useEffect(() => {
-        console.log(carsList);
         fetch('http://localhost:8000/rent-car')
         .then(date => date.json()
         .then(json => {
             setCarsList(json);
+            sortCarsList(setCarsListFilter, "http://localhost:8000/rent-car?city=Санкт-Петербург&category=Легковая");
 
             json.forEach(el=>{
                 carsCity.push(el.city);
@@ -35,34 +35,51 @@ export const RentPage = ({carsList
     }, [])
 
    const { register, handleSubmit, getValues, errors } = useForm({
-    mode: 'onTouched',
+        mode: 'onTouched',
+    });
+    const onSubmit = (data) => {
+        console.log(data); 
+    };
 
-});
+    const [date, setDate] = useState([2009,1,4]);
 
     return (
         <>
         <Header />
         <div className="rent-page">
             <div className="rent-page-container">
-                <h2
-                onClick>Арендуйте автомобиль</h2>
-                <div className="rent-page-container__filter">
-                    <InputMenu list={carsCity} defaultValue="Санкт-Петербург"/>
-                    <InputMenu list={carsCategory} defaultValue="Легковая"/>
+                <h2>Арендуйте автомобиль</h2>
+                <form className="rent-page-container__filter" onSubmit={handleSubmit(onSubmit)}>
+                    <InputMenu list={carsCity} defaultValue="Санкт-Петербург" 
+                    name="city" label="Местоположение"
+                    ref={register({ required: true })}/>
+
+                    <InputMenu 
+                    name="date" label="Период аренды"
+                    ref={register({ required: true })}
+                    datePicker stateDate={date} stateDispatch={setDate}
+                    onBlur={()=>console.log("test")}
+                    />
+                    
+
+                    <InputMenu list={carsCategory} defaultValue="Легковая" 
+                    name="category" label="Категория"
+                    ref={register({ required: true })}/>
 
 
-                    {/* <DatePicker /> */}
-                    {/* <div className="rent-page-container__filter__category"></div> */}
                     <div className="button-wrapper">
-                        <button
-                        >Найти</button>
+                        <button 
+                        onClick={()=> {
+                            sortCarsList(setCarsListFilter, `http://localhost:8000/rent-car?city=${getValues().city}&category=${getValues().category}&date=${getValues().date}`);
+                        }   
+                    }>Найти</button>
                     </div>
-                </div>
+                </form>
                 <span>Рекомендуем поблизости</span>
                 <div className="wrapper">
                 <div className="rent-page-container__cars">
-                    {carsList.map((el, i) => {
-                        return <RentPageCar key={el} index={i}/>
+                    {carsListFilter.map((el, i) => {
+                        return <RentPageCar key={i} index={i}/>
                     })}
                 </div>
                 </div>

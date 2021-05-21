@@ -1,11 +1,15 @@
 import React, { useEffect, useState } from 'react';
+import DatePicker from '../Datepicker/DatePicker';
 import InputMenuItem from './InputMenuItem';
 
-const InputMenu = ({
-    list,
+const InputMenu = React.forwardRef(({ 
+    list=[],
+    datePicker,
     selectedCity,
-    defaultValue
-}) => {
+    defaultValue,
+    name, label,
+    stateDate, stateDispatch
+}, ref) => {
 
     useEffect(() => {
         
@@ -13,35 +17,46 @@ const InputMenu = ({
 
     let [inputValue, setInputValue] = useState(defaultValue)
     let [isFocus, setFocus] = useState(false);
-    let test = [...list];
 
     let [menu, setMenu] = useState(list);
-    
+    let sortMenu = [...menu];
 
     return (
         <div className="input__menu__container" tabIndex="1">
             <div className="input__menu__container-select">
-                <input className={isFocus ? "is-focus" : ""} 
+                <input className={isFocus ? "is-focus" : ""} name={name} autoComplete="off"
                 onFocus={()=>{setFocus(true); setMenu(menu => [...new Set(menu)])}} 
                 onBlur={()=>setFocus(false)}
                 onChange = {e => setInputValue(e.target.value)}
                 value={inputValue}
                 onInput={e=>{
-                    setMenu(menu => menu.sort((x,y)=>x.match(e.target.value) ? -1 : y.match(e.target.value) ? 1 : 0))
+                    sortMenu.forEach((el,i,arr) => {
+                        let regExp = new RegExp('^' + e.target.value, "i");
+                        regExp.test(el) && e.target.value != ""
+                        ? (arr.splice(i,1), arr.unshift(el)) : ""
+                    })
+                    setMenu(sortMenu);
                 }}
+                ref = {ref}
                 ></input>
-                <label className={isFocus || inputValue != "" ? "is-focus" : ""}>Местоположение</label>
+                <label className={isFocus || inputValue != "" ? "is-focus" : ""}>{label}</label>
             </div>
-            <div className={isFocus ? "input__menu__container-list is-focus" : "input__menu__container-list" }
+            {list 
+            && <div className={isFocus ? "input__menu__container-list is-focus" : "input__menu__container-list" }
             onBlur={()=>setFocus(false)}
             tabIndex="1">
-            {menu.map(el => {
-                return <InputMenuItem city={el} selectedCity={selectedCity} onMouseDown={e=>{setInputValue(e.target.innerText); setFocus(false); console.log(inputValue)}}/>;
+            {menu.map((el,i) => {
+                return <InputMenuItem key={i} city={el} selectedCity={selectedCity} onMouseDown={e=>{setInputValue(e.target.innerText); setFocus(false); }}/>;
             })
             }
-            </div>
+            
+            </div>}
+            {datePicker 
+            && <DatePicker enabled="true" stateDate={stateDate} stateDispatch={stateDispatch}/>}
+            
         </div>
     )
-}
+})
 
 export default InputMenu;
+

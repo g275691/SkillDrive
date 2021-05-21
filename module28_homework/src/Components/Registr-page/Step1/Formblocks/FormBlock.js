@@ -14,7 +14,7 @@ const FormBlock = React.forwardRef(({
     stateDate, stateDispatch
      }, ref) => {
 
-        const [datePickerEnabled, setDatePickerEnabled] = useState(false);
+        const [datePickerEnabled, setDatePickerEnabled] = useState(true);
         
         const openDatePicker = () => {
             datePickerEnabled 
@@ -57,16 +57,12 @@ const FormBlock = React.forwardRef(({
             style={{cursor: type == "date" && "pointer"}}
             value={ value }
             onChange={()=> {
-                triggerForSubmit()
-                
+                triggerForSubmit && triggerForSubmit()
             }} onFocus={() => {
-                triggerForSubmit()
-                //setDatePickerEnabled(false)
+                triggerForSubmit && triggerForSubmit()
             }}
             onBlur={() => {
-                triggerForSubmit();
-                //!blockBlur && setDatePickerEnabled(false);
-
+                triggerForSubmit && triggerForSubmit();
             }}
             max={ name == "birthday" ? dateMinus14 : "" }
             onClick={openDatePicker}

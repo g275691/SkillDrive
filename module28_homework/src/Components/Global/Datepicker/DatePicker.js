@@ -5,9 +5,9 @@ import { month } from './Month';
 
 const DatePicker = ({onBlur
     , enabled
-    , typeDate
-    , stateDate
-,stateDispatch}) => {
+    , typeDate = [2001,2,6]
+    , stateDate = []
+,stateDispatch = []}) => {
     
     const dispatch = useDispatch();
 

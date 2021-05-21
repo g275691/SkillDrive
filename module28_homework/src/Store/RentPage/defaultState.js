@@ -1,3 +1,5 @@
 export const defaultState = {
-    carsList: []
+    carsList: [],
+    carsListFilter: [],
+    buttonLoad: false
 }
