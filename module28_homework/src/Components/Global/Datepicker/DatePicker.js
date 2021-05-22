@@ -5,9 +5,9 @@ import { month } from './Month';
 
 const DatePicker = ({onBlur
     , enabled
-    , typeDate = [2001,2,6]
     , stateDate = []
-,stateDispatch = []}) => {
+    , stateDispatch = []
+}) => {
     
     const dispatch = useDispatch();
 
@@ -89,7 +89,7 @@ const DatePicker = ({onBlur
                 </div>
             </div>
             <div className="date-picker-container__calendar">
-                {daysArray.map((el, i)=> <DatePickerDay onBlur={onBlur} value={el} index={i} typeDate={typeDate} stateDate={stateDate}/> )}
+                {daysArray.map((el, i)=> <DatePickerDay value={el} index={i} stateDate={stateDate} stateDispatch={stateDispatch} onBlur={onBlur}/> )}
             </div>
         </div>
     )

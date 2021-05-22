@@ -8,7 +8,8 @@ const InputMenu = React.forwardRef(({
     selectedCity,
     defaultValue,
     name, label,
-    stateDate, stateDispatch
+    value,
+    stateDate, stateDispatch, typeDate
 }, ref) => {
 
     useEffect(() => {
@@ -21,14 +22,20 @@ const InputMenu = React.forwardRef(({
     let [menu, setMenu] = useState(list);
     let sortMenu = [...menu];
 
+    let [datePickerEnabled, setDatePickerEnabled] = useState(false);
+
     return (
         <div className="input__menu__container" tabIndex="1">
             <div className="input__menu__container-select">
                 <input className={isFocus ? "is-focus" : ""} name={name} autoComplete="off"
-                onFocus={()=>{setFocus(true); setMenu(menu => [...new Set(menu)])}} 
-                onBlur={()=>setFocus(false)}
+                onFocus={()=>{
+                    setFocus(true); setMenu(menu => [...new Set(menu)]);
+                    datePicker && setDatePickerEnabled(true)
+                }} 
+                onBlur={()=>{setFocus(false)}}
                 onChange = {e => setInputValue(e.target.value)}
-                value={inputValue}
+                //value={inputValue}
+                value={datePicker ? value : inputValue}
                 onInput={e=>{
                     sortMenu.forEach((el,i,arr) => {
                         let regExp = new RegExp('^' + e.target.value, "i");
@@ -52,7 +59,12 @@ const InputMenu = React.forwardRef(({
             
             </div>}
             {datePicker 
-            && <DatePicker enabled="true" stateDate={stateDate} stateDispatch={stateDispatch}/>}
+            && <DatePicker enabled="true" 
+            stateDate={stateDate} stateDispatch={stateDispatch}
+            typeDate={typeDate}
+            enabled={datePickerEnabled}
+            onBlur={()=>setDatePickerEnabled(false)}
+            />}
             
         </div>
     )

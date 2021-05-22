@@ -10,28 +10,28 @@ const FormBlock = React.forwardRef(({
     errorName,
     triggerForSubmit,
     changeType,
-    password, typeDate,
+    password, 
     stateDate, stateDispatch
      }, ref) => {
 
-        const [datePickerEnabled, setDatePickerEnabled] = useState(true);
-        
-        const openDatePicker = () => {
+    const [datePickerEnabled, setDatePickerEnabled] = useState(false);
+    
+    const openDatePicker = () => {
+        datePickerEnabled 
+        ? setDatePickerEnabled(false) 
+        : setDatePickerEnabled(true)
+    }
+
+    useEffect(()=> {
+        try {
             datePickerEnabled 
-            ? setDatePickerEnabled(false) 
-            : setDatePickerEnabled(true)
-        }
+            && document.querySelectorAll(".date-picker-container")
+            .forEach(el => el.style.opacity == 1 && el.focus())
+        } catch (e) {}
 
-        useEffect(()=> {
-            try {
-                datePickerEnabled 
-                && document.querySelectorAll(".date-picker-container")
-                .forEach(el => el.style.opacity == 1 && el.focus())
-            } catch (e) {}
-
-        })
-        
-        const errMail = useSelector(state => state.registration.errMail);
+    })
+    
+    const errMail = useSelector(state => state.registration.errMail);
 
     if(errorName) {
         if(errorName.type == "required") { errorName.message = "Поле не должно оставаться пустым" }
@@ -74,9 +74,8 @@ const FormBlock = React.forwardRef(({
 
             placeholder={hint} />
             {type == "date" 
-            ? <DatePicker onBlur={()=>setDatePickerEnabled(false)} 
+            ? <DatePicker onBlur={()=>setDatePickerEnabled(false) } 
             enabled={datePickerEnabled}
-            typeDate={typeDate} 
             stateDate={stateDate}
             stateDispatch={stateDispatch}/> : ""
             }

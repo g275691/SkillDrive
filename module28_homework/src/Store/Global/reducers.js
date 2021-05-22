@@ -8,5 +8,6 @@ export const global = createReducer( defaultState, {
     [actions.setUserPassportDate]: (state, action) => { state.userPassportDate = action.payload; },
     [actions.setUserDriverDate]: (state, action) => { state.userDriverDate = action.payload; },
 
+    [actions.setAvailableCar]: (state, action) => { state.availableCar = action.payload; },
     [actions.setDatePickerEnabled]: (state, action) => { state.datePickerEnabled = action.payload }
 })

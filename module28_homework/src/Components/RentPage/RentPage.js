@@ -8,7 +8,8 @@ import InputBlock from '../Global/Login/inputBlock/inputBlock';
 import { useForm  } from 'react-hook-form';
 import InputMenu from '../Global/InputMenu/InputMenu';
 import FormBlock from '../Registr-page/Step1/Formblocks/FormBlock';
- 
+import { setAvailableCar } from '../../Store/Global/actions';
+import { useSelector } from 'react-redux';
 
 export const RentPage = ({carsList, carsListFilter
     , setCarsList, setCarsListFilter, sortCarsList
@@ -41,7 +42,7 @@ export const RentPage = ({carsList, carsListFilter
         console.log(data); 
     };
 
-    const [date, setDate] = useState([2009,1,4]);
+    const availableCar = useSelector(state => state.global.availableCar);
 
     return (
         <>
@@ -55,13 +56,11 @@ export const RentPage = ({carsList, carsListFilter
                     ref={register({ required: true })}/>
 
                     <InputMenu 
-                    name="date" label="Период аренды"
+                    name="date" label="Период аренды" value={availableCar}
                     ref={register({ required: true })}
-                    datePicker stateDate={date} stateDispatch={setDate}
-                    onBlur={()=>console.log("test")}
+                    datePicker stateDate={availableCar} stateDispatch={setAvailableCar}
                     />
                     
-
                     <InputMenu list={carsCategory} defaultValue="Легковая" 
                     name="category" label="Категория"
                     ref={register({ required: true })}/>

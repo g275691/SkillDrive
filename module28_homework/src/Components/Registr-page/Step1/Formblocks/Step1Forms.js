@@ -36,7 +36,6 @@ export const Step1Forms = ({
     const changeTypePasswords = () => {
         hiddenPassword ? showPassword(false) : showPassword(true)
     }
-
     useEffect(()=> {
 
     })

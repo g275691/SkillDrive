@@ -3,6 +3,8 @@ export const defaultState = {
     userPassportDate: [2001,2,6],
     userDriverDate: [2001,2,6],
 
+    availableCar: [2001,2,6],
+
     datePickerEnabled: false
 
 }
