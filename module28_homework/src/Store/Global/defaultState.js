@@ -4,7 +4,7 @@ export const defaultState = {
     userDriverDate: [2001,2,6],
 
     availableCar: [2001,2,6],
-
+    availableCar2: [2001,2,15],
     datePickerEnabled: false
 
 }

@@ -4,7 +4,7 @@ import { defaultState } from './defaultState';
 import * as actions from './actions';
 
 export const RentPage = createReducer( defaultState, {
-    [actions.closeLogin]: (state, action) => { state.loginIsClose = action.payload; },
+    [actions.setSecondDate]: (state, action) => { state.isSecondDate = action.payload; },
     [actions.setCarsList]: (state, action) => { state.carsList = action.payload; },
     [actions.setCarsListFilter]: (state, action) => { state.carsListFilter = action.payload; },
 

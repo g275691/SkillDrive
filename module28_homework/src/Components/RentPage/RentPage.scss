@@ -1,9 +1,16 @@
 .rent-page {
     display: flex;
-    
-
     justify-content: center;
     margin-top: 136px;
+    @include breakpoint (medium) {
+        margin-top: 68px;
+    }
+    h2 {
+        @include breakpoint (medium) {
+            font-size: 32px;
+            text-align: center;
+        }
+    }
     &-container {
         display: flex;
         flex-direction: column;
@@ -20,8 +27,13 @@
                 width: 25%;
                 margin-top: 0px;
                 padding-bottom: 0px;
+                @include breakpoint (medium) {
+                    margin-top: 10px;
+                    width: 95%;
+                }
                 button {
                     width: 100%;
+                    
                 }
             }
         }
@@ -29,6 +41,10 @@
             font-size: 36px;
             font-weight: 500;
             margin-top: 100px;
+            @include breakpoint (medium) {
+                font-size: 24px;
+                margin-top: 40px;
+            }
         }
         .wrapper {
             
@@ -39,15 +55,25 @@
             flex-wrap: wrap;
  
             margin-top: 35px;
-
+            @include breakpoint (medium) {
+                margin-top: 30px;
+            }
             .car-frame {
                 display: flex;
                 min-width: 328px;
                 height: 242px;
                 margin: 15px 12.5px;
-
-
                 border-radius: 10px;
+                @include breakpoint (medium) {
+                    margin: 10px 0px;
+                    justify-content: center;
+                }
+                img {
+                    @include breakpoint (medium) {
+                        width: 95%;
+                    }
+                    
+                }
                 &-name {
                     position: absolute;
                     align-self: flex-end;
@@ -78,6 +104,9 @@
 
                     cursor: pointer;
                     transition: all 0.2s ease-in-out;
+                    @include breakpoint (medium) {
+                        margin-right: 25px;
+                    }
                     &:hover {
                         border: 1px solid $green-rect;
                     }

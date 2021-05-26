@@ -4,6 +4,8 @@ import * as error from '../Constants/Errors';
 export const setCarsList = createAction('SET_CAR_LIST');
 export const setCarsListFilter = createAction('SET_CAR_LIST_FILTER');
 
+export const setSecondDate = createAction('SET_SECOND_DATE');
+
 export const sortCarsListRequest = createAction('SORT_CARS_LIST_REQUEST');
 export const sortCarsListSuccess = createAction('SORT_CARS_LIST_SUCCESS');
 export const sortCarsListFailure = createAction('SORT_CARS_LIST_FAILURE');

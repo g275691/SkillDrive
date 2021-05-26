@@ -1,5 +1,6 @@
 export const defaultState = {
     carsList: [],
     carsListFilter: [],
-    buttonLoad: false
+    buttonLoad: false,
+    isSecondDate: false
 }

@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import DatePicker from '../Datepicker/DatePicker';
 import InputMenuItem from './InputMenuItem';
+import { useDispatch } from 'react-redux';
+import { setSecondDate } from '../../../Store/RentPage/actions';
 
 const InputMenu = React.forwardRef(({ 
     list=[],
@@ -9,12 +11,11 @@ const InputMenu = React.forwardRef(({
     defaultValue,
     name, label,
     value,
-    stateDate, stateDispatch, typeDate
+    stateDate, stateDate2
+    , stateDispatch, stateDispatch2, 
 }, ref) => {
 
-    useEffect(() => {
-        
-    },[])
+    const dispatch = useDispatch();
 
     let [inputValue, setInputValue] = useState(defaultValue)
     let [isFocus, setFocus] = useState(false);
@@ -34,7 +35,6 @@ const InputMenu = React.forwardRef(({
                 }} 
                 onBlur={()=>{setFocus(false)}}
                 onChange = {e => setInputValue(e.target.value)}
-                //value={inputValue}
                 value={datePicker ? value : inputValue}
                 onInput={e=>{
                     sortMenu.forEach((el,i,arr) => {
@@ -60,10 +60,15 @@ const InputMenu = React.forwardRef(({
             </div>}
             {datePicker 
             && <DatePicker enabled="true" 
-            stateDate={stateDate} stateDispatch={stateDispatch}
-            typeDate={typeDate}
+            stateDate={stateDate} stateDate2={stateDate2}
+            stateDispatch={stateDispatch} stateDispatch2={stateDispatch2}
             enabled={datePickerEnabled}
-            onBlur={()=>setDatePickerEnabled(false)}
+            onBlur={()=>{
+                setDatePickerEnabled(false); 
+                stateDate > stateDate2 && dispatch(stateDispatch2(stateDate))
+                dispatch(setSecondDate(false))
+            }}
+            twoDate="true"
             />}
             
         </div>

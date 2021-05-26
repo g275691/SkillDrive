@@ -44,4 +44,7 @@ export class RentCar {
 
     @Column()
     photo: string
+
+    @Column()
+    dateAvailable: any
 }

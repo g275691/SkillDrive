@@ -1,5 +1,8 @@
+import { ObjectId } from "mongoose";
+
+
 export class CreateRentCarDto {
-    _id;
+    _id: ObjectId;
     brand: string
     model: string
     year: string
@@ -13,4 +16,6 @@ export class CreateRentCarDto {
     category: string
     rating: string
     photo: string
+
+    dateAvailable: any
 }

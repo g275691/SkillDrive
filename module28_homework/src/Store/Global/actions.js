@@ -7,3 +7,4 @@ export const setUserDriverDate = createAction('SET_USER_DRIVER_DATE');
 export const setDatePickerEnabled = createAction('SET_DATE_PICKER_ENABLED');
 
 export const setAvailableCar = createAction('SET_AVAILABLE_CAR');
+export const setAvailableCar2 = createAction('SET_AVAILABLE_CAR2');

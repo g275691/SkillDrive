@@ -1,41 +1,41 @@
 import React, { useEffect, useState } from 'react';
 import Header from '../../Containers/Header/Header';
-import DatePicker from '../Global/Datepicker/DatePicker';
 import Footer from '../Global/Footer/Footer';
 import RentPageCar from '../../Containers/RentPage/RentPageCar';
 
-import InputBlock from '../Global/Login/inputBlock/inputBlock';
 import { useForm  } from 'react-hook-form';
 import InputMenu from '../Global/InputMenu/InputMenu';
-import FormBlock from '../Registr-page/Step1/Formblocks/FormBlock';
-import { setAvailableCar } from '../../Store/Global/actions';
+import { setAvailableCar, setAvailableCar2 } from '../../Store/Global/actions';
 import { useSelector } from 'react-redux';
+import { setFormatDate } from './SetFormatDate';
 
 export const RentPage = ({carsList, carsListFilter
     , setCarsList, setCarsListFilter, sortCarsList
     ,}) => {
     let [carsCity, setCarsCity] = useState([]);
     let [carsCategory, setCarsCategory] = useState([]);
+
+    
         
     useEffect(() => {
         fetch('http://localhost:8000/rent-car')
         .then(date => date.json()
         .then(json => {
-            setCarsList(json);
-            sortCarsList(setCarsListFilter, "http://localhost:8000/rent-car?city=Санкт-Петербург&category=Легковая");
+
+            sortCarsList(setCarsList, "http://localhost:8000/rent-car?city=Санкт-Петербург&category=Легковая");
 
             json.forEach(el=>{
                 carsCity.push(el.city);
                 carsCategory.push(el.category)
             });
-
-            setCarsCity(carsCity);
+            setCarsCity([...new Set(carsCity)]);
             setCarsCategory([...new Set(carsCategory)]);
+
         }))
 
     }, [])
 
-   const { register, handleSubmit, getValues, errors } = useForm({
+   const { register, handleSubmit, getValues } = useForm({
         mode: 'onTouched',
     });
     const onSubmit = (data) => {
@@ -43,7 +43,7 @@ export const RentPage = ({carsList, carsListFilter
     };
 
     const availableCar = useSelector(state => state.global.availableCar);
-
+    const availableCar2 = useSelector(state => state.global.availableCar2);
     return (
         <>
         <Header />
@@ -56,9 +56,10 @@ export const RentPage = ({carsList, carsListFilter
                     ref={register({ required: true })}/>
 
                     <InputMenu 
-                    name="date" label="Период аренды" value={availableCar}
+                    name="date" label="Период аренды" value={`${setFormatDate(availableCar)} – ${setFormatDate(availableCar2)}`}
                     ref={register({ required: true })}
-                    datePicker stateDate={availableCar} stateDispatch={setAvailableCar}
+                    datePicker stateDate={availableCar} stateDate2={availableCar2} 
+                    stateDispatch={setAvailableCar} stateDispatch2={setAvailableCar2}
                     />
                     
                     <InputMenu list={carsCategory} defaultValue="Легковая" 
@@ -69,7 +70,12 @@ export const RentPage = ({carsList, carsListFilter
                     <div className="button-wrapper">
                         <button 
                         onClick={()=> {
-                            sortCarsList(setCarsListFilter, `http://localhost:8000/rent-car?city=${getValues().city}&category=${getValues().category}&date=${getValues().date}`);
+                            // fetch(`http://localhost:8000/rent-car?city=${getValues().city}&category=${getValues().category}&dateAvailable=${availableCar}|${availableCar2}`)
+                            // .then(response => response.json()
+                            // .then(json =>
+                            //     setCarsList(json)
+                            // ))
+                            sortCarsList(setCarsList, `http://localhost:8000/rent-car?city=${getValues().city}&category=${getValues().category}&dateAvailable=${availableCar}|${availableCar2}`);
                         }   
                     }>Найти</button>
                     </div>
@@ -77,7 +83,7 @@ export const RentPage = ({carsList, carsListFilter
                 <span>Рекомендуем поблизости</span>
                 <div className="wrapper">
                 <div className="rent-page-container__cars">
-                    {carsListFilter.map((el, i) => {
+                    {carsList.map((el, i) => {
                         return <RentPageCar key={i} index={i}/>
                     })}
                 </div>

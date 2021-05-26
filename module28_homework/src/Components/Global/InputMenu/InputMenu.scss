@@ -17,6 +17,10 @@
           padding-right: 0px;
           padding-left: 0px;
           width: 80%;
+          @include breakpoint (medium) {
+            margin-top: 10px;
+            width: 95%;
+        }
         }
         input {
             border-radius: 8px;

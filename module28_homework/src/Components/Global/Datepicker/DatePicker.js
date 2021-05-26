@@ -1,17 +1,23 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import DatePickerDay from './DatePickerDay';
 import { month } from './Month';
+import { setSecondDate } from '../../../Store/RentPage/actions';
 
 const DatePicker = ({onBlur
     , enabled
-    , stateDate = []
-    , stateDispatch = []
+    , stateDate = [], stateDate2 = []
+    , stateDispatch = [], stateDispatch2 = []
+    , twoDate
 }) => {
-    
-    const dispatch = useDispatch();
 
-    let newUserDate = stateDate;
+    useEffect(()=> {
+        
+    })
+
+    const dispatch = useDispatch();
+    const isSecondDate = useSelector(state => state.RentPage.isSecondDate);
+    let newUserDate = isSecondDate ? stateDate2 : stateDate;
 
     let firstUserDay = [...newUserDate];
     firstUserDay[2] = 1;
@@ -60,11 +66,13 @@ const DatePicker = ({onBlur
         (direction == "left" 
         ? newDate[0] -= 1 : newDate[0] += 1);
 
-        dispatch(stateDispatch(newDate)) 
+        isSecondDate 
+        ? dispatch(stateDispatch2(newDate)) 
+        : dispatch(stateDispatch(newDate)) 
     }
 
     return (
-        <div tabIndex="1" className="date-picker-container" onClick={e=>console.log(e.target.value)}
+        <div tabIndex="1" className="date-picker-container"
         style={{opacity: enabled ? 1 : 0, pointerEvents: enabled ? "all" : "none"}} 
         onBlur={onBlur}
         >
@@ -89,7 +97,15 @@ const DatePicker = ({onBlur
                 </div>
             </div>
             <div className="date-picker-container__calendar">
-                {daysArray.map((el, i)=> <DatePickerDay value={el} index={i} stateDate={stateDate} stateDispatch={stateDispatch} onBlur={onBlur}/> )}
+                {daysArray.map((el, i)=> 
+                <DatePickerDay 
+                isSecondDate={isSecondDate} index={i} 
+                day={el} year={newUserDate[0]} month={newUserDate[1]}
+                stateDate={stateDate} stateDate2={stateDate2}
+                stateDispatch={stateDispatch} stateDispatch2={stateDispatch2} 
+                onBlur={onBlur}
+                twoDate={twoDate}
+                newUserDate={newUserDate}/> )}
             </div>
         </div>
     )

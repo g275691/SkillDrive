@@ -1,4 +1,4 @@
-import { Controller, Get, Query, Post, Body, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Query, Post, Body, Param, Delete, Put } from '@nestjs/common';
 import { RentCarService } from './rent-car.service';
 import { CreateRentCarDto } from './dto/create-rent-car.dto';
 import { testDto } from 'src/Registration/dto/testDto';
@@ -12,10 +12,10 @@ export class RentCarController {
     return this.rentCarService.create(createRentCarDto);
   }
 
-  // @Get()
-  // findAll() {
-  //   return this.rentCarService.findAll();
-  // }
+  @Put(':model')
+  async update(@Body() createRentCarDto: CreateRentCarDto, @Param() param: string) {
+    return this.rentCarService.update(createRentCarDto, param);
+  }
 
   @Get()
   find(@Query() param: any) {
@@ -24,7 +24,6 @@ export class RentCarController {
 
   @Get(':mail')
   GetByOwner(@Param() param: string) {
-    console.log(param);
     return this.rentCarService.getByOwner(param)
   }
 
