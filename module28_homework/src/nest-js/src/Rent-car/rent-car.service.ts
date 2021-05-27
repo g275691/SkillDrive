@@ -5,7 +5,6 @@ import { CreateRentCarDto } from './dto/create-rent-car.dto';
 import { RentCar as RentCarEntity } from './entities/rent-car.entity';
 import { RentCarRepository } from './repositories/rent-car.repository';
 const fs = require('fs');
-const ObjectId = require('mongodb').ObjectID;
 
 @Injectable()
 export class RentCarService {
@@ -53,28 +52,30 @@ export class RentCarService {
       param.dateAvailable[0] = param.dateAvailable[0].split(",");
       param.dateAvailable[1] = param.dateAvailable[1].split(",");
     }
-    let findParam = param;
     let findDate = param.dateAvailable;
     delete param["dateAvailable"];
     let availableCars = [];
     
-    let findCar = await manager.find( RentCarEntity, findParam )
-    findCar.forEach(car => {
-      if(car.dateAvailable != null) {
-        car.dateAvailable.forEach(date => {
-          if(new Date(findDate[0]) >= new Date(date[0])) {
-            availableCars.push(car);
-            return availableCars;
-          }
-        })
-      }
+    let findCars = await manager.find( RentCarEntity, param )
+    findCars.forEach(car => {
+      !car.dateAvailable.length
+      ? availableCars.push(car)
+      : car.dateAvailable.forEach((date,index) => {
+        if((new Date(findDate[0]) < new Date(date[0]) 
+        && new Date(findDate[1]) < new Date(date[0]))
+        ||
+        (new Date(findDate[0]) > new Date(date[1]) 
+        && new Date(findDate[1]) > new Date(date[1]))) {
+          availableCars.push(car);
+          return availableCars;
+        } else {
+          console.log(`Автомобиль ${car.brand} ${car.model} занят в это время`)
+        }
+      })
       return availableCars;
     }) 
     
     return availableCars;
-
-    //return await manager.find( RentCarEntity, param );
-   
   }
 
   async update(req, param) {

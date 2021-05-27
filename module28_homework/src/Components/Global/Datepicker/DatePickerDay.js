@@ -28,7 +28,7 @@ const DatePickerDay = ({ day, month, year
         ? (dispatch(stateDispatch2(newDate))
         ,onBlur() 
         ,dispatch(setSecondDate(false)
-        , stateDate > stateDate2 && dispatch(stateDispatch2(stateDate))))
+        , new Date(stateDate) > new Date(stateDate2) && dispatch(stateDispatch2(stateDate))))
         : (dispatch(stateDispatch(newDate))
         , dispatch(setSecondDate(true)))
     };
