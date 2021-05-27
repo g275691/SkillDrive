@@ -19,8 +19,8 @@ for (let index = 0; index < 9; index++) {
         "category": "Легковая",
         "rating": [1,2,3,4,5][Math.floor(Math.random()*5)],
         "photo": `car${index}.svg`,
-        "owner": ["test0@yandex.ru", "test1@yandex.ru", "test2@yandex.ru", "test3@yandex.ru", "test4@yandex.ru"]
-        [Math.floor(Math.random()*5)]
+        "owner": ["test4@yandex.ru", "test0@yandex.ru", "test2@yandex.ru", "test1@yandex.ru", "test1@yandex.ru", "test0@yandex.ru", "test2@yandex.ru", "test3@yandex.ru", "test0@yandex.ru"][index],
+        "dateAvailable": index > 6 ? [[["2021", "12","30"], ["2022", "1","29"]],[["2021","6","15"],["2021","8","20"]]][index] : []
     }
 }
 
@@ -45,11 +45,11 @@ for (let index = 0; index < 9; index++) {
                 "driveUnit": ["Передний привод", "Задний привод", "Полный привод"][Math.floor(Math.random()*2)],
                 "price": [2500,3000,3500][Math.floor(Math.random()*3)],
                 "city": ["Москва", "Санкт-Петербург"][Math.floor(Math.random()*2)],
-                "category": "Легковая",
+                "category": (index == 3 ? "Грузовая" : "Легковая"),
                 "rating": [1,2,3,4,5][Math.floor(Math.random()*5)],
                 "photo": `car${index}.svg`,
-                "owner": ["test0@yandex.ru", "test1@yandex.ru", "test2@yandex.ru", "test3@yandex.ru", "test4@yandex.ru"]
-                [Math.floor(Math.random()*5)]
+                "owner": ["test4@yandex.ru", "test0@yandex.ru", "test2@yandex.ru", "test1@yandex.ru", "test1@yandex.ru", "test0@yandex.ru", "test2@yandex.ru", "test3@yandex.ru", "test0@yandex.ru"][index],
+                "dateAvailable": (index > 6 ? [[["2021", "12","30"], ["2022", "1","29"]],[["2021","6","1"],["2021","8","30"]]][index] : [])
             }
         )
     })

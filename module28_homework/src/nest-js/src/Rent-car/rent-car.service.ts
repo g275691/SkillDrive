@@ -37,9 +37,17 @@ export class RentCarService {
     return await this.rentCarRepository.create(newRentCar);
   }
 
+  async findStart(param) {
+    const manager = getMongoManager();
+    delete param["dateAvailable"];
+
+    let cars = await manager.find( RentCarEntity, param );
+    return cars;
+  }
+
   async find(param) {
     const manager = getMongoManager();
-
+    console.log(param);
     if(param.dateAvailable) {
       param.dateAvailable = param.dateAvailable.split("|");
       param.dateAvailable[0] = param.dateAvailable[0].split(",");
@@ -48,31 +56,24 @@ export class RentCarService {
     let findParam = param;
     let findDate = param.dateAvailable;
     delete param["dateAvailable"];
+    let availableCars = [];
     
-    // console.log(param);
-
-    // let findCar = await manager.find( RentCarEntity, findParam )
-    // console.log(findDate[0])
-
-    // let findUser;
-    // findCar.forEach(el => {
-    //   if(el.dateAvailable != null) {
-    //     el.dateAvailable.forEach(async(date) => {
-    //       if(new Date(findDate[0]) >= new Date(date[0])) {
-    //         findUser = await manager.find( RentCarEntity, param )
-    //         console.log(findUser)
-    //       }
-    //     })
-    //   }
-    // }) 
-    // console.log(findUser)
-
-    //return await manager.find( RentCarEntity, {dateAvailable: "undefined"} )
-    // findUser.dateAvailable.forEach(el => {
-    //   console.log("dssdsd")
-    // })
+    let findCar = await manager.find( RentCarEntity, findParam )
+    findCar.forEach(car => {
+      if(car.dateAvailable != null) {
+        car.dateAvailable.forEach(date => {
+          if(new Date(findDate[0]) >= new Date(date[0])) {
+            availableCars.push(car);
+            return availableCars;
+          }
+        })
+      }
+      return availableCars;
+    }) 
     
-    return await manager.find( RentCarEntity, param );
+    return availableCars;
+
+    //return await manager.find( RentCarEntity, param );
    
   }
 

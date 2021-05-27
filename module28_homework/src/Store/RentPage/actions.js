@@ -15,15 +15,17 @@ export const sortCarsList = (getJson, url) => {
         dispatch(sortCarsListRequest());
         fetch(url)
             .then(response => {
+                
             dispatch(sortCarsListRequest());
             if(!response.ok) {
                 dispatch(sortCarsListFailure(error.WRONG_PASSWORD));
                 setTimeout(() => { dispatch(sortCarsListFailure(false)); }, 2000);
             } else {
                 dispatch(sortCarsListSuccess());
-                console.log(response)
+                
                 response.json()
                 .then(json => {
+                    console.log(json);
                     getJson(json)
                 })
             }

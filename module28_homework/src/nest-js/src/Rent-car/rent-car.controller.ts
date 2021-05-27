@@ -22,6 +22,11 @@ export class RentCarController {
     return this.rentCarService.find(param);
   }
 
+  @Get('start')
+  findStart(@Query() param: any) {
+    return this.rentCarService.findStart(param);
+  }
+
   @Get(':mail')
   GetByOwner(@Param() param: string) {
     return this.rentCarService.getByOwner(param)

@@ -17,6 +17,7 @@ const App = () => {
 
 
   return (
+    
       <Switch>
         <Route path="users/:id" />
         <Route path="/rent-page" component={RentPage} />

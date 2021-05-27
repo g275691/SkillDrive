@@ -2,6 +2,7 @@
     display: flex;
     justify-content: center;
     margin-top: 136px;
+    
     @include breakpoint (medium) {
         margin-top: 68px;
     }
@@ -11,17 +12,41 @@
             text-align: center;
         }
     }
+    &-recommend {
+        font-size: 36px;
+        font-weight: 500;
+        margin-top: 100px;
+        @include breakpoint (medium) {
+            font-size: 24px;
+            margin-top: 40px;
+            text-align: center;
+        }
+    }
     &-container {
         display: flex;
         flex-direction: column;
         align-items: center;
         width: 80%;
         justify-content: center;
+        @include breakpoint (medium) {
+            
+        }
         &__filter {
             display: flex;
-            width: 100%;
-            justify-content: center;
+            width: calc(100% - 12.5px);
+            justify-content: space-between;
             margin-top: 50px;
+            @include breakpoint (medium) {
+                flex-direction: column;
+            }
+            .input-wrapper {
+                display: flex;
+                
+                @include breakpoint (medium) {
+                    flex-direction: column;
+                    width: 100%;
+                }
+            }
 
             .button-wrapper {
                 width: 25%;
@@ -29,44 +54,73 @@
                 padding-bottom: 0px;
                 @include breakpoint (medium) {
                     margin-top: 10px;
-                    width: 95%;
+                    width: 100%;
                 }
                 button {
                     width: 100%;
-                    
                 }
             }
         }
-        span {
-            font-size: 36px;
-            font-weight: 500;
-            margin-top: 100px;
-            @include breakpoint (medium) {
-                font-size: 24px;
-                margin-top: 40px;
+
+        &__sort {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: calc(100% - 12.5px);
+            margin-top: 50px;
+            .wrapper {
+                display: flex;
+                button {
+                    background: #F7F7F8;
+                    border: 1px solid #D0CDE1;
+                    color: black;
+                    font-size: 14px;
+                    width: auto;
+                    padding: 10px 12px;
+                    
+                    border-right: 12px;
+                    margin-right: 12px;
+                }
             }
+            .map-wrapper {
+                display: flex;
+                img {
+
+                }
+                .open-map {
+                    display: block;
+                    margin-top: 0px;
+                    font-size: 14px;
+                    padding-left: 13px;
+                }
+            }
+
         }
-        .wrapper {
-            
-        }
+
         &__cars {
             display: flex;
-            justify-content: center;
+            justify-content: space-between;
             flex-wrap: wrap;
- 
+            width: calc(100% + 12.5px);
+            
             margin-top: 35px;
+            &.finder {
+                flex-direction: column;
+            }
             @include breakpoint (medium) {
                 margin-top: 30px;
+                justify-content: center;
             }
             .car-frame {
                 display: flex;
                 min-width: 328px;
                 height: 242px;
                 margin: 15px 12.5px;
+                
                 border-radius: 10px;
                 @include breakpoint (medium) {
                     margin: 10px 0px;
-                    justify-content: center;
+                    
                 }
                 img {
                     @include breakpoint (medium) {
@@ -74,12 +128,46 @@
                     }
                     
                 }
+                &-info {
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: center;
+                    margin-left: 19px;
+                    &-wrapper {
+                        display: flex;
+                        align-items: center;
+                        margin-top: 14px;
+                        span {
+                            margin-left: 11px;
+                            color: #8D8B99;
+                        }
+                    }
+                }
+                &-rating {
+                    font-size: 14px;
+                    span {
+                        font-size: 20px;
+                    }
+                }
+                &-price {
+                    margin-top: 30px;
+                    font-size: 18px;
+                    font-weight: 500;
+                }
                 &-name {
                     position: absolute;
                     align-self: flex-end;
                     color: white;
                     font-size: 20px;
                     margin-left: 20px;
+                    &.finder {
+                        position: relative;
+                        color: black;
+                        font-size: 24px;
+                        align-self: flex-start;
+                        margin-left: 0px;
+                        margin-top: 10px;
+                    }
                     p {
                         font-size: 14px;
                         margin-top: 5px;
@@ -110,6 +198,19 @@
                     &:hover {
                         border: 1px solid $green-rect;
                     }
+                }
+                &-button-wrapper {
+                    
+                    display: flex;
+                    align-self: center;
+
+                    margin-left: auto;
+
+                }
+                &-action {
+                    background: #E8F1F0;
+                    color: #61A199;
+                    width: 158px;
                 }
             }
         }
