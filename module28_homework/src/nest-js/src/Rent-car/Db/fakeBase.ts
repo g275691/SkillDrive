@@ -1,29 +1,3 @@
-let rentCarsDb = [];
-
-for (let index = 0; index < 9; index++) {
-    rentCarsDb[index] = 
-    {
-        "brand": [
-            "BMW", "Kia", "Hyondai", "Nissan", "Lada", "Mersedes", "Mazda", "Toyota"
-        ][index],
-        "model": [
-            "3-series", "Optima", "Solaris", "Skyline", "Granta", "S-class", "RX-8", "Camry"
-        ][index],
-        "year": [2016,2017,2018,2021][Math.floor(Math.random()*4)],
-        "engine": ["Бензин", "Газ", "Дизель"][Math.floor(Math.random()*3)],
-        "power": [150,200,180][Math.floor(Math.random()*3)],
-        "transmission": ["Автомат", "Механическая"][Math.floor(Math.random()*2)],
-        "driveUnit": ["Передний привод", "Задний привод", "Полный привод"][Math.floor(Math.random()*2)],
-        "price": [2500,3000,3500][Math.floor(Math.random()*3)],
-        "city": ["Москва", "Санкт-Петербург"][Math.floor(Math.random()*2)],
-        "category": "Легковая",
-        "rating": [1,2,3,4,5][Math.floor(Math.random()*5)],
-        "photo": `car${index}.svg`,
-        "owner": ["test4@yandex.ru", "test0@yandex.ru", "test2@yandex.ru", "test1@yandex.ru", "test1@yandex.ru", "test0@yandex.ru", "test2@yandex.ru", "test3@yandex.ru", "test0@yandex.ru"][index],
-        "dateAvailable": index > 6 ? [[["2021", "12","30"], ["2022", "1","29"]],[["2021","6","15"],["2021","8","20"]]][index] : []
-    }
-}
-
 for (let index = 0; index < 9; index++) {   
     fetch("http://localhost:8000/rent-car", {
         method: "POST",
@@ -49,7 +23,7 @@ for (let index = 0; index < 9; index++) {
                 "rating": [1,2,3,4,5][Math.floor(Math.random()*5)],
                 "photo": `car${index}.svg`,
                 "owner": ["test4@yandex.ru", "test0@yandex.ru", "test2@yandex.ru", "test1@yandex.ru", "test1@yandex.ru", "test0@yandex.ru", "test2@yandex.ru", "test3@yandex.ru", "test0@yandex.ru"][index],
-                "dateAvailable": (index > 6 ? [[["2021", "12","30"], ["2022", "1","29"]],[["2021","6","1"],["2021","8","30"]]][index] : [])
+                "dateAvailable": (index > 6 ? [[["2021", "12","30"], ["2022", "1","29"]]] : [])
             }
         )
     })

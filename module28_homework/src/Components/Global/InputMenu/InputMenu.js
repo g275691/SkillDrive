@@ -23,7 +23,7 @@ const InputMenu = React.forwardRef(({
     let [menu, setMenu] = useState(list);
     let sortMenu = [...menu];
 
-    let [datePickerEnabled, setDatePickerEnabled] = useState(false);
+    let [datePickerEnabled, setDatePickerEnabled] = useState(true);
 
     return (
         <div className="input__menu__container" tabIndex="1">
@@ -65,8 +65,9 @@ const InputMenu = React.forwardRef(({
             enabled={datePickerEnabled}
             onBlur={()=>{
                 setDatePickerEnabled(false); 
-                stateDate > stateDate2 && dispatch(stateDispatch2(stateDate))
-                dispatch(setSecondDate(false))
+                
+                dispatch(setSecondDate(false));
+                
             }}
             twoDate="true"
             />}

@@ -85,47 +85,51 @@
         width: 90%;
         margin-left: 12px;
         padding-bottom: 27px;
-        
-        div {
+        .marking-date {
             display: flex;
-            justify-content: center;
             align-items: center;
-            width: 36px;
-            height: 36px;
-            margin-top: 8px;
-
-            background: none;
-
-            margin-right: 10px;
-            border-radius: 50%;
+            justify-content: center;
             
-            
-            transition: 0.1s ease-in-out all;
-            &.active {
+            border-top: 4px solid white;
 
-                background: #61A199;
-                color: white;
-            }
-            &.interval {
-                
+            &.interval { 
                 background: #DFECEB;
                 
-                border-radius: 0%;
             }
-            &:hover {
+            div {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                width: 36px;
+                height: 36px;
 
-            }
-            span {
-                font-size: 14px;
-                font-weight: normal;
-                &.interval {
-                    color: #868686;
+                background: none;
+                margin-top: 8px;
+                margin-right: 10px;
+                
+                border-radius: 50%;
+                
+                transition: 0.1s ease-in-out all;
+                &.active {
+    
+                    background: #61A199;
+                    color: white;
+
+                }
+
+                &:hover {
+    
+                }
+                span {
+                    font-size: 14px;
+                    font-weight: normal;
+                    &.interval {
+                        color: #868686;
+                    }
                 }
             }
         }
+
     }
 }
 
-.test {
-    background: red;
-}

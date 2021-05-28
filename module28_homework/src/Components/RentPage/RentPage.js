@@ -6,7 +6,7 @@ import RentPageCar from '../../Containers/RentPage/RentPageCar';
 import { useForm  } from 'react-hook-form';
 import InputMenu from '../Global/InputMenu/InputMenu';
 import { setAvailableCar, setAvailableCar2 } from '../../Store/Global/actions';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { setFormatDate } from './SetFormatDate';
 import iconMap from '../../Assets/img/Rent-page/icon-map.svg';
 
@@ -33,7 +33,7 @@ export const RentPage = ({carsList, carsListFilter
         }))
 
     }, [])
-
+    const dispatch = useDispatch();
    const { register, handleSubmit, getValues } = useForm({
         mode: 'onTouched',
     });
@@ -71,8 +71,10 @@ export const RentPage = ({carsList, carsListFilter
                     <div className="button-wrapper">
                         <button 
                         onClick={()=> {
+                            new Date(availableCar) > new Date(availableCar2) ? dispatch(setAvailableCar2(availableCar)) : "";
                             sortCarsList(setCarsList, `http://localhost:8000/rent-car?city=${getValues().city}&category=${getValues().category}&dateAvailable=${availableCar}|${availableCar2}`);
                             setFinder(true)
+                            
                         }   
                     }>Найти</button>
                     </div>

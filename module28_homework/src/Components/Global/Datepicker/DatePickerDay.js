@@ -10,8 +10,8 @@ const DatePickerDay = ({ day, month, year
  }) => {
 
     useEffect(()=> {
-        
-    })
+
+    },[])
     
     const dispatch = useDispatch();
     const isSecondDate = useSelector(state => state.RentPage.isSecondDate);
@@ -28,27 +28,37 @@ const DatePickerDay = ({ day, month, year
         ? (dispatch(stateDispatch2(newDate))
         ,onBlur() 
         ,dispatch(setSecondDate(false)
-        , new Date(stateDate) > new Date(stateDate2) && dispatch(stateDispatch2(stateDate))))
+        ))
         : (dispatch(stateDispatch(newDate))
-        , dispatch(setSecondDate(true)))
+        , dispatch(setSecondDate(true)
+        ))
     };
 
     return (
+        <div className={
+            new Date([year, month,day]) >= new Date(stateDate) 
+            && new Date([year, month,day]) <= new Date(stateDate2)
+            ? "marking-date interval"
+            : "marking-date"
+        }>
+            <div onMouseDown={()=> {index >= 7 && day!="" ? setDay() : ""
+            }}
 
-        <div onMouseDown={()=> {index >= 7 && day!="" ? setDay() : ""
-        }}
+            className={
+                (stateDate[2] == day && stateDate[0] == year && stateDate[1] == month) 
+                || 
+                (stateDate2[2] == day && stateDate2[0] == year && stateDate2[1] == month) 
 
-        className={(stateDate[2] == day && stateDate[0] == year && stateDate[1] == month) 
-            || (stateDate2[2] == day && stateDate2[0] == year && stateDate2[1] == month)
-        ? "active" : ""}>
-            
-                <span className={index > 7 ? "" : "interval"}
-                style={{color: index < 7 && "#B1B1B1"
-                , cursor: index < 7 ? "auto" : "pointer"
-                }}>
-                    {day}
-                </span>
+            ? "active" : ""}>
+                
+                    <span className={index > 7 ? "" : "interval"}
+                    style={{color: index < 7 && "#B1B1B1"
+                    , cursor: index < 7 ? "auto" : "pointer"
+                    }}>
+                        {day}
+                    </span>
 
+            </div>
         </div>
     )
 }

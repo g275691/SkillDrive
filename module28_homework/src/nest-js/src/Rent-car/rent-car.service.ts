@@ -57,6 +57,7 @@ export class RentCarService {
     let availableCars = [];
     
     let findCars = await manager.find( RentCarEntity, param )
+
     findCars.forEach(car => {
       !car.dateAvailable.length
       ? availableCars.push(car)
