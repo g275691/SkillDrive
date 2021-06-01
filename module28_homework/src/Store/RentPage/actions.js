@@ -2,35 +2,46 @@ import { createAction } from "@reduxjs/toolkit";
 import * as error from '../Constants/Errors';
 
 export const setCarsList = createAction('SET_CAR_LIST');
-export const setCarsListFilter = createAction('SET_CAR_LIST_FILTER');
+export const setCarsCategory = createAction('SET_CARS_CATEGORY');
+export const setCarsCity = createAction('SET_CARS_CITY');
 
 export const setSecondDate = createAction('SET_SECOND_DATE');
 
 export const sortCarsListRequest = createAction('SORT_CARS_LIST_REQUEST');
 export const sortCarsListSuccess = createAction('SORT_CARS_LIST_SUCCESS');
 export const sortCarsListFailure = createAction('SORT_CARS_LIST_FAILURE');
-import DG from '2gis-maps';
+
+export const setFirstCarLocation = createAction('SET_FIRST_CAR_LOCATION');
+
+
 
 export const sortCarsList = (getJson, url) => {
     return (dispatch, getStore) => {
         dispatch(sortCarsListRequest());
         fetch(url)
             .then(response => {
-                
             dispatch(sortCarsListRequest());
             if(!response.ok) {
                 dispatch(sortCarsListFailure(error.WRONG_PASSWORD));
                 setTimeout(() => { dispatch(sortCarsListFailure(false)); }, 2000);
             } else {
                 dispatch(sortCarsListSuccess());
-                
                 response.json()
                 .then(json => {
-                    
-                    getJson(json)
-                    
+                    getJson(json);
+                    dispatch(setFirstCarLocation(json[0].geo))
+                    let carsCity = [], carsCategory = [];
+                    // json.forEach(el => {
+                    //     carsCity.push(el.city);
+                    //     carsCategory.push(el.category); 
+                    // })
 
-                    
+                    // console.log(carsCity)
+
+
+                    // dispatch(setCarsCategory([...new Set(carsCategory)]));
+                    // dispatch(setCarsCity([...new Set(carsCity)]))
+
                 })
             }
             },

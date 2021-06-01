@@ -82,14 +82,12 @@ export class RentCarService {
 
   async update(req, param) {
     const manager = getMongoManager();
-    console.log(param);
-    let findCars = await manager.find( RentCarEntity, param )
-    console.log(findCars);
+
     //return await manager.update(RentCarEntity, param, {geo: req});
     return await manager.updateMany(
       RentCarEntity,
       {}, 
-      { $set: {  rating: "4" }}
+      { $set: {  geo: req.geo }}
   )
   }
 

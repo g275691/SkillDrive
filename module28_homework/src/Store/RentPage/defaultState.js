@@ -1,6 +1,12 @@
 export const defaultState = {
     carsList: [],
-    carsListFilter: [],
+    carsCategory: [],
+    carsCity: [],
+
     buttonLoad: false,
-    isSecondDate: false
+    isSecondDate: false,
+    
+    firstCarLocation: [],
+
+    
 }
