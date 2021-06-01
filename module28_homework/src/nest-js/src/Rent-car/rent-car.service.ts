@@ -25,6 +25,7 @@ export class RentCarService {
     newRentCar.driveUnit = createRentCarDto.driveUnit;
     newRentCar.price = createRentCarDto.price;
     newRentCar.city = createRentCarDto.city;
+    newRentCar.geo = createRentCarDto.geo;
     newRentCar.category = createRentCarDto.category;
     newRentCar.rating = createRentCarDto.rating;
     newRentCar.photo = createRentCarDto.photo;
@@ -81,18 +82,15 @@ export class RentCarService {
 
   async update(req, param) {
     const manager = getMongoManager();
-
-    if(req.dateAvailable) {
-      req.dateAvailable = req.dateAvailable.split("|");
-      req.dateAvailable[0] = req.dateAvailable[0].split(",");
-      req.dateAvailable[1] = req.dateAvailable[1].split(",");
-      req.dateAvailable = [req.dateAvailable];
-    }
-
-    let findUser = await manager.findOne( RentCarEntity, param );
-    let newDate = findUser.dateAvailable.concat(req.dateAvailable);
-
-    return await manager.update(RentCarEntity, param, {dateAvailable: newDate});
+    console.log(param);
+    let findCars = await manager.find( RentCarEntity, param )
+    console.log(findCars);
+    //return await manager.update(RentCarEntity, param, {geo: req});
+    return await manager.updateMany(
+      RentCarEntity,
+      {}, 
+      { $set: {  rating: "4" }}
+  )
   }
 
   async getByOwner(req) {
@@ -105,6 +103,7 @@ export class RentCarService {
   }
 
   remove(id: number) {
+    
     return `This action removes a #${id} rentCar`;
   }
 }

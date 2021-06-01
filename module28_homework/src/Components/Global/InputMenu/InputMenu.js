@@ -23,7 +23,7 @@ const InputMenu = React.forwardRef(({
     let [menu, setMenu] = useState(list);
     let sortMenu = [...menu];
 
-    let [datePickerEnabled, setDatePickerEnabled] = useState(true);
+    let [datePickerEnabled, setDatePickerEnabled] = useState(false);
 
     return (
         <div className="input__menu__container" tabIndex="1">

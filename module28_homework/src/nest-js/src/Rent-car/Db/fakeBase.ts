@@ -28,6 +28,19 @@ for (let index = 0; index < 9; index++) {
         )
     })
     }
+
+    for (let index = 0; index < 9; index++) {
+        fetch(`http://localhost:8000/rent-car/car${index}.svg`, {
+            method: "PUT",
+            headers: {
+                "content-type": "application/json"
+            },
+            body: JSON.stringify({
+                "latitude": "59.919984",
+                "longitude": "30.338949"
+            })
+    })  
+    }
 // [
 //     {
 //         "brand": "BMW",

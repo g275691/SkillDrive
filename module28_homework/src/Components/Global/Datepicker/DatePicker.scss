@@ -91,10 +91,11 @@
             justify-content: center;
             
             border-top: 4px solid white;
+            
 
             &.interval { 
                 background: #DFECEB;
-                
+                // background: linear-gradient(to right, #DFECEB 90%, white 5%, );
             }
             div {
                 display: flex;
@@ -104,14 +105,13 @@
                 height: 36px;
 
                 background: none;
-                margin-top: 8px;
-                margin-right: 10px;
                 
+                padding: 4px 5px;
                 border-radius: 50%;
                 
                 transition: 0.1s ease-in-out all;
                 &.active {
-    
+                    
                     background: #61A199;
                     color: white;
 

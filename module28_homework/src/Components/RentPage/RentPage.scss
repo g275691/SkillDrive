@@ -1,18 +1,22 @@
 .rent-page {
     display: flex;
     justify-content: center;
-    margin-top: 136px;
+    
     
     @include breakpoint (medium) {
         margin-top: 68px;
     }
     h2 {
+        margin-bottom: 50px;
+        margin-top: 120px;
         @include breakpoint (medium) {
+            margin-bottom: 0px;
             font-size: 32px;
             text-align: center;
         }
     }
     &-recommend {
+        
         font-size: 36px;
         font-weight: 500;
         margin-top: 100px;
@@ -31,13 +35,19 @@
         @include breakpoint (medium) {
             
         }
+        &.finder {
+            width: 95%;
+        }
         &__filter {
             display: flex;
             width: calc(100% - 12.5px);
             justify-content: space-between;
-            margin-top: 50px;
+            
             @include breakpoint (medium) {
                 flex-direction: column;
+            }
+            &.finder {
+                margin-top: 30px;
             }
             .input-wrapper {
                 display: flex;
@@ -52,6 +62,7 @@
                 width: 25%;
                 margin-top: 0px;
                 padding-bottom: 0px;
+                
                 @include breakpoint (medium) {
                     margin-top: 10px;
                     width: 100%;
@@ -83,7 +94,13 @@
                 }
             }
             .map-wrapper {
+                
                 display: flex;
+                cursor: pointer;
+                
+                &:hover {
+                    
+                }
                 img {
 
                 }
@@ -135,8 +152,13 @@
                     margin-left: 19px;
                     &-wrapper {
                         display: flex;
+                        flex-direction: row;
                         align-items: center;
                         margin-top: 14px;
+                        &.is-map-open {
+                            flex-direction: column;
+                            align-items: flex-start;
+                        }
                         span {
                             margin-left: 11px;
                             color: #8D8B99;
@@ -215,8 +237,24 @@
             }
         }
     }
+
     input {
         width: auto;
+
+    }
+    .gis__map {
+        // position: fixed;
+        // top: 90px;
+        // left: 50%;
+    
+        // width: 50%;
+        // height: calc(100% - 90px);
+        width: 100%;
+        height: 500px;
+        opacity: 1;
+        &.disable {
+            opacity: 0;
+        }
     }
 }
 

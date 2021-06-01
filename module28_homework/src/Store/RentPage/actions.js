@@ -9,6 +9,7 @@ export const setSecondDate = createAction('SET_SECOND_DATE');
 export const sortCarsListRequest = createAction('SORT_CARS_LIST_REQUEST');
 export const sortCarsListSuccess = createAction('SORT_CARS_LIST_SUCCESS');
 export const sortCarsListFailure = createAction('SORT_CARS_LIST_FAILURE');
+import DG from '2gis-maps';
 
 export const sortCarsList = (getJson, url) => {
     return (dispatch, getStore) => {
@@ -25,8 +26,11 @@ export const sortCarsList = (getJson, url) => {
                 
                 response.json()
                 .then(json => {
-                    console.log(json);
+                    
                     getJson(json)
+                    
+
+                    
                 })
             }
             },

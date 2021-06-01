@@ -13,6 +13,7 @@ export class CreateRentCarDto {
     price: string
     owner: string
     city: string
+    geo: string
     category: string
     rating: string
     photo: string

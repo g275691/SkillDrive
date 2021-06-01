@@ -37,6 +37,9 @@ export class RentCar {
     city: string;
 
     @Column()
+    geo: string;
+
+    @Column()
     category: string;
 
     @Column()

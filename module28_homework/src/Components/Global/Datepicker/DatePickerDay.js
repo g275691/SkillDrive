@@ -10,7 +10,7 @@ const DatePickerDay = ({ day, month, year
  }) => {
 
     useEffect(()=> {
-
+       
     },[])
     
     const dispatch = useDispatch();
@@ -36,11 +36,25 @@ const DatePickerDay = ({ day, month, year
 
     return (
         <div className={
-            new Date([year, month,day]) >= new Date(stateDate) 
-            && new Date([year, month,day]) <= new Date(stateDate2)
+            new Date([year, month,day]) > new Date(stateDate) 
+            && new Date([year, month,day]) < new Date(stateDate2)
             ? "marking-date interval"
             : "marking-date"
-        }>
+        }
+        style={{
+            background: 
+            (stateDate[2] == day 
+                && stateDate[0] == year 
+                && stateDate[1] == month 
+                ? "linear-gradient(to left, #DFECEB 50%, white 50% )" 
+            : (stateDate2[2] == day 
+                && stateDate2[0] == year 
+                && stateDate2[1] == month 
+                ? "linear-gradient(to right, #DFECEB 50%, white 50% )" : ""))
+        
+        }}
+        >
+            
             <div onMouseDown={()=> {index >= 7 && day!="" ? setDay() : ""
             }}
 

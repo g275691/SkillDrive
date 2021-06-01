@@ -4,7 +4,7 @@ import iconTechno from '../../Assets/img/Rent-page/icon-techno.svg';
 
 export const RentPageCar = ({
     carsList,
-    isFinder,
+    isFinder, isMapOpen,
     index
 }) => {
 
@@ -35,11 +35,16 @@ export const RentPageCar = ({
             ? <div className="car-frame-info">
                 <div className="car-frame-rating"><span style={{color: "#F2C94C"}}>★</span> {ratingCar} (12)</div>
                 <div className="car-frame-name finder">{nameCar}</div>
-                <div className="car-frame-info-wrapper">
-                    <img src={iconCran}/>
-                    <span>2.0 л / {power} л.с. / {engine}</span>
-                    <img style={{marginLeft: "30px"}} src={iconTechno}/>
-                    <span>{transmission} / {driveUnit}</span>
+                <div className={isMapOpen ? "car-frame-info-wrapper is-map-open" : "car-frame-info-wrapper"}>
+                    <div>
+                        <img src={iconCran}/>
+                        <span>2.0 л / {power} л.с. / {engine}</span>
+                    </div>
+                    <div style={{marginTop: isMapOpen ? "16px" : "0px"}}>
+                        <img style={{marginLeft: isMapOpen ? "0px" : "30px"}} src={iconTechno}/>
+                        <span>{transmission} / {driveUnit}</span>
+                    </div>
+
                 </div>
                 <p className="car-frame-price">{priceCar}</p>
             </div>
@@ -47,10 +52,10 @@ export const RentPageCar = ({
                 <p>от {priceCar}</p>
             </div>
             }
-            {isFinder && 
+            {isFinder && !isMapOpen ?  
             <div className="car-frame-button-wrapper">
                 <button className="car-frame-action">Арендовать</button>
-            </div>
+            </div> : ""
             }
 
 

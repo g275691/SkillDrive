@@ -98,7 +98,7 @@ const DatePicker = ({onBlur
             </div>
             <div className="date-picker-container__calendar">
                 {daysArray.map((el, i)=> 
-                <DatePickerDay 
+                <DatePickerDay key={i}
                 isSecondDate={isSecondDate} index={i} 
                 day={el} year={newUserDate[0]} month={newUserDate[1]}
                 stateDate={stateDate} stateDate2={stateDate2}
