@@ -5,6 +5,7 @@ import BurgerMenu from '../BurgerMenu/BurgerMenu';
 import { Link } from 'react-router-dom';
 import Login from '../../../Containers/Login/Login';
 import { useSelector } from 'react-redux';
+import { callWithToken } from '../CallApi/chectToken';
 
 export const Header = ({ isMain, loginIsClose, closeLogin }) => {
     
@@ -14,8 +15,6 @@ export const Header = ({ isMain, loginIsClose, closeLogin }) => {
     }
     const isAuth = useSelector(state => state.login.isAuth);
 
-
-
     return (
     <>
         <header>
@@ -24,11 +23,18 @@ export const Header = ({ isMain, loginIsClose, closeLogin }) => {
                 <div className="navbar__container">
                     <Link to="/" rel="nofollow">
                         <img src={ logo } className="navbar__brand-text" alt="logo"
+                        onClick={()=> {
+                            callWithToken(
+                                "http://localhost:8000/rent-car/test0@yandex.ru",
+                                "GET"
+                            )
+                            .then(()=>console.log("good"))
+                        }}
                         />
                     </Link>
                     <div className="navbar__menu is-desktop">
                             <Link to={isAuth ? "/rent-page" : "/about"} className="navbar__menu-item is-animated" rel="nofollow">{isAuth ? "Бронирования" : "О нас"}</Link>
-                            <div className="navbar__menu-item is-animated" rel="nofollow">{isAuth ? "Мои автомобили" : "Условия"}</div>
+                            <Link to={isAuth ? "/my-cars" : ""} className="navbar__menu-item is-animated" rel="nofollow">{isAuth ? "Мои автомобили" : "Условия"}</Link>
                             <Link to="/questions" className="navbar__menu-item is-animated" rel="nofollow">{isAuth ? "Сообщения" : "Частые вопросы"}</Link>
                             {isAuth 
                             ? <img className="navbar__menu-avatar" 

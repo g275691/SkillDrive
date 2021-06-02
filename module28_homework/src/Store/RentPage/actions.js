@@ -1,4 +1,5 @@
 import { createAction } from "@reduxjs/toolkit";
+import { callWithToken } from "../../Components/Global/CallApi/chectToken";
 import * as error from '../Constants/Errors';
 
 export const setCarsList = createAction('SET_CAR_LIST');
@@ -16,7 +17,7 @@ export const setFirstCarLocation = createAction('SET_FIRST_CAR_LOCATION');
 export const sortCarsList = (getJson, url) => {
     return (dispatch, getStore) => {
         dispatch(sortCarsListRequest());
-        fetch(url)
+        callWithToken(url)
             .then(response => {
             dispatch(sortCarsListRequest());
             if(!response.ok) {

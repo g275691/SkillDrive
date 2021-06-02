@@ -1,0 +1,11 @@
+.mycars__container {
+    display: flex;
+    justify-content: center;
+    background: red;
+    width: 100%;
+    margin-top: 96px;
+    &-wrapper {
+        width: 80%;
+        background: blue;
+    }
+}

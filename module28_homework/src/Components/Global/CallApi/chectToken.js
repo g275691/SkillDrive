@@ -1,17 +1,18 @@
-import {decodeToken} from './decodeToken';
 import "regenerator-runtime/runtime.js"; 
+import jwtDecode from 'jwt-decode';
 
 import { ACCESS_TOKEN_STORAGE_KEY, REFRESH_TOKEN_STORAGE_KEY,
     MILLISECONDS_IN_SECOND, ACCESS_TOKEN_UPDATE_DIFF}
     from './constants';
 
-export async function checkToken(url, method, body) {
+export async function callWithToken(url, method, body) {
 
     let accessToken = localStorage.getItem("accessToken");
-    const tokenData = decodeToken(accessToken);
+    let refreshToken = localStorage.getItem(REFRESH_TOKEN_STORAGE_KEY);
+    console.log(refreshToken)
     let tokenData;
     try {
-        tokenData = jwtDecode(token);
+        tokenData = jwtDecode(accessToken);
     } catch (e) {
         console.warn(e);
     }
@@ -24,8 +25,6 @@ export async function checkToken(url, method, body) {
     const isAccessTokenValid = diff > ACCESS_TOKEN_UPDATE_DIFF;
 
     if(!isAccessTokenValid) {
-        const refreshToken = localStorage.getItem(REFRESH_TOKEN_STORAGE_KEY);
-
         const response = await fetch("http://localhost:8000/users/auth/refresh", {
             method: "POST",
             headers: {
@@ -33,7 +32,7 @@ export async function checkToken(url, method, body) {
                 'Content-Type': 'application/json',
                 'Authorization': `Bearer ${refreshToken}`
             },
-            body: JSON.stringify( tokenData ),
+            body: JSON.stringify( {"refreshToken": refreshToken} ),
         })
         console.log(response);
         

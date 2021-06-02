@@ -12,14 +12,16 @@ import NotFound from './Global/Page404/Page404';
 import Home from './Home-page/Home';
 import ResetPassword from '../Containers/ResetPass';
 import RentPage from '../Containers/RentPage/RentPage';
+import MyCars from '../Containers/MyCars/MyCars';
+
 
 const App = () => {
-
 
   return (
     
       <Switch>
         <Route path="users/:id" />
+        <Route path="/my-cars" component={MyCars} />
         <Route path="/rent-page" component={RentPage} />
         <Route path="/reset-pass" component={ResetPassword} />
         <Route path="/questions" component={Questions} />

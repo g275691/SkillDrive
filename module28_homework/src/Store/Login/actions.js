@@ -36,6 +36,7 @@ export const onAuth = data => {
                     localStorage.setItem("accessToken", json.accessToken);
                     localStorage.setItem("refreshToken", json.refreshToken);
                     localStorage.setItem("userMail", jwtDecode(json.accessToken).mail);
+                    dispatch(setAuth(jwtDecode(json.accessToken).mail))
                  })
              }
          },

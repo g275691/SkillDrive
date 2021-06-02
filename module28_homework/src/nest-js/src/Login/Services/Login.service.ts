@@ -4,12 +4,15 @@ import { Model } from 'mongoose';
 import { RegistrationEntity } from 'src/Registration/entities/registration.entity';
 import { getMongoManager } from 'typeorm';
 import { RegistrationDocument } from '../../Schemas/registration.schema';
+const jwt = require('jsonwebtoken');
+const constants = require('../../config/constants');
 
 const bcrypt = require('bcrypt');
 const { v4: uuidv4 } = require('uuid');
 
 const sendMail = require("../config/sendMail");
-const getNewToken = require("../../config/getNewToken")
+//const getNewToken = require("../../config/getNewToken")
+import {getNewToken} from '../../config/getNewToken';
 
 @Injectable()
 export class LoginService {
@@ -17,6 +20,13 @@ export class LoginService {
 
     async authorize(req, res) { 
         return getNewToken(req, res); 
+    }
+
+    async refreshToken(req, res) {
+        jwt.verify(req.refreshToken, constants.REFRESH_TOKEN_SECRET, {}, (err) => {
+            if(err) { return res.sendStatus(405); }
+            else { return getNewToken(req, res) }
+        })
     }
 
     async sendMail(req) {

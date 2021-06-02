@@ -26,5 +26,7 @@ export class LoginModule implements NestModule {
         consumer
         .apply(checkMailMiddleware)
         .forRoutes('users/auth/pass-recovery', 'users/auth/pass-reset')
+
+
     }
 }

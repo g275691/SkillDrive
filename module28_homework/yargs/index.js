@@ -46,15 +46,15 @@ require('yargs')
             })
 
         } catch (err) { console.log(err) }
-        
+    }).argv;
 
         
-    })
-    .command(['value <value>', 'moveit'], 'Component+scss+container+store'
-    , {}
-    , (yargs) => {
-        try {
-            console.log(yargs)
-            fs.rename("test.file","test/test2.file")
-        } catch (err) { console.log(err) }
-    }).argv;
+    // })
+    // .command(['value <value>', 'moveit'], 'Component+scss+container+store'
+    // , {}
+    // , (yargs) => {
+    //     try {
+    //         console.log(yargs)
+    //         fs.rename("test.file","test/test2.file")
+    //     } catch (err) { console.log(err) }
+    

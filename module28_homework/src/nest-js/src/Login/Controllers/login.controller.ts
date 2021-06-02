@@ -10,7 +10,12 @@ export class LoginController  {
     @Post('access')
     auth(@Body() req: AuthLoginDto, @Response() res: any) {
         return getNewToken(req, res);
-        return this.LoginService.authorize(req, res);
+    }
+
+    @Post('refresh')
+    refreshToken(@Body() req: any, @Response() res: any) {
+
+        return this.LoginService.refreshToken(req, res)
     }
 
     @Post('pass-recovery')
