@@ -3,6 +3,7 @@ import { createReducer } from "@reduxjs/toolkit";
 import { defaultState } from './defaultState';
 import * as actions from './actions';
 
+
 export const login = createReducer( defaultState, {
     [actions.closeLogin]: (state, action) => { state.loginIsClose = action.payload; },
     [actions.setFormForSend]: (state, action) => { state.isFormForSend = action.payload; },
@@ -14,9 +15,13 @@ export const login = createReducer( defaultState, {
     [actions.onAuthSuccess]: (state) => { 
         state.loginIsClose = true;
         state.errorServer = false;
+        
     },
     [actions.onAuthFailure]: (state, action) => { 
         state.errorServer = action.payload;
+    },
+    [actions.setAuth] : (state, action) => {
+        state.isAuth = action.payload;
     },
 //Запрос на спецссылку
     [actions.onForgetPassRequest]: (state) => { 

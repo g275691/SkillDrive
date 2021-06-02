@@ -6,8 +6,8 @@ const Cta = () => {
 
 
 return (
-    <section class="call__to__action">
-        <div class="cta__container">
+    <section className="call__to__action">
+        <div className="cta__container">
             <img src={ car5 } alt="Child and mini-car" />
             <h2>Попробуйте аренду на себе</h2>
             <Link to="Registration" rel="nofollow">

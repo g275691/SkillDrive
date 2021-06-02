@@ -3,7 +3,8 @@ import * as error from '../Constants/Errors';
 
 const createAction = type => payload => ({ type, payload });
 import { onSubmitGET, onSubmitPOST } from '../Submits';
-
+import { setAuth } from '../Login/actions';
+import jwtDecode from 'jwt-decode';
 
 /*All inputs in step1*/
 
@@ -107,9 +108,11 @@ export const addPhotoDoc = () => {
                         imgExt: el.extension
                     });
                 })
-                sumDocsSize = docsArr.concat(getStore().registration.photosDoc)
-                .map(el => Number(el.imgSize))
-                .reduce((accumulator, currentValue) => accumulator + currentValue ).toFixed(2);
+                try {
+                    sumDocsSize = docsArr.concat(getStore().registration.photosDoc)
+                    .map(el => Number(el.imgSize))
+                    .reduce((accumulator, currentValue) => accumulator + currentValue ).toFixed(2);
+                } catch (err) {}
 
                 if(sumDocsSize > 30) return (
                     dispatch(finishRegFailure(error.VERY_SIZE_DOCS))
@@ -179,14 +182,16 @@ export const setFinishReg = () => {
         fullUserData.imgAvatar = imgAvatar;
         fullUserData.photosDoc = Object.values(photosDoc)
         .map(el => el = el.imgName);
-
+        console.log("ok");
         dispatch(finishRegRequest());
         fetch("http://localhost:8000/users/registration/toSuccess", {
             method: 'POST',  
             headers: { 'Content-Type': 'application/json' },  
             body: JSON.stringify(fullUserData) })
             .then(response => {
+                
                 dispatch(finishRegRequest());
+                
                 if(!response.ok) {
                     (dispatch(finishRegFailure(error.CODE_500))
                     , setTimeout(() => { dispatch(finishRegFailure(false)) }, 3000) )
@@ -196,6 +201,8 @@ export const setFinishReg = () => {
                        dispatch(finishRegSuccess());
                        localStorage.setItem("accessToken", json.accessToken);
                        localStorage.setItem("refreshToken", json.refreshToken);
+                       localStorage.setItem("userMail", jwtDecode(json.accessToken).mail)
+                       
                     })
                 }
             },

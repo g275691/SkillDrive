@@ -7,8 +7,8 @@ import car4 from '../../../Assets/img/home-page/car4.svg';
 const Description = () => {
 
     return (
-    <section class="main-description">
-        <div class="main-description__container">
+    <section className="main-description">
+        <div className="main-description__container">
             <DescriptionBlock h="Аренда напрямую от владельцев" img={ car2 } alt = "car1" 
             span="Вы получите автомобиль от его собственника, а мы проверим юридическую чистоту и техническую исправность." />
             <DescriptionBlock h="Автомобили на любой вкус" img={ car3 } alt = "car2" 

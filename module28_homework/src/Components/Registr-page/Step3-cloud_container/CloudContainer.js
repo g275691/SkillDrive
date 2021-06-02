@@ -35,7 +35,7 @@ export const CloudContainer = ({
     return (
         <>
         <div className="cloud__container">
-            {photos.map((photo, i) => <PhotoItem photo={photo} index={i}/>)}
+            {photos.map((photo, i) => <PhotoItem photo={photo} index={i} key={i}/>)}
 
             <div className={!photosDoc.length 
             ? (drag ? "cloud__container-button-block default" 

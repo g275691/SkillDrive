@@ -112,6 +112,7 @@
               .error {
                 display: block;
                 position: absolute;
+                align-self: flex-end;
                 margin-top: 8px;
                 color: #EB5757;
                 z-index: 1;
@@ -133,9 +134,23 @@
                   padding-bottom: 20px;
                 }
                 .wrapper {
+                  display: flex;
                   padding-left: 10px;
+                  justify-content: flex-end;
+                  align-items: center;
+                  
                   @include breakpoint (medium) {
                     padding-left: 0px;
+                    margin-top: 12px;
+                  }
+                  .icon-calendar {
+                    position: absolute;
+                    color: $green-rect;
+                    
+                    margin-right: 15px;
+                    &.is-mini {
+                      margin-left: 140px;
+                    }
                   }
                   &.password-input {
                     display: flex;
@@ -181,7 +196,7 @@
                         pointer-events: none;
                         @include breakpoint (medium) {
                             margin-right: 13px;
-                            margin-top: 12px;
+                            
                           }
                     }
                     input {
@@ -205,6 +220,7 @@
                 border-bottom: none;
                 @include breakpoint (medium) {
                     font-size: 24px;
+                    
                   }
                   @include breakpoint (iphone5) {
                     font-size: 20px;
@@ -215,12 +231,12 @@
               
                 @include breakpoint (medium) {
                     width: 300px;
-                    margin-top: 12px;
+                    
                     
                   }
                   @include breakpoint (iphone5) {
                     width: 260px;
-                    margin-top: 12px;
+                    
                   }
             }
         }

@@ -1,6 +1,8 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
+import { RegistrationEntity } from 'src/Registration/entities/registration.entity';
+import { getMongoManager } from 'typeorm';
 import { RegistrationDocument } from '../../Schemas/registration.schema';
 
 const bcrypt = require('bcrypt');
@@ -14,16 +16,19 @@ export class LoginService {
     constructor ( @InjectModel('Users') private registrationModel: Model<RegistrationDocument> ) {}
 
     async authorize(req, res) { 
-        getNewToken(req, res); 
+        return getNewToken(req, res); 
     }
 
     async sendMail(req) {
-        const {mail} = req;
-        let findMail : any = await this.registrationModel.findOne( {mail} ).exec();
-        const uniqID = uuidv4();
-        findMail.idRecovery = uniqID;
-        await sendMail(findMail.name, `http://localhost:8080/reset-pass?id=${uniqID}`, req.mail)
-        .then(()=> { findMail.save(); } ) }
+        // const manager = getMongoManager();
+        // let findMail = await manager.findOne( RegistrationEntity, {mail: req.body.mail} )
+        // const {mail} = req;
+        // let findMail : any = await this.registrationModel.findOne( {mail} ).exec();
+        // const uniqID = uuidv4();
+        // findMail.idRecovery = uniqID;
+        // await sendMail(findMail.name, `http://localhost:8080/reset-pass?id=${uniqID}`, req.mail)
+        // .then(()=> { findMail.save(); } ) 
+    }
 
     async resetNewPass(req, res, query) {
         const {mail} = req;

@@ -13,8 +13,6 @@ export const sortCarsListFailure = createAction('SORT_CARS_LIST_FAILURE');
 
 export const setFirstCarLocation = createAction('SET_FIRST_CAR_LOCATION');
 
-
-
 export const sortCarsList = (getJson, url) => {
     return (dispatch, getStore) => {
         dispatch(sortCarsListRequest());
@@ -30,18 +28,6 @@ export const sortCarsList = (getJson, url) => {
                 .then(json => {
                     getJson(json);
                     dispatch(setFirstCarLocation(json[0].geo))
-                    let carsCity = [], carsCategory = [];
-                    // json.forEach(el => {
-                    //     carsCity.push(el.city);
-                    //     carsCategory.push(el.category); 
-                    // })
-
-                    // console.log(carsCity)
-
-
-                    // dispatch(setCarsCategory([...new Set(carsCategory)]));
-                    // dispatch(setCarsCity([...new Set(carsCity)]))
-
                 })
             }
             },

@@ -6,15 +6,16 @@ import { setSecondDate } from '../../../Store/RentPage/actions';
 
 const InputMenu = React.forwardRef(({ 
     list=[],
-    datePicker,
+    datePicker, category, 
     selectedCity,
     defaultValue,
-    name, label,
+    name, label, id,
     value,
     stateDate, stateDate2
     , stateDispatch, stateDispatch2, 
+    className
 }, ref) => {
-
+    
     const dispatch = useDispatch();
 
     let [inputValue, setInputValue] = useState(defaultValue)
@@ -28,7 +29,7 @@ const InputMenu = React.forwardRef(({
     return (
         <div className="input__menu__container" tabIndex="1">
             <div className="input__menu__container-select">
-                <input className={isFocus ? "is-focus" : ""} name={name} autoComplete="off"
+                <input className={isFocus ? "is-focus" : ""} name={name} autoComplete="off" id={id}
                 onFocus={()=>{
                     setFocus(true); setMenu(menu => [...new Set(menu)]);
                     datePicker && setDatePickerEnabled(true)
@@ -47,13 +48,16 @@ const InputMenu = React.forwardRef(({
                 ref = {ref}
                 ></input>
                 <label className={isFocus || inputValue != "" ? "is-focus" : ""}>{label}</label>
+                {datePicker && <div className="icon-calendar"></div>}
+                {category && <div className="icon-category">▼</div>}
             </div>
+            
             {list 
             && <div className={isFocus ? "input__menu__container-list is-focus" : "input__menu__container-list" }
             onBlur={()=>setFocus(false)}
             tabIndex="1">
             {menu.map((el,i) => {
-                return <InputMenuItem key={i} city={el} selectedCity={selectedCity} onMouseDown={e=>{setInputValue(e.target.innerText); setFocus(false); }}/>;
+                return <InputMenuItem key={i} city={el} selectedCity={inputValue} onMouseDown={e=>{setInputValue(e.target.innerText); setFocus(false); }}/>;
             })
             }
             
@@ -65,9 +69,7 @@ const InputMenu = React.forwardRef(({
             enabled={datePickerEnabled}
             onBlur={()=>{
                 setDatePickerEnabled(false); 
-                
                 dispatch(setSecondDate(false));
-                
             }}
             twoDate="true"
             />}

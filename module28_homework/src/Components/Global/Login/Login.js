@@ -5,18 +5,28 @@ import login from '../../../Assets/img/login.svg';
 import forgetPass from '../../../Assets/img/forget-pass.svg';
 import sentMail from '../../../Assets/img/sentMail.svg';
 import { Link } from 'react-router-dom';
-
+import jwtDecode from 'jwt-decode';
 import AllForms from '../../../Containers/Login/AllForms';
+import { useDispatch, useSelector } from 'react-redux';
+import { setAuth } from '../../../Store/Login/actions';
 
 export const Login = ({loginIsClose, closeLogin, isFormForSend, isFormMailSent, 
     errMailLogin, errPasswordLogin, setLoginButtonActive, setFormMailSent, setFormForSend}) => {
 
-    const changeForm = () => { isFormForSend ? setFormForSend(false) : setFormForSend(true); }
-    if(!loginIsClose) {
+    const dispatch = useDispatch();
     useEffect(() => {
+        let token = localStorage.getItem("accessToken"),
+        userMail = localStorage.getItem("userMail");
+        
+        token && userMail && dispatch(setAuth(userMail))
+
         if(isFormForSend) { errMailLogin == false ? setLoginButtonActive(false) : setLoginButtonActive(true) }
         else { errMailLogin == false && errPasswordLogin == false ? setLoginButtonActive(false) : setLoginButtonActive(true) }
-    })
+    }, [])
+
+    const changeForm = () => { isFormForSend ? setFormForSend(false) : setFormForSend(true); }
+    if(!loginIsClose) {
+
 }
     return (
         <>

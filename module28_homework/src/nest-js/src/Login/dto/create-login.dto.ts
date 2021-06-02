@@ -1,5 +1,13 @@
+import { IsEmail, IsNotEmpty, Length} from 'class-validator';
+
 export class AuthLoginDto {
-    readonly mail: string
-    readonly password: string
-    readonly passwordRepeat: string
+
+    @IsNotEmpty()
+    @IsEmail()
+    mail: string
+
+    @IsNotEmpty()
+    password: string
+
+    passwordRepeat: string
 }

@@ -26,8 +26,8 @@ export const OnSubmit = ({  buttonLoad, photosDoc,
         
                 {buttonLoad ? " " : "Продолжить"}
         </button>
-        <div class="cssload-container">
-            <div class={buttonLoad 
+        <div className="cssload-container">
+            <div className={buttonLoad 
                 ? "cssload-zenith animate" : "cssload-zenith"}></div>
         </div>
     </div>

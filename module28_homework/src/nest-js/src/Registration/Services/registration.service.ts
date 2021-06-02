@@ -3,6 +3,7 @@ import { Injectable } from '@nestjs/common';
 import { RegistrationRepository } from '../Repositories/registration.repository';
 import { newUserDto } from '../dto/newUser.dto';
 import { createUserFolder } from '../config/createUserFolder';
+import { getNewToken } from 'src/config/getNewToken';
 
 const bcrypt = require('bcrypt');
 const fs = require('fs'); 
@@ -39,11 +40,12 @@ export class RegistrationService {
         newUser.passportCode = newUserDto.passportCode;
         newUser.driver = newUserDto.driver;
         newUser.driverDate = newUserDto.driverDate;
-        newUser.imgAvatar = newUserDto.imgAvatar;
+        newUser.imgAvatar = "avatar.jpg";
         newUser.photosDoc = newUserDto.photosDoc;
 
         return await this.registrationRepository.create(newUser)
         .then(()=> {
+            getNewToken(newUserDto, res);
             createUserFolder(userFolder, newUserDto, res)
         })
     }

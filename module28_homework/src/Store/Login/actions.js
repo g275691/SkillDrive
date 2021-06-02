@@ -9,6 +9,9 @@ export const onAuthRequest = createAction('ON_AUTH_REQUEST');
 export const onAuthSuccess = createAction('ON_AUTH_SUCCESS');
 export const onAuthFailure = createAction('ON_AUTH_FAILURE');
 
+export const setAuth = createAction("SET_AUTH");
+import jwtDecode from 'jwt-decode';
+
 export const onAuth = data => {
     return dispatch => {
         dispatch(onAuthRequest());
@@ -32,6 +35,7 @@ export const onAuth = data => {
                     dispatch(onAuthSuccess());
                     localStorage.setItem("accessToken", json.accessToken);
                     localStorage.setItem("refreshToken", json.refreshToken);
+                    localStorage.setItem("userMail", jwtDecode(json.accessToken).mail);
                  })
              }
          },

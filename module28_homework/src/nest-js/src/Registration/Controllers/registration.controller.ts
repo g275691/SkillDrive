@@ -49,6 +49,7 @@ export class RegistrationController  {
       fileFilter: imgFileFilter
     }))
     step3UploadDocs(@UploadedFiles() files: any) {
+      
       return files.map(el => {
         return {
           "img": el.filename,
@@ -65,7 +66,7 @@ export class RegistrationController  {
 
     @Post('toSuccess')
     toSuccess(@Body() newUserDto: newUserDto, @Response() res: any) {
-      console.log(newUserDto);
+      console.log("test");
       return this.RegistrationService.step3registration(newUserDto, res);
     }
 }

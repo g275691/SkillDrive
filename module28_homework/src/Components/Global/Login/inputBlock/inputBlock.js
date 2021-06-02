@@ -1,5 +1,4 @@
 import React, { memo, useState } from 'react';
-import styled from 'styled-components';
 
 const InputBlock = React.forwardRef(({
     type, label, name, autoComplete="off",
@@ -27,7 +26,7 @@ const InputBlock = React.forwardRef(({
                 e.target.value != "" ? setFocus(true) : setFocus(false); 
                 triggerForSubmit()}} 
                 onFocus={e => {
-                    e.target.style.border = "green";
+                    //e.target.style.border = "green";
                     setFocus(true); 
                     triggerForSubmit()}} 
             className={errorName ? "is-valid" : ""} />

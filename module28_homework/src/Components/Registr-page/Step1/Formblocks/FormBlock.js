@@ -46,13 +46,13 @@ const FormBlock = React.forwardRef(({
     return (
     <>
     
-    
     {/* PaddingBottomErrors */}
     <div className={errorName || (errMail && name=="mail") 
     ? "form-block invalid" : "form-block"}>
         
         <label>{label}</label>
         <div className={password ? "wrapper password-input" : "wrapper"}>
+            {type == "date" ? <div className={!isMini ? "icon-calendar" : "icon-calendar is-mini"}></div> : ""}
             <input name={name} ref={ref } autoComplete = {autoComplete}
             style={{cursor: type == "date" && "pointer"}}
             value={ value }
@@ -72,7 +72,10 @@ const FormBlock = React.forwardRef(({
             : errorName ? "invalid" : "") 
             || (errMail && name=="mail" ? "invalid" : "")}
 
-            placeholder={hint} />
+            placeholder={hint} 
+            
+            />
+            
             {type == "date" 
             ? <DatePicker onBlur={()=>setDatePickerEnabled(false) } 
             enabled={datePickerEnabled}
@@ -81,7 +84,9 @@ const FormBlock = React.forwardRef(({
             }
             {errorName && <span className={password ? "error-pass" : "error"}>{errorName.message}</span>}
             {errMail && name=="mail" ? <span className="error">{errMail}</span> : ""}
+            
             {password && <span onClick={ changeType } className="hide-pass icon-eye-off"></span>}
+            
             
         </div>
     </div>

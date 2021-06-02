@@ -6,5 +6,5 @@ export const defaultState = {
     isFormMailSent: false,
     errorServer: false,
     loginIsClose: true,
-    isAuth: true
+    isAuth: false
 }

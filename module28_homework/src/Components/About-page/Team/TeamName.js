@@ -1,7 +1,7 @@
 import React from 'react';
 
 const TeamName = ({name, profession, imgName}) => (
-    <div class="teams__item">
+    <div className="teams__item">
         <img src={imgName} alt={name + " " + profession} />
         <div className="teams__item-name-text">
             <span>{name}</span><br />

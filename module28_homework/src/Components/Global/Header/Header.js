@@ -13,6 +13,9 @@ export const Header = ({ isMain, loginIsClose, closeLogin }) => {
         document.querySelector(".mobile__wrapper").classList.toggle("is-active");
     }
     const isAuth = useSelector(state => state.login.isAuth);
+
+
+
     return (
     <>
         <header>
@@ -20,13 +23,19 @@ export const Header = ({ isMain, loginIsClose, closeLogin }) => {
             <nav className ={isMain ? "is-main" : ""}>
                 <div className="navbar__container">
                     <Link to="/" rel="nofollow">
-                        <img src={ logo } className="navbar__brand-text" alt="logo"/>
+                        <img src={ logo } className="navbar__brand-text" alt="logo"
+                        />
                     </Link>
                     <div className="navbar__menu is-desktop">
                             <Link to={isAuth ? "/rent-page" : "/about"} className="navbar__menu-item is-animated" rel="nofollow">{isAuth ? "Бронирования" : "О нас"}</Link>
                             <div className="navbar__menu-item is-animated" rel="nofollow">{isAuth ? "Мои автомобили" : "Условия"}</div>
                             <Link to="/questions" className="navbar__menu-item is-animated" rel="nofollow">{isAuth ? "Сообщения" : "Частые вопросы"}</Link>
-                            {!isAuth ? "" 
+                            {isAuth 
+                            ? <img className="navbar__menu-avatar" 
+                            src={`http://localhost:8000/img-car/${localStorage.getItem("userMail")}/avatar/avatar.jpg`} 
+                            href="" target="_blank" rel="nofollow">
+
+                            </img> 
                             : <div className="navbar__menu-login is-animated" href="" target="_blank" rel="nofollow" onClick={open}>Войти</div>}
                     </div>
                 </div>

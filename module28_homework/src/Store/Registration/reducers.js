@@ -1,5 +1,7 @@
 import { defaultState } from './defaultState';
+import { isAuth } from '../Registration/defaultState';
 import * as c from './constants';
+import jwtDecode from 'jwt-decode';
 
 export const registration = (state = defaultState, action) => {
 
@@ -98,7 +100,6 @@ export const registration = (state = defaultState, action) => {
                 isStep3: true,
                 isStep2: false,
                 errMail: action.payload,
-
             };
         case c.UPLOAD_AVATAR_REQUEST:
             return {
@@ -196,8 +197,8 @@ export const registration = (state = defaultState, action) => {
                 buttonLoad: false,
                 isStep3: false,
                 isFinish: true,
-                userData: null,
-                isStep1: true
+                userData: {},
+                isStep1: true,
             };
     default: return state;
         }

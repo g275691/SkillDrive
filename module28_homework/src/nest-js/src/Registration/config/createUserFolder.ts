@@ -1,6 +1,7 @@
 const fs = require('fs'); 
 const fsPromises = fs.promises;
 const getNewToken = require("../../config/getNewToken");
+import * as path from 'path';
 
 export const createUserFolder = (userFolder, newUserDto, res) => {
     try {
@@ -8,19 +9,20 @@ export const createUserFolder = (userFolder, newUserDto, res) => {
         .then(()=> {
             fsPromises.mkdir(`${userFolder}/avatar`)
             .then(()=> {
-                fsPromises.rename(`uploads/avatar/${newUserDto.imgAvatar}`,`${userFolder}/avatar/${newUserDto.imgAvatar}`)
+                const ext = newUserDto.imgAvatar.slice(newUserDto.imgAvatar.indexOf("."))
+                fsPromises.rename(`uploads/avatar/${newUserDto.imgAvatar}`,`${userFolder}/avatar/avatar${ext}`)
                 .then(()=> {
                     fsPromises.mkdir(`${userFolder}/docs`)
                     let photosDocArray = newUserDto.photosDoc;
                     if(typeof photosDocArray == "string") {
                         photosDocArray = photosDocArray.replace(/[\[\]]/g,"").split(",")
                     }
+                    
                     photosDocArray.forEach((el,i) => {
                         fsPromises.rename(`uploads/docs/${el}`,`${userFolder}/docs/${el}`)
                         .catch(err => console.log(err))
                     })
                     fsPromises.mkdir(`${userFolder}/carPhotos`);
-                    getNewToken(newUserDto, res);
                 })                 
             })
         })

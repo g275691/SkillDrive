@@ -64,19 +64,19 @@ export const RentPage = ({carsList
                 onSubmit={e => e.preventDefault()}>
                     <div className="input-wrapper">
                         <InputMenu list={carsCity} defaultValue="Санкт-Петербург" 
-                        name="city" label="Местоположение"
+                        name="city" label="Местоположение" id="rent-city"
                         ref={register({ required: true })}
                         />
 
                         <InputMenu 
                         name="date" label="Период аренды" value={`${setFormatDate(availableCar)} – ${setFormatDate(availableCar2)}`}
-                        ref={register({ required: true })}
+                        ref={register({ required: true })} id="rent-date"
                         datePicker stateDate={availableCar} stateDate2={availableCar2} 
                         stateDispatch={setAvailableCar} stateDispatch2={setAvailableCar2}
                         />
                         
                         <InputMenu list={carsCategory} defaultValue="Легковая" 
-                        name="category" label="Категория"
+                        name="category" label="Категория" category id="rent-category"
                         ref={register({ required: true })}/>
                     </div>
                     <div className="button-wrapper" style={{paddingRight: isMapOpen ? "41px" : ""}}>
@@ -144,7 +144,7 @@ export const RentPage = ({carsList
                                     <div style="display: flex; flex-direction: column">
                                         <img src="http://localhost:8000/img-car/${el.owner.mail}/carPhotos/${el.photo}"></img>
                                         <div style="margin-top: 20px; margin-left: 20px; margin-bottom: 20px">
-                                            <div style="font-size: 16px; font-family: Roboto">${el.brand} ${el.model}, ${el.year}</div>
+                                            <div style="font-size: 16px; font-family: Roboto; font-weight: 600">${el.brand} ${el.model}, ${el.year}</div>
                                             <div style="display: flex; font-size: 14px; font-family: Roboto; margin-top: 8px"> 
                                                 <div>${el.price} ₽ в сутки</div>
                                                 <div style="margin-left: auto; margin-right: 20px"><span style="color:#F2C94C">★ </span>${el.rating} (12)</div>

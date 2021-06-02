@@ -6,9 +6,18 @@ import { ACCESS_TOKEN_STORAGE_KEY, REFRESH_TOKEN_STORAGE_KEY,
     from './constants';
 
 export async function checkToken(url, method, body) {
+
     let accessToken = localStorage.getItem("accessToken");
     const tokenData = decodeToken(accessToken);
+    let tokenData;
+    try {
+        tokenData = jwtDecode(token);
+    } catch (e) {
+        console.warn(e);
+    }
+
     const currentTime = Math.round(Date.now() / MILLISECONDS_IN_SECOND);
+
     if(!tokenData) return console.log("Пользователь не авторизован");
     const diff = tokenData.exp - currentTime;
     console.log(diff);
@@ -43,7 +52,7 @@ export async function checkToken(url, method, body) {
             'Accept': 'application/json',
             'Content-Type': 'application/json',
             'Authorization': `Bearer ${accessToken}`
-     },  
+        },  
         body: JSON.stringify(body) 
     })
 }

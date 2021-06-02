@@ -209,7 +209,7 @@ button,
 input { /* 1 */
   overflow: visible;
   padding: 14px 8px;
-  border-radius: 8px;
+  
   border-color: $disable;
   width: 444px;
   transition: all 0.1s;
@@ -219,7 +219,7 @@ input { /* 1 */
   &:focus {
     border-color: $green-rect;
     border-width: 3px;
-    border-radius: 10px;
+    
     outline:none;
   }
   &.is-mini {

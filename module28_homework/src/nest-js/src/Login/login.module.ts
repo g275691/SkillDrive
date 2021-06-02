@@ -6,6 +6,7 @@ import { LoginController } from './Controllers/login.controller';
 import { LoginService } from 'src/Login/Services/Login.service';
 import { MiddlewareConsumer, Module, NestModule } from "@nestjs/common";
 import { registrationSchema } from '../Schemas/registration.schema.js';
+import { RentCarRepository } from 'src/Rent-car/repositories/rent-car.repository';
 
 @Module({
     imports: [
@@ -13,7 +14,7 @@ import { registrationSchema } from '../Schemas/registration.schema.js';
             { name: 'Users', schema: registrationSchema}
         ])
     ],
-    providers: [LoginService],
+    providers: [LoginService, RentCarRepository],
     controllers: [LoginController]
 })
 export class LoginModule implements NestModule {

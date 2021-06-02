@@ -1,15 +1,16 @@
 import { AuthLoginDto } from './../dto/create-login.dto';
 import { LoginService } from 'src/Login/Services/Login.service';
-import { Body, Controller, Post, HttpCode, Response, Query } from '@nestjs/common';
+import { Body, Controller, Post, HttpCode, Response, Query, Request } from '@nestjs/common';
+import { getNewToken } from '../../config/getNewToken';
 
 @Controller('users/auth')
 export class LoginController  {
     constructor(private LoginService: LoginService) {}
-    @Post('access')
 
-    auth(@Body() authLoginDto: AuthLoginDto, @Response() res: any) {
-        console.log(authLoginDto)
-        return this.LoginService.authorize(authLoginDto, res);
+    @Post('access')
+    auth(@Body() req: AuthLoginDto, @Response() res: any) {
+        return getNewToken(req, res);
+        return this.LoginService.authorize(req, res);
     }
 
     @Post('pass-recovery')
@@ -19,7 +20,7 @@ export class LoginController  {
     }
 
     @Post('pass-reset')
-    resetNewPass(@Body() authLoginDto: AuthLoginDto, @Response() res: any, @Query() param: string) {
-        return this.LoginService.resetNewPass(authLoginDto, res, param);
+    resetNewPass(@Body() authLoginDto: AuthLoginDto, @Request() req: any, @Query() param: string) {
+        return this.LoginService.resetNewPass(authLoginDto, req, param);
     }
 }
