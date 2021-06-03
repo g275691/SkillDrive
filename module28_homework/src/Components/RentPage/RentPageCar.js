@@ -4,7 +4,7 @@ import iconTechno from '../../Assets/img/Rent-page/icon-techno.svg';
 
 export const RentPageCar = ({
     carsList,
-    isFinder, isMapOpen,
+    isFinder, isMapOpen, myCars,
     index
 }) => {
 
@@ -24,24 +24,30 @@ export const RentPageCar = ({
 
     return (
         <div className="car-frame" 
-        // style={ {justifyContent: isFinder &&"space-between"}}
         >
-            <img src={imgCar}></img>
-            <div className="wrapper">
-                <div className="car-frame-avatar" style={{backgroundImage:`url(${imgAvatar})`, backgroundSize: `cover`}}></div>
-            </div>
+            <img className="car-frame-car" src={imgCar}></img>
+            {!myCars && <div className="wrapper">
+                <div className="car-frame-avatar" 
+                style={{backgroundImage:`url(${imgAvatar})`, backgroundSize: `cover`}}></div>
+            </div> }
 
             {isFinder 
             ? <div className="car-frame-info">
-                <div className="car-frame-rating"><span style={{color: "#F2C94C"}}>★</span> {ratingCar} (12)</div>
+                <div className="car-frame-rating">
+                    <span style={{color: "#F2C94C"}}>★</span> {ratingCar} (12)
+                </div>
                 <div className="car-frame-name finder">{nameCar}</div>
                 <div className={isMapOpen ? "car-frame-info-wrapper is-map-open" : "car-frame-info-wrapper"}>
-                    <div>
+                    <div className="car-frame-info-engine">
                         <img src={iconCran}/>
                         <span>2.0 л / {power} л.с. / {engine}</span>
                     </div>
-                    <div style={{marginTop: isMapOpen ? "16px" : "0px"}}>
-                        <img style={{marginLeft: isMapOpen ? "0px" : "30px"}} src={iconTechno}/>
+                    <div 
+                    // style={{marginTop: isMapOpen ? "16px" : "0px"}} 
+                    className="car-frame-info-driveunit">
+                        <img 
+                        // style={{marginLeft: isMapOpen ? "0px" : "30px"}} 
+                        src={iconTechno}/>
                         <span>{transmission} / {driveUnit}</span>
                     </div>
 
@@ -52,7 +58,7 @@ export const RentPageCar = ({
                 <p>от {priceCar}</p>
             </div>
             }
-            {isFinder && !isMapOpen ?  
+            {isFinder && !isMapOpen && !myCars ?  
             <div className="car-frame-button-wrapper">
                 <button className="car-frame-action">Арендовать</button>
             </div> : ""

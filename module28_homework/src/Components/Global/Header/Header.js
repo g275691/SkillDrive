@@ -4,8 +4,8 @@ import HeaderMobile from '../HeaderMobile/HeaderMobile';
 import BurgerMenu from '../BurgerMenu/BurgerMenu';
 import { Link } from 'react-router-dom';
 import Login from '../../../Containers/Login/Login';
-import { useSelector } from 'react-redux';
-import { callWithToken } from '../CallApi/chectToken';
+import { useDispatch, useSelector } from 'react-redux';
+import { setAuth } from '../../../Store/Login/actions';
 
 export const Header = ({ isMain, loginIsClose, closeLogin }) => {
     
@@ -14,6 +14,7 @@ export const Header = ({ isMain, loginIsClose, closeLogin }) => {
         document.querySelector(".mobile__wrapper").classList.toggle("is-active");
     }
     const isAuth = useSelector(state => state.login.isAuth);
+    const dispatch = useDispatch();
 
     return (
     <>
@@ -24,11 +25,9 @@ export const Header = ({ isMain, loginIsClose, closeLogin }) => {
                     <Link to="/" rel="nofollow">
                         <img src={ logo } className="navbar__brand-text" alt="logo"
                         onClick={()=> {
-                            callWithToken(
-                                "http://localhost:8000/rent-car/test0@yandex.ru",
-                                "GET"
-                            )
-                            .then(()=>console.log("good"))
+                            localStorage.clear();
+                            dispatch(setAuth(false))
+                            
                         }}
                         />
                     </Link>
