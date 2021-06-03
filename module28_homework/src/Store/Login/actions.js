@@ -11,6 +11,7 @@ export const onAuthFailure = createAction('ON_AUTH_FAILURE');
 
 export const setAuth = createAction("SET_AUTH");
 import jwtDecode from 'jwt-decode';
+import { getName } from "../config/getName";
 
 export const onAuth = data => {
     return dispatch => {
@@ -36,7 +37,10 @@ export const onAuth = data => {
                     localStorage.setItem("accessToken", json.accessToken);
                     localStorage.setItem("refreshToken", json.refreshToken);
                     localStorage.setItem("userMail", jwtDecode(json.accessToken).mail);
+
                     dispatch(setAuth(jwtDecode(json.accessToken).mail))
+                    getName();
+
                  })
              }
          },

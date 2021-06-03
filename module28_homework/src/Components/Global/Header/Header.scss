@@ -45,6 +45,7 @@ nav {
           height: 48px;
           cursor: pointer;
           transition: all 0.2s ease-in-out;
+          margin-top: auto;
           &:hover {
               border: 1px solid $green-rect;
           }

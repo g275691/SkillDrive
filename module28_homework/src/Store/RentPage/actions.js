@@ -17,7 +17,7 @@ export const setFirstCarLocation = createAction('SET_FIRST_CAR_LOCATION');
 export const sortCarsList = (getJson, url) => {
     return (dispatch, getStore) => {
         dispatch(sortCarsListRequest());
-        callWithToken(url)
+        fetch(url)
             .then(response => {
             dispatch(sortCarsListRequest());
             if(!response.ok) {

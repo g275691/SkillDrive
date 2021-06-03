@@ -21,8 +21,8 @@ export const RentPage = ({carsList
     let [carsCity, setCarsCity] = useState([]);
     let [carsCategory, setCarsCategory] = useState([]);
 
-    let [isFinder, setFinder] = useState(true);
-    let [isMapOpen, setMapOpen] = useState(true);
+    let [isFinder, setFinder] = useState(false);
+    let [isMapOpen, setMapOpen] = useState(false);
     
     const mapState = React.useMemo(() => ({ center: firstCarLocation, zoom: 13 }), [
         firstCarLocation,
@@ -79,14 +79,14 @@ export const RentPage = ({carsList
                         name="category" label="Категория" category id="rent-category"
                         ref={register({ required: true })}/>
                     </div>
-                    <div className="button-wrapper" style={{paddingRight: isMapOpen ? "41px" : ""}}>
+                    <div className={isMapOpen ? "button-wrapper is-map" : "button-wrapper"} >
                         <button 
                         onClick={()=> {
                             new Date(availableCar) > new Date(availableCar2) ? dispatch(setAvailableCar2(availableCar)) : "";
                             sortCarsList(setCarsList, `http://localhost:8000/rent-car?city=${getValues().city}&category=${getValues().category}&dateAvailable=${availableCar}|${availableCar2}`);                          
                         }
                     }>{!isMapOpen ? "Найти "
-                    : <img src={ iconLupa } style={{paddingRight: "14px", paddingLeft: "14px"}}></img>
+                    : <img src={ iconLupa } ></img>
                     }</button>
                     </div>
                 </form>
@@ -119,7 +119,7 @@ export const RentPage = ({carsList
                     })}
                 </div>
             </div>
-
+            
             {isMapOpen ? 
                 <div className="yandex__map" 
                 style={{ height: windowHeight, width: "100%", position: "sticky", top: "0"
@@ -134,15 +134,23 @@ export const RentPage = ({carsList
                             'geoObject.addon.balloon', 
                             'geoObject.addon.hint',
                         ]}>
+                            <Placemark geometry={[59.91, 30.315332]} 
+                            properties={{
+    
+                                balloonContent: `<div>TEST</div>`
+
+                            }}
+                            />
                             {carsList.map((el, i) => {
                                 return <Placemark key={i} 
-                                geometry={"Point", el.geo} 
+                                geometry={el.geo} 
                                 properties={{
-                                    hintContent: "address",
+                                    
                                     balloonContent: 
                                     `
                                     <div style="display: flex; flex-direction: column">
-                                        <img src="http://localhost:8000/img-car/${el.owner.mail}/carPhotos/${el.photo}"></img>
+                                        <div style="background: url(http://localhost:8000/img-car/${el.owner.mail}/carPhotos/${el.photo}); background-size: cover; background-position: center; width: 260px; height: 160px; border-radius: 8px"></div>
+                                        
                                         <div style="margin-top: 20px; margin-left: 20px; margin-bottom: 20px">
                                             <div style="font-size: 16px; font-family: Roboto; font-weight: 600">${el.brand} ${el.model}, ${el.year}</div>
                                             <div style="display: flex; font-size: 14px; font-family: Roboto; margin-top: 8px"> 
@@ -164,7 +172,6 @@ export const RentPage = ({carsList
             </div>
            : ""}
         </div>
-        
         <Footer />
         </>
     )

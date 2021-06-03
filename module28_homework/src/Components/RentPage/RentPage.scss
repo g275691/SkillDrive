@@ -13,6 +13,7 @@
             margin-bottom: 0px;
             font-size: 32px;
             text-align: center;
+            margin-top: 0px
         }
     }
     &-recommend {
@@ -43,9 +44,12 @@
             display: flex;
             width: calc(100% - 12.5px);
             justify-content: space-between;
-            
+            overflow:hidden;
             @include breakpoint (medium) {
+                margin-top: 30px;
                 flex-direction: column;
+                align-items: center;
+
             }
             &.finder {
                 margin-top: 30px;
@@ -53,9 +57,17 @@
             .input-wrapper {
                 display: flex;
                 padding-right: 10px;
+                width: 100%;
                 @include breakpoint (medium) {
                     flex-direction: column;
+                    padding-right: 0px;
+                    
+                }
+                input {
                     width: 100%;
+                    @include breakpoint (medium) {
+                        width: auto;
+                    }
                 }
             }
 
@@ -63,14 +75,21 @@
                 width: 25%;
                 margin-top: 0px;
                 padding-bottom: 0px;
+                &.is-map {
+                    padding-right: 40px;
+                    width: 20%;
+                }
                 
                 @include breakpoint (medium) {
                     margin-top: 10px;
                     width: 100%;
                 }
                 button {
-                    width: 100%;
-                    
+                    margin-left: auto;
+                    @include breakpoint (medium) {
+                        margin-left: 0px;
+                        width: 100%;
+                    }
                 }
             }
         }
@@ -120,6 +139,7 @@
         &__cars {
             display: flex;
             justify-content: space-between;
+            
             flex-wrap: wrap;
             width: calc(100% + 12.5px);
             
@@ -130,6 +150,7 @@
             @include breakpoint (medium) {
                 margin-top: 30px;
                 justify-content: center;
+                
             }
             .car-frame {
                 display: flex;
@@ -139,12 +160,12 @@
                 
                 border-radius: 10px;
                 @include breakpoint (medium) {
-                    margin: 10px 0px;
+                    
                     
                 }
                 img {
                     @include breakpoint (medium) {
-                        width: 95%;
+                        
                     }
                     
                 }
@@ -158,6 +179,12 @@
                         flex-direction: row;
                         align-items: center;
                         margin-top: 14px;
+                        .info-driveunit-map {
+                            margin-top: 16px;
+                        }
+                        .img-driveunit-no-map {
+                            margin-left: 30px;
+                        }
                         &.is-map-open {
                             flex-direction: column;
                             align-items: flex-start;
@@ -265,7 +292,7 @@
     }
 
     input {
-        width: auto;
+        
 
     }
 }

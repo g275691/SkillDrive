@@ -1,18 +1,27 @@
 .input__menu__container {
-
+  width: 100%;
   #rent-city{
     border-top-right-radius: 0px;
     border-bottom-right-radius: 0px;
+    @include breakpoint (medium) {
+      border-radius: 8px;
+    }
   }
   #rent-date {
     border-top-left-radius: 0px;
     border-bottom-left-radius: 0px;
     border-top-right-radius: 0px;
     border-bottom-right-radius: 0px;
+    @include breakpoint (medium) {
+      border-radius: 8px;
+    }
   }
   #rent-category {
     border-top-left-radius: 0px;
     border-bottom-left-radius: 0px;
+    @include breakpoint (medium) {
+      border-radius: 8px;
+    }
   }
     @include breakpoint (medium) {
       display: flex;

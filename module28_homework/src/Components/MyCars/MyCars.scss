@@ -61,6 +61,12 @@
                         flex-direction: column;
                         align-items: flex-start;
                     }
+                    .img-driveunit-no-map {
+                        margin-left: 29px;
+                        @include breakpoint (medium) {
+                            margin-left: 0px;
+                        }
+                    }
                     .car-frame-info-driveunit {
                         @include breakpoint (medium) {
                             margin-top: 16px;
