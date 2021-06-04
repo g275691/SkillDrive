@@ -10,7 +10,7 @@ export class CreateRentCarDto {
     power: string
     transmission: string
     driveUnit: string
-    price: string
+    price: Number
     owner: string
     city: string
     geo: string

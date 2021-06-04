@@ -28,7 +28,7 @@ export class RentCar {
     driveUnit: string;
 
     @Column()
-    price: string;
+    price: Number;
 
     @Column(()=> owner )
     owner: owner;

@@ -11,6 +11,7 @@ import { setFormatDate } from './SetFormatDate';
 import iconMap from '../../Assets/img/Rent-page/icon-map.svg';
 import iconLupa from '../../Assets/img/Rent-page/icon-lupa.svg';
 
+
 import { YMaps, Map, Placemark } from "react-yandex-maps";
 
 export const RentPage = ({carsList
@@ -23,6 +24,9 @@ export const RentPage = ({carsList
 
     let [isFinder, setFinder] = useState(false);
     let [isMapOpen, setMapOpen] = useState(false);
+    let [isMobilFinder, setMobilFinder] = useState(false);
+
+    
     
     const mapState = React.useMemo(() => ({ center: firstCarLocation, zoom: 13 }), [
         firstCarLocation,
@@ -54,6 +58,8 @@ export const RentPage = ({carsList
     const availableCar = useSelector(state => state.global.availableCar);
     const availableCar2 = useSelector(state => state.global.availableCar2);
 
+    const finderHeading = useSelector(state => state.RentPage.finderHeading)
+
     return (
         <>
         <Header />
@@ -62,19 +68,23 @@ export const RentPage = ({carsList
                 {!isFinder && <h2>Арендуйте автомобиль</h2>}
                 <form className={isFinder ? "rent-page-container__filter finder" : "rent-page-container__filter"} 
                 onSubmit={e => e.preventDefault()}>
-                    <div className="input-wrapper">
-                        {isFinder 
-                        ? <InputMenu defaultValue="Санкт-Петербург" 
+                    <div className="input-wrapper" style={{
+                        position: isMobilFinder && "fixed",
+                        width: isMobilFinder && "calc(90% - 12.5px)"
+                    }}>
+                        {isFinder && !isMobilFinder
+                        ? <InputMenu allFilter 
+                        onClick={()=>setMobilFinder(true)}
+                        value={`${getValues().city} / ${setFormatDate(availableCar)} – ${setFormatDate(availableCar2)}`}
                         name="all" label="Поиск" idFilterAll="rent-all"
                         ref={register({ required: true })}
                         />
                         : ""}
 
-
                         <InputMenu list={carsCity} defaultValue="Санкт-Петербург" 
                         name="city" label="Местоположение" id="rent-city"
-                        ref={register({ required: true })}
-                        isFinder={isFinder}
+                        ref={register({ required: true })} 
+                        isFinder={isFinder} isMobilFinder={isMobilFinder}
                         />
 
                         <InputMenu 
@@ -82,21 +92,24 @@ export const RentPage = ({carsList
                         ref={register({ required: true })} id="rent-date"
                         datePicker stateDate={availableCar} stateDate2={availableCar2} 
                         stateDispatch={setAvailableCar} stateDispatch2={setAvailableCar2}
-                        isFinder={isFinder}
+                        isFinder={isFinder} isMobilFinder={isMobilFinder}
                         />
                         
                         <InputMenu list={carsCategory} defaultValue="Легковая" 
                         name="category" label="Категория" category id="rent-category"
                         ref={register({ required: true })}
-                        isFinder={isFinder}
+                        isFinder={isFinder} isMobilFinder={isMobilFinder}
                         />
                     </div>
-                    <div className={isMapOpen ? "button-wrapper is-map" : (isFinder ? "button-wrapper is-finder" : "button-wrapper")} >
+                    <div className={isMapOpen ? "button-wrapper is-map" : (isFinder && !isMobilFinder ? "button-wrapper is-finder" : "button-wrapper")} 
+                    style={{position: isMobilFinder && "fixed", top: isMobilFinder && "88%", width: isMobilFinder && "calc(90% - 12.5px)"}}
+                    >
                         <button 
                         onClick={()=> {
                             new Date(availableCar) > new Date(availableCar2) ? dispatch(setAvailableCar2(availableCar)) : "";
                             sortCarsList(setCarsList, `http://localhost:8000/rent-car?city=${getValues().city}&category=${getValues().category}&dateAvailable=${availableCar}|${availableCar2}`);                          
-                            setFinder(true)
+                            setFinder(true);
+                            setMobilFinder(false)
                         }
                     }>{!isMapOpen ? "Найти "
                     : <img src={ iconLupa } ></img>
@@ -186,6 +199,18 @@ export const RentPage = ({carsList
            : ""}
         </div>
         <Footer />
+
+            <div className={isMobilFinder 
+                ? "mobil-finder__container" 
+                : "mobil-finder__container is-disable"}>
+                <div className="mobil-finder__container-wrapper">
+                    <div className="mobil-finder__container-text">{finderHeading}</div>
+                </div>
+                <div className="mobil-finder__container-close"
+                        onClick={()=>setMobilFinder(false)}
+                    >×</div>
+
+            </div>
         </>
     )
 }

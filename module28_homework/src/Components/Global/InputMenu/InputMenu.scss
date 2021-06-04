@@ -2,12 +2,12 @@
   display: none;
   @include breakpoint (medium) {
     display: block;
+    
   }
 }
 
 .input__menu__container {
   width: 100%;
-  
   &.is-finder {
     @include breakpoint (medium) {
       display: none;
@@ -42,7 +42,7 @@
     }
   }
   @include breakpoint (medium) {
-    display: flex;
+    // display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
@@ -53,7 +53,7 @@
         flex-direction: column;
         justify-content: center;
         width: 100%;
-        height: 100%;
+        
         // height: 44px;
         &:nth-child(1) {
             border-radius: 0px;
@@ -98,6 +98,15 @@
             margin-right: 15px;
             pointer-events: none;
           }
+          .icon-lupa-green {
+            position: absolute;
+            display: block;
+            margin-right: 15px;
+            align-self: flex-end;
+            pointer-events: none;
+            width: 17px;
+            height: 17px;
+          }
           .icon-category {
             position: absolute;
     
@@ -109,9 +118,9 @@
 
     }
     &-list {
-        
         position: absolute;
-        z-index: 99;
+        margin-top: auto;
+        z-index: 999;
         outline:none;
         width: 329px;
         background: white;
@@ -121,6 +130,7 @@
         opacity: 0;
         transition: all 0.2s ease-in;
         pointer-events: none;
+
         .icon-check-mark {
             
             color: #61A199;
@@ -128,6 +138,7 @@
             pointer-events: none;
             margin-right: 23px;
             font-size: 150%;
+            
           }
         &.is-focus {
             opacity: 1;
@@ -136,16 +147,29 @@
         &-item {
             display: flex;
             align-items: center;
+            
             padding-left: 20px;
             width: calc(100% - 20px);
             height: 58px;
             transition: all 0.1s ease-in;
             font-size: 14px;
+            cursor: pointer;
             &:hover {
                 background: #ECF4F3
+
+            }
+            &:last-child {
+              margin-bottom: 24px;
+            }
+            &-description {
+              position: absolute;
+              align-self: flex-end;
+              font-size: 11px;
+              color: #828282;
 
             }
         }
     }
 
 }
+

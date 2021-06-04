@@ -23,7 +23,7 @@ export class RentCarService {
     newRentCar.power = createRentCarDto.power;
     newRentCar.transmission = createRentCarDto.transmission;
     newRentCar.driveUnit = createRentCarDto.driveUnit;
-    newRentCar.price = createRentCarDto.price;
+    newRentCar.price = Number(createRentCarDto.price);
     newRentCar.city = createRentCarDto.city;
     newRentCar.geo = createRentCarDto.geo;
     newRentCar.category = createRentCarDto.category;
@@ -83,7 +83,6 @@ export class RentCarService {
   async update(req, param) {
     const manager = getMongoManager();
 
-    //return await manager.update(RentCarEntity, param, {geo: req});
     return await manager.updateMany(
       RentCarEntity,
       {}, 

@@ -14,6 +14,8 @@ export const sortCarsListFailure = createAction('SORT_CARS_LIST_FAILURE');
 
 export const setFirstCarLocation = createAction('SET_FIRST_CAR_LOCATION');
 
+export const setFinderHeading = createAction("SET_FINDER_HEADING");
+
 export const sortCarsList = (getJson, url) => {
     return (dispatch, getStore) => {
         dispatch(sortCarsListRequest());

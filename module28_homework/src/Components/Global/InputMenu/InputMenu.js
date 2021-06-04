@@ -2,18 +2,20 @@ import React, { useEffect, useState } from 'react';
 import DatePicker from '../Datepicker/DatePicker';
 import InputMenuItem from './InputMenuItem';
 import { useDispatch } from 'react-redux';
-import { setSecondDate } from '../../../Store/RentPage/actions';
+import { setFinderHeading, setSecondDate } from '../../../Store/RentPage/actions';
+import iconLupaGreen from '../../../Assets/img/Rent-page/icon-lupa-green.svg';
 
 const InputMenu = React.forwardRef(({ 
     list=[],
-    datePicker, category, 
+    datePicker, category, allFilter,
     selectedCity,
     defaultValue,
     name, label, id, idFilterAll,
     value,
     stateDate, stateDate2
     , stateDispatch, stateDispatch2, 
-    isFinder
+    isFinder, isMobilFinder,
+    onClick
 }, ref) => {
     
     const dispatch = useDispatch();
@@ -23,20 +25,38 @@ const InputMenu = React.forwardRef(({
 
     let [menu, setMenu] = useState(list);
     let sortMenu = [...menu];
+    sortMenu.splice(sortMenu.indexOf(undefined));
 
     let [datePickerEnabled, setDatePickerEnabled] = useState(false);
 
-    return (
-        <div className={isFinder ? "input__menu__container is-finder" : "input__menu__container"} tabIndex="1" id={idFilterAll}>
+    useEffect(()=> {
+        console.log(list)
+    })
+
+    return (<>
+
+
+        <div className={isFinder && !isMobilFinder ? "input__menu__container is-finder" : "input__menu__container"} tabIndex="1" id={idFilterAll}
+        style={{
+        display: isMobilFinder && !datePicker && "block",
+        position: isMobilFinder && isFocus && category && "absolute"
+        }}
+        >
             <div className="input__menu__container-select">
                 <input className={isFocus ? "is-focus" : ""} name={name} autoComplete="off" id={id}
-                onFocus={()=>{
+                onFocus={e=>{
                     setFocus(true); setMenu(menu => [...new Set(menu)]);
-                    datePicker && setDatePickerEnabled(true)
+                    datePicker && setDatePickerEnabled(true);
+                    console.log(e.target.id);
+                    if(e.target.id == "rent-date") dispatch(setFinderHeading("Даты"))
+                    if(e.target.id == "rent-category") dispatch(setFinderHeading("Категория"))
                 }} 
-                onBlur={()=>{setFocus(false)}}
+                onBlur={e=>{
+                    setFocus(false);
+                    if(e.target.id == "rent-category") dispatch(setFinderHeading("Поиск"))
+                }}
                 onChange = {e => setInputValue(e.target.value)}
-                value={datePicker ? value : inputValue}
+                value={datePicker || allFilter ? value : inputValue}
                 onInput={e=>{
                     sortMenu.forEach((el,i,arr) => {
                         let regExp = new RegExp('^' + e.target.value, "i");
@@ -45,19 +65,27 @@ const InputMenu = React.forwardRef(({
                     })
                     setMenu(sortMenu);
                 }}
+                onClick={onClick}
                 ref = {ref}
                 ></input>
                 <label className={isFocus || inputValue != "" ? "is-focus" : ""}>{label}</label>
                 {datePicker && <div className="icon-calendar"></div>}
+                {allFilter && <div className="icon-lupa-green" style={{background: `url(${iconLupaGreen})` }}></div>}
                 {category && <div className="icon-category">▼</div>}
             </div>
             
             {list 
-            && <div className={isFocus ? "input__menu__container-list is-focus" : "input__menu__container-list" }
+            && <div className={isFocus 
+                ? "input__menu__container-list is-focus" 
+                : "input__menu__container-list" }
+                style={{width: isMobilFinder ? "100%" : "329px"}}
             onBlur={()=>setFocus(false)}
             tabIndex="1">
-            {menu.map((el,i) => {
-                return <InputMenuItem key={i} city={el} selectedCity={inputValue} onMouseDown={e=>{setInputValue(e.target.innerText); setFocus(false); }}/>;
+            {sortMenu.map((el,i) => {
+                return <InputMenuItem key={i} city={el} selectedCity={inputValue} category={category}
+                onMouseDown={e=>{setInputValue(
+                    category ? e.target.innerText.slice(0, e.target.innerText.indexOf("Категория")) : e.target.innerText)
+                    ; setFocus(false); }}/>;
             })
             }
             
@@ -66,15 +94,18 @@ const InputMenu = React.forwardRef(({
             && <DatePicker enabled="true" 
             stateDate={stateDate} stateDate2={stateDate2}
             stateDispatch={stateDispatch} stateDispatch2={stateDispatch2}
-            enabled={datePickerEnabled}
+            enabled={datePickerEnabled} isMobilFinder={isMobilFinder}
             onBlur={()=>{
                 setDatePickerEnabled(false); 
                 dispatch(setSecondDate(false));
+                dispatch(setFinderHeading("Поиск"));
             }}
             twoDate="true"
             />}
             
         </div>
+        
+        </>
     )
 })
 

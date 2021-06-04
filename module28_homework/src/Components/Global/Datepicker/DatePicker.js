@@ -9,6 +9,7 @@ const DatePicker = ({onBlur
     , stateDate = [], stateDate2 = []
     , stateDispatch = [], stateDispatch2 = []
     , twoDate
+    , isMobilFinder
 }) => {
 
     useEffect(()=> {
@@ -72,7 +73,10 @@ const DatePicker = ({onBlur
     }
 
     return (
-        <div tabIndex="1" className="date-picker-container"
+        <div tabIndex="1" 
+        className={isMobilFinder 
+            ? "date-picker-container mobil-finder" 
+            : "date-picker-container"}
         style={{opacity: enabled ? 1 : 0, pointerEvents: enabled ? "all" : "none"}} 
         onBlur={onBlur}
         >

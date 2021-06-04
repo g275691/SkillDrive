@@ -8,5 +8,5 @@ export const defaultState = {
     
     firstCarLocation: [],
 
-    
+    finderHeading: "Поиск"    
 }
