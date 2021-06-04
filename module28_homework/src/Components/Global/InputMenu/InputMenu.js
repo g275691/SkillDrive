@@ -9,11 +9,11 @@ const InputMenu = React.forwardRef(({
     datePicker, category, 
     selectedCity,
     defaultValue,
-    name, label, id,
+    name, label, id, idFilterAll,
     value,
     stateDate, stateDate2
     , stateDispatch, stateDispatch2, 
-    className
+    isFinder
 }, ref) => {
     
     const dispatch = useDispatch();
@@ -27,7 +27,7 @@ const InputMenu = React.forwardRef(({
     let [datePickerEnabled, setDatePickerEnabled] = useState(false);
 
     return (
-        <div className="input__menu__container" tabIndex="1">
+        <div className={isFinder ? "input__menu__container is-finder" : "input__menu__container"} tabIndex="1" id={idFilterAll}>
             <div className="input__menu__container-select">
                 <input className={isFocus ? "is-focus" : ""} name={name} autoComplete="off" id={id}
                 onFocus={()=>{

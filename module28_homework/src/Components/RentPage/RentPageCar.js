@@ -23,10 +23,10 @@ export const RentPageCar = ({
     let driveUnit = carsList[index].driveUnit;
 
     return (
-        <div className="car-frame" 
+        <div className={isFinder ? "car-frame is-finder" : "car-frame"} 
         >
             <img className="car-frame-car" src={imgCar}></img>
-            {!myCars && <div className="wrapper">
+            {!myCars && <div className={isFinder ? "wrapper is-finder" : "wrapper"}>
                 <div className="car-frame-avatar" 
                 style={{backgroundImage:`url(${imgAvatar})`, backgroundSize: `cover`}}></div>
             </div> }
@@ -36,7 +36,7 @@ export const RentPageCar = ({
                 <div className="car-frame-rating">
                     <span style={{color: "#F2C94C"}}>★</span> {ratingCar} (12)
                 </div>
-                <div className="car-frame-name finder">{nameCar}</div>
+                <div className={isFinder ? "car-frame-name finder" : "car-frame-name"}>{nameCar}</div>
                 <div className={isMapOpen ? "car-frame-info-wrapper is-map-open" : "car-frame-info-wrapper"}>
                     <div className="car-frame-info-engine">
                         <img src={iconCran}/>

@@ -1,10 +1,16 @@
 .rent-page {
     display: flex;
     justify-content: center;
-    
-    
     @include breakpoint (medium) {
         margin-top: 68px;
+    }
+    @include breakpoint (iphone5) {
+        zoom: 0.8;
+    }
+    &.is-finder {
+        @include breakpoint (medium) {
+            margin-top: 0px;
+        }
     }
     h2 {
         margin-bottom: 50px;
@@ -34,7 +40,7 @@
         width: 80%;
         justify-content: center;
         @include breakpoint (medium) {
-            
+            width: auto;
         }
         &.finder {
             width: 95%;
@@ -49,15 +55,19 @@
                 margin-top: 30px;
                 flex-direction: column;
                 align-items: center;
-
+                width: 90%;
             }
             &.finder {
                 margin-top: 30px;
+                @include breakpoint (medium) {
+                    width: calc(100% - 12.5px);
+                }
             }
             .input-wrapper {
                 display: flex;
                 padding-right: 10px;
                 width: 100%;
+
                 @include breakpoint (medium) {
                     flex-direction: column;
                     padding-right: 0px;
@@ -75,6 +85,12 @@
                 width: 25%;
                 margin-top: 0px;
                 padding-bottom: 0px;
+                &.is-finder {
+                    @include breakpoint (medium) {
+                        display: none;
+                    }
+                }
+                
                 &.is-map {
                     padding-right: 40px;
                     width: 20%;
@@ -89,6 +105,7 @@
                     @include breakpoint (medium) {
                         margin-left: 0px;
                         width: 100%;
+                        
                     }
                 }
             }
@@ -100,8 +117,15 @@
             justify-content: space-between;
             width: calc(100% - 12.5px);
             margin-top: 50px;
+            @include breakpoint (medium) {
+                margin-top: 30px;
+                width: 100%;
+                justify-content: center;    
+            }
             .wrapper {
                 display: flex;
+                @include breakpoint (medium) {
+                }
                 button {
                     background: #F7F7F8;
                     border: 1px solid #D0CDE1;
@@ -109,13 +133,20 @@
                     font-size: 14px;
                     width: auto;
                     padding: 10px 12px;
+                    margin: 0px 5px;
                     
-                    border-right: 12px;
-                    margin-right: 12px;
+                    &:last-child {
+                        @include breakpoint (medium) {
+                            display: none;
+                        }
+                    }
                 }
+
             }
             .map-wrapper {
-                
+                @include breakpoint (medium) {
+                    display: none;
+                }
                 display: flex;
                 cursor: pointer;
                 
@@ -144,14 +175,18 @@
             width: calc(100% + 12.5px);
             
             margin-top: 35px;
+            @include breakpoint (medium) {
+                justify-content: center;
+                width: auto;
+            }
             &.finder {
                 flex-direction: column;
+                @include breakpoint (medium) {
+                    margin-top: 0px;
+                    justify-content: center;
+                }
             }
-            @include breakpoint (medium) {
-                margin-top: 30px;
-                justify-content: center;
-                
-            }
+
             .car-frame {
                 display: flex;
                 min-width: 328px;
@@ -159,9 +194,19 @@
                 margin: 15px 12.5px;
                 
                 border-radius: 10px;
+                &:first-child {
+                    @include breakpoint (medium) {
+                        margin-top: 30px;
+                    }
+                }
                 @include breakpoint (medium) {
-                    
-                    
+                    flex-direction: row;
+                }
+                &.is-finder {
+                    @include breakpoint (medium) {
+                        flex-direction: column;
+                        height: auto;
+                    }
                 }
                 img {
                     @include breakpoint (medium) {
@@ -174,16 +219,28 @@
                     flex-direction: column;
                     justify-content: center;
                     margin-left: 19px;
+                    @include breakpoint (medium) {
+                        margin-left: 0px;
+                        justify-content: flex-start;
+                    }
                     &-wrapper {
                         display: flex;
                         flex-direction: row;
                         align-items: center;
                         margin-top: 14px;
+                        @include breakpoint (medium) {
+                            order: 3;
+                            flex-direction: column;
+                            align-items: flex-start;
+                        }
                         .info-driveunit-map {
                             margin-top: 16px;
                         }
                         .img-driveunit-no-map {
                             margin-left: 30px;
+                            @include breakpoint (medium) {
+                                margin-left: 0px;
+                            }
                         }
                         &.is-map-open {
                             flex-direction: column;
@@ -197,14 +254,25 @@
                 }
                 &-rating {
                     font-size: 14px;
+
                     span {
                         font-size: 20px;
+                    }
+                    @include breakpoint (medium) {
+                        order: 1;
+                        position: absolute;
+                        align-self: flex-end;
+                        margin-top: 18px;
                     }
                 }
                 &-price {
                     margin-top: 30px;
                     font-size: 18px;
                     font-weight: 500;
+                    @include breakpoint (medium) {
+                        margin-top: 17px;
+                        order: 5;
+                    }
                 }
                 &-name {
                     position: absolute;
@@ -212,6 +280,9 @@
                     color: white;
                     font-size: 20px;
                     margin-left: 20px;
+                    @include breakpoint (medium) {
+                        align-self: flex-end;
+                    }
                     &.finder {
                         position: relative;
                         color: black;
@@ -219,6 +290,10 @@
                         align-self: flex-start;
                         margin-left: 0px;
                         margin-top: 10px;
+                        @include breakpoint (medium) {
+                            margin-top: 17px;
+                            order: 2;
+                        }
                     }
                     p {
                         font-size: 14px;
@@ -232,7 +307,11 @@
                     flex-direction: column;
                     width: 328px;
                     margin-top: 15px;
-                    
+                    &.is-finder {
+                        @include breakpoint (medium) {
+                            display: none;
+                        }
+                    }
                 }
                 &-avatar {
                     align-self: flex-end;
@@ -257,12 +336,15 @@
                     align-self: center;
 
                     margin-left: auto;
-
+                    
                 }
                 &-action {
                     background: #E8F1F0;
                     color: #61A199;
                     width: 158px;
+                    @include breakpoint (medium) {
+                        display: none;
+                    }
                 }
             }
         }

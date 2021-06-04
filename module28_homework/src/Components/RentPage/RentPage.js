@@ -57,15 +57,24 @@ export const RentPage = ({carsList
     return (
         <>
         <Header />
-        <div className="rent-page">
+        <div className={isFinder ? "rent-page is-finder" : "rent-page" }>
             <div className={isMapOpen ? "rent-page-container finder" : "rent-page-container"}>
                 {!isFinder && <h2>Арендуйте автомобиль</h2>}
                 <form className={isFinder ? "rent-page-container__filter finder" : "rent-page-container__filter"} 
                 onSubmit={e => e.preventDefault()}>
                     <div className="input-wrapper">
+                        {isFinder 
+                        ? <InputMenu defaultValue="Санкт-Петербург" 
+                        name="all" label="Поиск" idFilterAll="rent-all"
+                        ref={register({ required: true })}
+                        />
+                        : ""}
+
+
                         <InputMenu list={carsCity} defaultValue="Санкт-Петербург" 
                         name="city" label="Местоположение" id="rent-city"
                         ref={register({ required: true })}
+                        isFinder={isFinder}
                         />
 
                         <InputMenu 
@@ -73,17 +82,21 @@ export const RentPage = ({carsList
                         ref={register({ required: true })} id="rent-date"
                         datePicker stateDate={availableCar} stateDate2={availableCar2} 
                         stateDispatch={setAvailableCar} stateDispatch2={setAvailableCar2}
+                        isFinder={isFinder}
                         />
                         
                         <InputMenu list={carsCategory} defaultValue="Легковая" 
                         name="category" label="Категория" category id="rent-category"
-                        ref={register({ required: true })}/>
+                        ref={register({ required: true })}
+                        isFinder={isFinder}
+                        />
                     </div>
-                    <div className={isMapOpen ? "button-wrapper is-map" : "button-wrapper"} >
+                    <div className={isMapOpen ? "button-wrapper is-map" : (isFinder ? "button-wrapper is-finder" : "button-wrapper")} >
                         <button 
                         onClick={()=> {
                             new Date(availableCar) > new Date(availableCar2) ? dispatch(setAvailableCar2(availableCar)) : "";
                             sortCarsList(setCarsList, `http://localhost:8000/rent-car?city=${getValues().city}&category=${getValues().category}&dateAvailable=${availableCar}|${availableCar2}`);                          
+                            setFinder(true)
                         }
                     }>{!isMapOpen ? "Найти "
                     : <img src={ iconLupa } ></img>

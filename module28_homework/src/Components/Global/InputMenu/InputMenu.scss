@@ -1,9 +1,25 @@
+#rent-all {
+  display: none;
+  @include breakpoint (medium) {
+    display: block;
+  }
+}
+
 .input__menu__container {
   width: 100%;
+  
+  &.is-finder {
+    @include breakpoint (medium) {
+      display: none;
+    }
+  }
+  
+
   #rent-city{
     border-top-right-radius: 0px;
     border-bottom-right-radius: 0px;
     @include breakpoint (medium) {
+      
       border-radius: 8px;
     }
   }
@@ -13,6 +29,7 @@
     border-top-right-radius: 0px;
     border-bottom-right-radius: 0px;
     @include breakpoint (medium) {
+      
       border-radius: 8px;
     }
   }
@@ -20,16 +37,17 @@
     border-top-left-radius: 0px;
     border-bottom-left-radius: 0px;
     @include breakpoint (medium) {
+      
       border-radius: 8px;
     }
   }
-    @include breakpoint (medium) {
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      
-    }
+  @include breakpoint (medium) {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    
+  }
     &-select {
         display: flex;
         flex-direction: column;
