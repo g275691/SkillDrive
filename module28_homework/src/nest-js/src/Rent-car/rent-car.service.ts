@@ -38,6 +38,7 @@ export class RentCarService {
   }
 
   async findStart(param) {
+    /*Это тестовый запрос*/
     const manager = getMongoManager();
     delete param["dateAvailable"];
 
@@ -57,8 +58,15 @@ export class RentCarService {
     delete param["dateAvailable"];
     let availableCars = [];
     
-    let findCars = await manager.find( RentCarEntity, param )
+    /*Тут сначала фильтруются данные по городу и категории*/
+    /*Сообственно здесь и должна быть сортировка, как я полагаю
+    let findCars = await manager.find( RentCarEntity, param ).sort({"price": -1})
+    но это не работает
+    */
+    let findCars = await manager.find( RentCarEntity, param ); 
+  
 
+    /*Тут идёт перебор по доступным датам (пока без mongo, тоже не понимаю как иначе (хотя работает))*/
     findCars.forEach(car => {
       !car.dateAvailable.length
       ? availableCars.push(car)
