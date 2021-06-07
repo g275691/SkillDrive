@@ -11,7 +11,6 @@ import { setFormatDate } from './SetFormatDate';
 import iconMap from '../../Assets/img/Rent-page/icon-map.svg';
 import iconLupa from '../../Assets/img/Rent-page/icon-lupa.svg';
 
-
 import { YMaps, Map, Placemark } from "react-yandex-maps";
 
 export const RentPage = ({carsList

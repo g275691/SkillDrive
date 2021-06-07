@@ -4,18 +4,21 @@ import InputMenuItem from './InputMenuItem';
 import { useDispatch } from 'react-redux';
 import { setFinderHeading, setSecondDate } from '../../../Store/RentPage/actions';
 import iconLupaGreen from '../../../Assets/img/Rent-page/icon-lupa-green.svg';
+import {carBrandApi} from '../../NewCar/carBrandApi';
 
 const InputMenu = React.forwardRef(({ 
     list=[],
-    datePicker, category, allFilter,
+    datePicker, category, allFilter,  
+    menuBrand, arrow,
     selectedCity,
     defaultValue,
     name, label, id, idFilterAll,
-    value,
+    value, placeholder,
+    isMini, readOnly,
     stateDate, stateDate2
     , stateDispatch, stateDispatch2, 
     isFinder, isMobilFinder,
-    onClick
+    onClick, onInput
 }, ref) => {
     
     const dispatch = useDispatch();
@@ -25,13 +28,11 @@ const InputMenu = React.forwardRef(({
 
     let [menu, setMenu] = useState(list);
     let sortMenu = [...menu];
-    sortMenu.splice(sortMenu.indexOf(undefined));
+    
 
     let [datePickerEnabled, setDatePickerEnabled] = useState(false);
 
     return (<>
-
-
         <div className={isFinder && !isMobilFinder ? "input__menu__container is-finder" : "input__menu__container"} tabIndex="1" id={idFilterAll}
         style={{
         display: isMobilFinder && !datePicker && "block",
@@ -39,7 +40,8 @@ const InputMenu = React.forwardRef(({
         }}
         >
             <div className="input__menu__container-select">
-                <input className={isFocus ? "is-focus" : ""} name={name} autoComplete="off" id={id}
+                <input className={isFocus ? "is-focus" : (isMini ? "is-mini2" : "")} name={name} autoComplete="off" id={id}
+                placeholder={placeholder} readOnly={readOnly}
                 onFocus={e=>{
                     setFocus(true); setMenu(menu => [...new Set(menu)]);
                     datePicker && setDatePickerEnabled(true);
@@ -53,14 +55,16 @@ const InputMenu = React.forwardRef(({
                 }}
                 onChange = {e => setInputValue(e.target.value)}
                 value={datePicker || allFilter ? value : inputValue}
-                onInput={e=>{
+                onInput={e => {
+                    if(menuBrand) return carBrandApi(e.target.value, setMenu);
                     sortMenu.forEach((el,i,arr) => {
                         let regExp = new RegExp('^' + e.target.value, "i");
                         regExp.test(el) && e.target.value != ""
                         ? (arr.splice(i,1), arr.unshift(el)) : ""
                     })
                     setMenu(sortMenu);
-                }}
+                }
+            }
                 onClick={onClick}
                 ref = {ref}
                 ></input>
@@ -70,7 +74,7 @@ const InputMenu = React.forwardRef(({
                 && <div className="icon-lupa-green" 
                 style={{background: `url(${iconLupaGreen})` }}
                 ></div>}
-                {category && <div className="icon-category">▼</div>}
+                {category || arrow ? <div className="icon-category">▼</div> : ""}
             </div>
             
             {list 
@@ -83,7 +87,7 @@ const InputMenu = React.forwardRef(({
             {sortMenu.map((el,i) => {
                 return <InputMenuItem key={i} city={el} selectedCity={inputValue} category={category}
                 onMouseDown={e=>{setInputValue(
-                    category ? e.target.innerText.slice(0, e.target.innerText.indexOf("Категория")) : e.target.innerText)
+                    category ? e.target.innerText.slice(0, e.target.innerText.indexOf("Категория")) : e.target.innerText.replace("🗸", ""))
                     ; setFocus(false); }}/>;
             })
             }

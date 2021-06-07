@@ -8,7 +8,7 @@ export const ${yargs} = ({}) => {
     const [active, setActive] = useState(false);
 
     return (
-        <div className="${yargs.toLowerCase()}-container">
+        <div className="${yargs.toLowerCase()}__container">
         
         </div>
     )

@@ -36,7 +36,7 @@
 /*Rent-page*/
 @import "../components/RentPage/RentPage.scss";
 @import "../components/Mycars/MyCars.scss";
-
+@import "../components/newCar/newCar.scss";
 
 @import '../Components/Global/InputMenu/InputMenu.scss';
 
@@ -114,5 +114,23 @@ input {
   border-radius: 8px;
   &:focus {
     border-radius: 8px;
+  }
+}
+
+.back-page-arrow {
+  position: absolute;
+  width: 75px;
+  height: 24px;
+  left: 15%;
+
+  display: flex;
+  justify-content: space-between;
+  cursor: pointer;
+  color: $green-rect;
+
+
+  @include breakpoint (medium) {
+    margin-top: -30px;
+    left: 10%;
   }
 }

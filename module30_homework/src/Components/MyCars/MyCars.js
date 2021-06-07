@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import Header from '../../Containers/Header/Header';
 import RentPageCar from '../../Containers/RentPage/RentPageCar';
 import ferrari from '../../Assets/img/Rent-page/ferrari.svg'
+import { Link } from 'react-router-dom';
 
 export const MyCars = ({
     sortCarsList, setCarsList
@@ -12,7 +13,7 @@ export const MyCars = ({
         sortCarsList(setCarsList, `http://localhost:8000/rent-car/${localStorage.getItem("userMail")}`);
 
     }, [])
-
+    
     const carsList = useSelector(state => state.RentPage.carsList);
 
     return ( <>
@@ -35,7 +36,10 @@ export const MyCars = ({
         </div>
         {carsList.length ? <div className="submit-block-rect"></div> : ""}
         <div className={carsList.length ? "button-wrapper-mycar" : "button-wrapper-mycar empty"}>
+        <Link to="/new-car" rel="nofollow">
             <button>Добавить автомобиль</button>
+        </Link>
+            
         </div>
         </>
     )

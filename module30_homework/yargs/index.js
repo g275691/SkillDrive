@@ -4,7 +4,7 @@ const makrosComponent = require('./makrosComponent');
 const makrosContainer = require('./makrosContainer');
 const makrosStoreActions = require('./makrosStore');
 
-//Пример: node yargs/index.js test
+//Пример: node yargs/index.js create NewCar
 require('yargs')
     .command(['value <value>', 'create'], 'Component+scss+container+store'
     , {}
@@ -20,7 +20,7 @@ require('yargs')
             })
             .then(()=> {
                 fs.appendFile(`${folderComponent}/${yargsValue}.scss`
-                , `.${yargsValue.toLowerCase()}-container {
+                , `.${yargsValue.toLowerCase()}__container {
     display: flex;
 }`)
             })

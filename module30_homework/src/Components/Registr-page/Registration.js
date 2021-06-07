@@ -5,6 +5,7 @@ import OnSubmit from '../../Containers/Registration/Step1/OnSubmit';
 import Step1Forms from '../../Containers/Registration/Step1/Step1Forms';
 import CloudContainer from '../../Containers/Registration/Step3-CloudContainer/CloudContainer';
 import PhotoAvatar from '../../Containers/Registration/Step2/PhotoAvatar';
+import BackPageArrow from '../Global/BackPageArrow/BackPageArrow';
 
 export const Registration = ({ 
     photosDoc, 
@@ -26,13 +27,9 @@ return (
 <Header />
 <section className="registration">
     <div className="registration__container">
-        {!isStep1 ? 
-        <div className="registration__container-back" 
-        onClick={()=> isStep2 ? (setStep1(true), setStep2(false)) 
-        : isStep3 ? (setStep2(true), setStep3(false)) : ""}>
-            <span className="icon-back"></span>
-            <span>Назад</span>
-        </div> : ""}
+        <BackPageArrow isStep1={isStep1} isStep2={isStep2} isStep3={isStep3}
+        setStep1={setStep1} setStep2={setStep2} setStep3={setStep3}/>
+
         <div className="registration__container-step">
         {isStep3 ? "Шаг 3 из 3" 
         : isStep2 ? "Шаг 2 из 3" 
