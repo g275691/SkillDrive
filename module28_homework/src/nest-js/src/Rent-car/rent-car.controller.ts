@@ -1,7 +1,6 @@
 import { Controller, Get, Query, Post, Body, Param, Delete, Put } from '@nestjs/common';
 import { RentCarService } from './rent-car.service';
 import { CreateRentCarDto } from './dto/create-rent-car.dto';
-import { testDto } from 'src/Registration/dto/testDto';
 
 @Controller('rent-car')
 export class RentCarController {

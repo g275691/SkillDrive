@@ -51,7 +51,7 @@ const FormBlock = React.forwardRef(({
     ? "form-block invalid" : "form-block"}>
         
         <label>{label}</label>
-        <div className={password ? "wrapper password-input" : "wrapper"}>
+        <div className={password ? "wrapper password-input" : (isMini ? "wrapper is-mini" : "wrapper")}>
             {type == "date" ? <div className={!isMini ? "icon-calendar" : "icon-calendar is-mini"}></div> : ""}
             <input name={name} ref={ref } autoComplete = {autoComplete}
             style={{cursor: type == "date" && "pointer"}}

@@ -5,6 +5,7 @@ const createAction = type => payload => ({ type, payload });
 import { onSubmitGET, onSubmitPOST } from '../Submits';
 import { setAuth } from '../Login/actions';
 import jwtDecode from 'jwt-decode';
+import { getName } from '../config/getName';
 
 /*All inputs in step1*/
 
@@ -202,7 +203,7 @@ export const setFinishReg = () => {
                        localStorage.setItem("accessToken", json.accessToken);
                        localStorage.setItem("refreshToken", json.refreshToken);
                        localStorage.setItem("userMail", jwtDecode(json.accessToken).mail)
-                       
+                       getName();
                     })
                 }
             },

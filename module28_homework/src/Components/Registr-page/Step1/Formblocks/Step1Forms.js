@@ -7,6 +7,7 @@ import OnSubmit from '../../../../Containers/Registration/Step1/OnSubmit';
 import { setUserBirthday
     , setUserPassportDate
     , setUserDriverDate} from '../../../../Store/Global/actions';
+import { setFormatDate } from '../../../RentPage/SetFormatDate';
 
 export const Step1Forms = ({
     setRegButtonActive1,
@@ -56,7 +57,7 @@ export const Step1Forms = ({
                 ref={register({ required: true, minLength: 6 })}/>
 
                 <FormBlock label="Дата рождения" hint="00.00.0000" name="birthday" type="date"
-                value = {userBirthday} typeDate="userBirthday"
+                value = {setFormatDate(userBirthday, true)} typeDate="userBirthday"
                 stateDate = {userBirthday}
                 stateDispatch={setUserBirthday}
                 errorName={errors.birthday} isMini
@@ -82,7 +83,7 @@ export const Step1Forms = ({
                 ref={register({ required: true, minLength: 10, maxLength: 10 })}/>
 
                 <FormBlock type="date" hint="00.00.0000" label="Дата выдачи" 
-                name="passportDate" value = {userPassportDate}
+                name="passportDate" value = {setFormatDate(userPassportDate, true)}
                 errorName={errors.passportDate}
                 stateDate = {userPassportDate}
                 stateDispatch={setUserPassportDate}
@@ -108,7 +109,7 @@ export const Step1Forms = ({
                 ref={register({ required: true, maxLength: 10, minLength: 10})}/> 
 
                 <FormBlock type="date" isMini hint="00.00.0000" label="Дата выдачи" 
-                name="driverDate" value = {userDriverDate}
+                name="driverDate" value = {setFormatDate(userDriverDate,true)}
                 stateDate = {userDriverDate}
                 stateDispatch={setUserDriverDate}
                 errorName={errors.driverDate}

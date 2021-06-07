@@ -46,10 +46,12 @@ const DatePickerDay = ({ day, month, year
             (stateDate[2] == day 
                 && stateDate[0] == year 
                 && stateDate[1] == month 
+                && twoDate
                 ? "linear-gradient(to left, #DFECEB 50%, white 50% )" 
             : (stateDate2[2] == day 
                 && stateDate2[0] == year 
                 && stateDate2[1] == month 
+                && twoDate
                 ? "linear-gradient(to right, #DFECEB 50%, white 50% )" : ""))
         
         }}

@@ -22,16 +22,24 @@ export const RentPage = ({carsList
     let [carsCity, setCarsCity] = useState([]);
     let [carsCategory, setCarsCategory] = useState([]);
 
-    let [isFinder, setFinder] = useState(false);
+    let [isFinder, setFinder] = useState(true);
     let [isMapOpen, setMapOpen] = useState(false);
     let [isMobilFinder, setMobilFinder] = useState(false);
 
-    
+    let [sort, setSort] = useState("price");
     
     const mapState = React.useMemo(() => ({ center: firstCarLocation, zoom: 13 }), [
         firstCarLocation,
     ])
     const windowHeight = window.screen.height;
+
+    const onSubmit = () => {
+        new Date(availableCar) > new Date(availableCar2) ? dispatch(setAvailableCar2(availableCar)) : "";
+        sortCarsList(setCarsList
+            , `http://localhost:8000/rent-car?city=${getValues().city}&category=${getValues().category}&dateAvailable=${availableCar}|${availableCar2}&sort=${sort}`);                          
+        setFinder(true);
+        setMobilFinder(false)
+    }
 
     useEffect(() => {
         sortCarsList(setCarsList, "http://localhost:8000/rent-car/start?city=Санкт-Петербург&category=Легковая");
@@ -105,13 +113,7 @@ export const RentPage = ({carsList
                     style={{position: isMobilFinder && "fixed", top: isMobilFinder && "88%", width: isMobilFinder && "calc(90% - 12.5px)"}}
                     >
                         <button 
-                        onClick={()=> {
-                            new Date(availableCar) > new Date(availableCar2) ? dispatch(setAvailableCar2(availableCar)) : "";
-                            sortCarsList(setCarsList, `http://localhost:8000/rent-car?city=${getValues().city}&category=${getValues().category}&dateAvailable=${availableCar}|${availableCar2}`);                          
-                            setFinder(true);
-                            setMobilFinder(false)
-                        }
-                    }>{!isMapOpen ? "Найти "
+                        onClick={onSubmit}>{!isMapOpen ? "Найти "
                     : <img src={ iconLupa } ></img>
                     }</button>
                     </div>
@@ -120,10 +122,10 @@ export const RentPage = ({carsList
                 ? <span className="rent-page-recommend">Рекомендуем поблизости</span>
                 : <div className="rent-page-container__sort">
                 <div className="wrapper">
-                    <button >Любая цена</button>
-                    <button>Любые КПП</button>
-                    <button>Любой привод</button>
-                    <button>Любые двигатели</button>
+                    <button className={sort == "price" ? "active" : ""} onClick={()=>setSort("price")} >Любая цена</button>
+                    <button className={sort == "transmission" ? "active" : ""} onClick={()=>setSort("transmission")}>Любые КПП</button>
+                    <button className={sort == "driveUnit" ? "active" : ""} onClick={()=>setSort("driveUnit")}>Любой привод</button>
+                    <button className={sort == "engine" ? "active" : ""} onClick={()=>setSort("engine")}>Любые двигатели</button>
                 </div>
                 <div className="map-wrapper"
                 onClick={()=> {

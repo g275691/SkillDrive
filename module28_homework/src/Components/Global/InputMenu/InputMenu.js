@@ -29,10 +29,6 @@ const InputMenu = React.forwardRef(({
 
     let [datePickerEnabled, setDatePickerEnabled] = useState(false);
 
-    useEffect(()=> {
-        console.log(list)
-    })
-
     return (<>
 
 
@@ -70,7 +66,10 @@ const InputMenu = React.forwardRef(({
                 ></input>
                 <label className={isFocus || inputValue != "" ? "is-focus" : ""}>{label}</label>
                 {datePicker && <div className="icon-calendar"></div>}
-                {allFilter && <div className="icon-lupa-green" style={{background: `url(${iconLupaGreen})` }}></div>}
+                {allFilter 
+                && <div className="icon-lupa-green" 
+                style={{background: `url(${iconLupaGreen})` }}
+                ></div>}
                 {category && <div className="icon-category">▼</div>}
             </div>
             
