@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import InputMenu from '../Global/InputMenu/InputMenu';
 import FormBlock from '../Registr-page/Step1/Formblocks/FormBlock';
 import { useForm  } from 'react-hook-form';
+import OnSubmit from './OnSubmit';
 
 const Step1 = ({
 
@@ -16,7 +17,7 @@ const Step1 = ({
         console.log(getValues())
     }
 
-    return (
+    return (<>
         <form>
             <div className="form-container">
                 <fieldset>
@@ -88,11 +89,12 @@ const Step1 = ({
                         <div className="form-block-engine">
 
                             <InputMenu 
-                            placeholder="184 л.с." 
+                            placeholder="184 л.с." name="power"
                             />
                             <InputMenu 
                             placeholder="135,332 кВт" 
-                            ref={register({ required: true })} name="power"
+                            ref={register({ required: true })} 
+                            readOnly
                             />
                         </div>
                     </div>
@@ -172,11 +174,11 @@ const Step1 = ({
                         />
                     </div>
                 </fieldset>
-                <div className="button-wrapper">
-                    <button onClick={onSubmit}>Продолжить</button>
-                </div>
+                
             </div>
+            
         </form>
+        </>
     )
 }
 

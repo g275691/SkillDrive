@@ -2,7 +2,7 @@ import { connect } from 'react-redux';
 
 import { NewCar } from '../../Components/NewCar/NewCar';
 
-import { setRegButtonActive } from '../../Store/NewCar/actions';
+import { setRegButtonActive, setStep } from '../../Store/NewCar/actions';
 
 const mapStateToProps = state => {
     const { NewCar } = state;
@@ -10,6 +10,7 @@ const mapStateToProps = state => {
 }
 
 const mapDispatchToProps = dispatch => ({
+    setStep: number => dispatch(setStep(number)),
     setRegButtonActive: text => dispatch(setRegButtonActive(text)),
 });
 
