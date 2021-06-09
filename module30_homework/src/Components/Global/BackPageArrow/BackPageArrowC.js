@@ -3,9 +3,10 @@ import React from 'react';
 const BackPageArrowC = ({ isStep, setStep }) => {
     return (
         <div className="back-page-arrow" 
-            onClick={()=> isStep == 2
-                ? setStep(1)
-                : isStep == 3 ? setStep(2) : ""}>
+            onClick={()=> 
+                isStep == 2 ? setStep(1)
+                : isStep == 3 ? setStep(2) 
+                : isStep == 4 ? setStep(3) : ""}>
             <span className="icon-back"></span>
             <span>Назад</span>
         </div>

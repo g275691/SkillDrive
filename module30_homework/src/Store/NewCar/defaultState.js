@@ -1,4 +1,6 @@
 export const defaultState = {
-    isStep: 2,
+    isStep: 4,
     buttonLoad: false,
+    photosCars: [],
+    photosCarsDocs: []
 }

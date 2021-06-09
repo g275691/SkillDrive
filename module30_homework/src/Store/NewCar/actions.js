@@ -7,6 +7,9 @@ export const onAuthRequest = createAction('ON_AUTH_REQUEST');
 export const onAuthSuccess = createAction('ON_AUTH_SUCCESS');
 export const onAuthFailure = createAction('ON_AUTH_FAILURE');
 
+export const setPhotosCars = createAction('SET_PHOTOS_CARS');
+export const setPhotosCarsDocs = createAction('SET_PHOTOS_CARS_DOCS');
+
 export const onAuth = data => {
     return (dispatch, getStore) => {
         dispatch(onAuthRequest());
