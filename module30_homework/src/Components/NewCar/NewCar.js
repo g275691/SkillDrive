@@ -12,6 +12,7 @@ export const NewCar = ({
     warning,
     isStep, 
     setStep, 
+    setStep1Forms, step1Forms,
     photosCars, setPhotosCars,
     photosCarsDocs, setPhotosCarsDocs
 }) => {
@@ -37,11 +38,11 @@ export const NewCar = ({
                 : isStep == 4 ? "СТС или ПТС автомобиля, полис ОСАГО, полис КАСКО (если есть)" : ""
             }
             </span> : ""}
-            {isStep == 1 && <Step1 />}
+            {isStep == 1 && <Step1 isStep={isStep} setStep1Forms={setStep1Forms} isStep={isStep} setStep={setStep} step1Forms={step1Forms}/>}
             {isStep == 2 && <Step2 />}
             {isStep == 3 && <UploaderCloud photos={photosCars} setPhotos={setPhotosCars}/>}
             {isStep == 4 && <UploaderCloud photos={photosCarsDocs} setPhotos={setPhotosCarsDocs}/>}
-            <OnSubmit />
+            {/* <OnSubmit setStep1Forms={setStep1Forms} isStep={isStep} setStep={setStep}/> */}
         </div>
     </>)
 }

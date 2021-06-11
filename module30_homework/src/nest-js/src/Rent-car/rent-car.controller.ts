@@ -1,14 +1,23 @@
-import { Controller, Get, Query, Post, Body, Param, Delete, Put } from '@nestjs/common';
+import { Controller, Get, Query, Post, Body, Param, Delete, Put, HttpCode } from '@nestjs/common';
 import { RentCarService } from './rent-car.service';
 import { CreateRentCarDto } from './dto/create-rent-car.dto';
+import { step1ValidateDto } from './dto/step1-validate.dto';
 
 @Controller('rent-car')
 export class RentCarController {
   constructor(private readonly rentCarService: RentCarService) {}
 
-  @Post()
+  @Post('create')
   async create(@Body() createRentCarDto: CreateRentCarDto) {
+    console.log(createRentCarDto)
     return this.rentCarService.create(createRentCarDto);
+  }
+
+  @Post('step1')
+  @HttpCode(200)
+  async step1Validate(@Body() step1ValidateDto: step1ValidateDto) {
+    console.log(step1ValidateDto);
+    return;
   }
 
   @Put(':model')

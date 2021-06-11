@@ -1,6 +1,5 @@
 import { ObjectId } from "mongoose";
 
-
 export class CreateRentCarDto {
     _id: ObjectId;
     brand: string

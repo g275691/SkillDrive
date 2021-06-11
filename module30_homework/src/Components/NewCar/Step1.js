@@ -1,20 +1,28 @@
 import React, { useEffect, useState } from 'react';
 import InputMenu from '../Global/InputMenu/InputMenu';
-import FormBlock from '../Registr-page/Step1/Formblocks/FormBlock';
 import { useForm  } from 'react-hook-form';
 import OnSubmit from './OnSubmit';
 
 const Step1 = ({
-
+    isStep, step1Forms
 }) => {
 
-    const { register, handleSubmit, getValues, errors } = useForm({
+    const { register, getValues, errors } = useForm({
         mode: 'onTouched',
+        defaultValues: step1Forms && step1Forms
     });
 
-    const onSubmit = e => {
-        e.preventDefault();
-        console.log(getValues())
+    const [step1OK, setStep1OK] = useState(false);
+
+    useEffect(()=> {
+        
+    })
+
+    const unlockSubmit = () => {
+        let isNotEmpty = Object.values(getValues())
+        .every(el => el.length >=1 );
+
+        isStep == 1 && isNotEmpty ? setStep1OK(true) : setStep1OK(false);
     }
 
     return (<>
@@ -25,9 +33,11 @@ const Step1 = ({
                     <div className="form-block">
                         <span>Марка</span>
                         <InputMenu menuBrand arrow
-                        defaultValue="Acura" 
-                        list={[]}
+                        placeholder="Acura"
+                        list={["Acura"]}
                         ref={register({ required: true })} name="brand"
+                        errorName={errors.brand}
+                        unlockSubmit={unlockSubmit}
                         />
                     </div>
                     <div className="form-block">
@@ -35,14 +45,18 @@ const Step1 = ({
                         <InputMenu 
                         placeholder="3-series" 
                         ref={register({ required: true })} name="model"
+                        errorName={errors.model}
+                        unlockSubmit={unlockSubmit}
                         />
                     </div>
                     <div className="form-block">
                         <span>Год выпуска</span>
-                        <InputMenu 
+                        <InputMenu type="number"
                         isMini
                         placeholder="2018" 
                         ref={register({ required: true })} name="year"
+                        errorName={errors.year}
+                        unlockSubmit={unlockSubmit}
                         />
                     </div>
                     <div className="form-block">
@@ -51,6 +65,8 @@ const Step1 = ({
                         isMini
                         placeholder="М123КА178" 
                         ref={register({ required: true })} name="licence"
+                        errorName={errors.licence}
+                        unlockSubmit={unlockSubmit}
                         />
                     </div>
                     <div className="form-block">
@@ -58,13 +74,17 @@ const Step1 = ({
                         <InputMenu 
                         placeholder="WBADM6343YGU11738" 
                         ref={register({ required: true })} name="VIN"
+                        errorName={errors.VIN}
+                        unlockSubmit={unlockSubmit}
                         />
                     </div>
                     <div className="form-block">
                         <span>Цвет</span>
                         <InputMenu 
-                        defaultValue="Синий" 
+                        placeholder="Синий" 
                         ref={register({ required: true })} name="color"
+                        errorName={errors.color}
+                        unlockSubmit={unlockSubmit}
                         />
                     </div>
 
@@ -74,14 +94,20 @@ const Step1 = ({
                         defaultValue="Бензин" readOnly
                         list={["Бензин", "Газ", "Дизель"]}
                         ref={register({ required: true })} name="engine"
+                        errorName={errors.engine}
+                        unlockSubmit={unlockSubmit}
+                        unlockSubmit={unlockSubmit}
                         />
                     </div>
                     <div className="form-block">
                         <span>Объем</span>
-                        <InputMenu 
+                        <InputMenu type="number"
                         isMini
                         placeholder="2,0 л" 
                         ref={register({ required: true })} name="volume"
+                        errorName={errors.volume}
+                        unlockSubmit={unlockSubmit}
+                        unlockSubmit={unlockSubmit}
                         />
                     </div>
                     <div className="form-block">
@@ -90,10 +116,13 @@ const Step1 = ({
 
                             <InputMenu 
                             placeholder="184 л.с." name="power"
-                            />
-                            <InputMenu 
-                            placeholder="135,332 кВт" 
                             ref={register({ required: true })} 
+                            errorName={errors.power}
+                            unlockSubmit={unlockSubmit}
+                            />
+                            <InputMenu type="number"
+                            placeholder="135,332 кВт" 
+                            
                             readOnly
                             />
                         </div>
@@ -102,17 +131,21 @@ const Step1 = ({
                         <span>Трансмиссия</span>
                         <InputMenu arrow
                         readOnly
-                        defaultValue="Трансмиссия" 
+                        defaultValue="Автоматическая" 
                         list={["Автоматическая", "Механика"]}
                         ref={register({ required: true })} name="transmission"
+                        errorName={errors.transmission}
+                        unlockSubmit={unlockSubmit}
                         />
                     </div>
                     <div className="form-block">
                         <span>Пробег</span>
-                        <InputMenu 
+                        <InputMenu type="number"
                         isMini
                         placeholder="24 000 км" 
                         ref={register({ required: true })} name="mileage"
+                        errorName={errors.mileage}
+                        unlockSubmit={unlockSubmit}
                         />
                     </div>
                     <div className="form-block">
@@ -120,6 +153,8 @@ const Step1 = ({
                         <InputMenu 
                         placeholder="78 МК 213456" 
                         ref={register({ required: true })} name="PTS"
+                        errorName={errors.PTS}
+                        unlockSubmit={unlockSubmit}
                         />
                     </div>
                     <div className="form-block">
@@ -127,6 +162,8 @@ const Step1 = ({
                         <InputMenu 
                         placeholder="78 МК 213456" 
                         ref={register({ required: true })} name="STS"
+                        errorName={errors.STS}
+                        unlockSubmit={unlockSubmit}
                         />
                     </div>
                 </fieldset>
@@ -134,26 +171,32 @@ const Step1 = ({
                     <legend>Стоимость аренды</legend>
                     <div className="form-block">
                         <span>Обычная цена</span>
-                        <InputMenu 
+                        <InputMenu type="number"
                         isMini
                         placeholder="2 300 ₽/сутки" 
                         ref={register({ required: true })} name="price"
+                        errorName={errors.price}
+                        unlockSubmit={unlockSubmit}
                         />
                     </div>
                     <div className="form-block">
                         <span>Цена при аренде на 3 дня</span>
-                        <InputMenu 
+                        <InputMenu type="number"
                         isMini
                         placeholder="2 100 ₽/сутки" 
                         ref={register({ required: true })} name="price3"
+                        errorName={errors.price3}
+                        unlockSubmit={unlockSubmit}
                         />
                     </div>
                     <div className="form-block">
                         <span>Цена при аренде более 5 дней</span>
-                        <InputMenu 
+                        <InputMenu type="number"
                         isMini
                         placeholder="2 000 ₽/сутки" 
                         ref={register({ required: true })} name="price5"
+                        errorName={errors.price5}
+                        unlockSubmit={unlockSubmit}
                         />
                     </div>
                 </fieldset>
@@ -164,6 +207,8 @@ const Step1 = ({
                         <InputMenu 
                         placeholder="ААА 123456789" 
                         ref={register({ required: true })} name="OSAGO"
+                        errorName={errors.OSAGO}
+                        unlockSubmit={unlockSubmit}
                         />
                     </div>
                     <div className="form-block">
@@ -171,6 +216,8 @@ const Step1 = ({
                         <InputMenu 
                         placeholder="ААА 123456789" 
                         ref={register({ required: true })} name="CASCO"
+                        errorName={errors.CASCO}
+                        unlockSubmit={unlockSubmit}
                         />
                     </div>
                 </fieldset>
@@ -178,6 +225,7 @@ const Step1 = ({
             </div>
             
         </form>
+        <OnSubmit step1Values={getValues()} step1OK={step1OK}/>
         </>
     )
 }

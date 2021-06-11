@@ -10,15 +10,15 @@ const InputMenu = React.forwardRef(({
     list=[],
     datePicker, category, allFilter,  
     menuBrand, arrow,
-    selectedCity,
     defaultValue,
     name, label, id, idFilterAll,
-    value, placeholder,
+    value, placeholder, type,
     isMini, readOnly,
     stateDate, stateDate2
     , stateDispatch, stateDispatch2, 
     isFinder, isMobilFinder,
-    onClick, onInput
+    onClick, unlockSubmit,
+    errorName
 }, ref) => {
     
     const dispatch = useDispatch();
@@ -29,6 +29,9 @@ const InputMenu = React.forwardRef(({
     let [menu, setMenu] = useState(list);
     let sortMenu = [...menu];
     
+    if(errorName) {
+        if(errorName.type == "required") { errorName.message = "Поле не должно оставаться пустым" }
+    }
 
     let [datePickerEnabled, setDatePickerEnabled] = useState(false);
 
@@ -40,21 +43,27 @@ const InputMenu = React.forwardRef(({
         }}
         >
             <div className="input__menu__container-select">
-                <input className={isFocus ? "is-focus" : (isMini ? "is-mini2" : "")} name={name} autoComplete="off" id={id}
-                placeholder={placeholder} readOnly={readOnly}
+                <input className={isFocus ? (isMini ? "is-focus is-mini2" : "is-focus") : (isMini ? "is-mini2" : "")} 
+                style={{borderColor: errorName && "#EB5757"}}
+                name={name} autoComplete="off" id={id}
+                placeholder={placeholder} readOnly={readOnly} type={type}
                 onFocus={e=>{
                     setFocus(true); setMenu(menu => [...new Set(menu)]);
                     datePicker && setDatePickerEnabled(true);
-                    console.log(e.target.id);
+                    
                     if(e.target.id == "rent-date") dispatch(setFinderHeading("Даты"))
-                    if(e.target.id == "rent-category") dispatch(setFinderHeading("Категория"))
+                    if(e.target.id == "rent-category") dispatch(setFinderHeading("Категория"));
+                    unlockSubmit && unlockSubmit();
                 }} 
                 onBlur={e=>{
                     setFocus(false);
-                    if(e.target.id == "rent-category") dispatch(setFinderHeading("Поиск"))
+                    if(e.target.id == "rent-category") dispatch(setFinderHeading("Поиск"));
+                    
                 }}
                 onChange = {e => setInputValue(e.target.value)}
-                value={datePicker || allFilter ? value : inputValue}
+                //Вот тут гон
+                value={datePicker || allFilter ? value : (list.length ? inputValue : defaultValue)}
+                //value={datePicker || allFilter ? value : defaultValue}
                 onInput={e => {
                     if(menuBrand) return carBrandApi(e.target.value, setMenu);
                     sortMenu.forEach((el,i,arr) => {
@@ -63,6 +72,7 @@ const InputMenu = React.forwardRef(({
                         ? (arr.splice(i,1), arr.unshift(el)) : ""
                     })
                     setMenu(sortMenu);
+                    unlockSubmit && unlockSubmit();
                 }
             }
                 onClick={onClick}
@@ -91,7 +101,6 @@ const InputMenu = React.forwardRef(({
                     ; setFocus(false); }}/>;
             })
             }
-            
             </div>}
             {datePicker 
             && <DatePicker enabled="true" 
@@ -105,7 +114,7 @@ const InputMenu = React.forwardRef(({
             }}
             twoDate="true"
             />}
-            
+            {errorName ? <div className={"error"}>{errorName.message}</div> : ""}
         </div>
         
         </>
