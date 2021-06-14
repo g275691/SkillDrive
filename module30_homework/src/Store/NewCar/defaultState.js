@@ -7,6 +7,7 @@ export const defaultState = {
         brand: 'Acura',
         model: '45345',
         year: '345344',
+        city: "Москва",
         licence: '34534',
         VIN: '3453',
         color: '345345',

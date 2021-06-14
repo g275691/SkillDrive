@@ -349,6 +349,8 @@
                     background: #E8F1F0;
                     color: #61A199;
                     width: 158px;
+                    text-align: center;
+                    padding-left: 0px;
                     @include breakpoint (medium) {
                         display: none;
                     }

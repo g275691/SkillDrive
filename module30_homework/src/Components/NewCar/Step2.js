@@ -25,13 +25,13 @@ const Step2 = ({
                 {step2Service.Services.map((el, i) => {
                     return <Step2Item key={i} index={i+step2Options.length} service
                     text={el.service} description={el.description} 
-
                     />
                 })}
             </fieldset>
         </div>
-        </form>
         <OnSubmit />
+        </form>
+
     </>)
 }
 

@@ -72,9 +72,10 @@
         input {
             border: 1px solid #D0CDE1;
             font-size: 14px;
-            transition: all 0.2s;
+            // transition: all 0.2s;
             &.is-focus {
                 border: 3px solid $green-rect;
+                z-index: 103;
             }
 
         }
@@ -85,7 +86,6 @@
             font-size: 14px;
             
             margin-left: 10px;
-            transition: all 0.2s;
             pointer-events: none;
             transition: all 0.4s;
             &.is-focus {
@@ -120,17 +120,17 @@
 
     }
     &-list {
-        position: absolute;
+        position: fixed;
         margin-top: auto;
         z-index: 102;
         outline:none;
-        width: 329px;
+        width: 435px;
         background: white;
         border-radius: 8px;
         box-shadow: 0px 4px 25px rgba(0, 0, 0, 0.15);
 
         opacity: 0;
-        transition: all 0.2s ease-in;
+        // transition: all 0.2s ease-in;
         pointer-events: none;
 
         .icon-check-mark {
@@ -143,6 +143,7 @@
             
           }
         &.is-focus {
+            position: absolute;
             opacity: 1;
             pointer-events: all;
         }

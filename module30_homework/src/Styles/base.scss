@@ -40,9 +40,12 @@
 
 @import '../Components/Global/InputMenu/InputMenu.scss';
 
-// html {
-//   overflow-x: hidden;
-// }
+html {
+  overflow-x: hidden;
+  @include breakpoint (medium) {
+    overflow-x: hidden;
+  }
+}
 
 // .is-disable {
 //   position: absolute;

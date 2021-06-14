@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import { cityRegion } from '../../NewCar/city';
 
-const InputMenuItem = ({city, onMouseDown, selectedCity, category}) => {
+const InputMenuItem = ({ city, onMouseDown, selectedCity, category, index, menuCity }) => {
     
     return (
         <div className="input__menu__container-list-item"
@@ -15,6 +16,10 @@ const InputMenuItem = ({city, onMouseDown, selectedCity, category}) => {
 
                 }
             </div>}
+            {menuCity && 
+                <div className="input__menu__container-list-item-description">
+                    {cityRegion.filter(el => el.city.trim() == city.trim())[0] && cityRegion.filter(el => el.city.trim() == city.trim())[0].region}
+                </div>}
         </div>
     )
 }

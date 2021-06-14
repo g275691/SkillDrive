@@ -166,7 +166,7 @@ export const submitFormsStep1 = data => {
         dispatch(step1FormsFailure(error.FAILED_TO_FETCH))
         , setTimeout(() => { dispatch(setPhotoDocFailure(false)) }, 3000);
     })
-}
+    }
 }
 
 export const finishRegRequest = () => ({ type: c.FINISH_REG_REQUEST });

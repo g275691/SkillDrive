@@ -5,6 +5,7 @@
     flex-direction: column;
     @include breakpoint (medium) {
         margin-top: 70px;
+        
       }
       &-step {
         color: #828282;
@@ -48,6 +49,7 @@
             width: 80%;
         }
         .form-container {
+          
             margin-top: -40px;
             fieldset {
                 width: 100%;
@@ -95,7 +97,6 @@
                   display: flex;
                   align-items: center;
 
-                  width: 100%;
                   border: 1px solid #E0E0E0;
                   border-radius: 6px;
                   padding: 23px 19px;
@@ -202,6 +203,14 @@
       }
       .submit-block {
         margin-top: 0px;
+        .button-wrapper {
+          button {
+            width: 30%;
+            @include breakpoint (medium) {
+              width: 70%;
+            }
+          }
+        }
       }
 
 }

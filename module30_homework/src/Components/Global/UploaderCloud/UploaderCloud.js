@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import cloud from '../../../Assets/img/Registration/upload-cloud.svg';
+import OnSubmit from '../../NewCar/OnSubmit';
 import UploaderCloudItem from './UploaderCloudItem';
 
 const UploaderCloud = ({
@@ -68,7 +69,9 @@ const UploaderCloud = ({
                 <input type="file" multiple className="input-doc fake-input" 
                 onChange={onFileChange}/>
             </div>
+            <OnSubmit />
         </div>
+        
     </>
     )
 }

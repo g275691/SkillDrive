@@ -21,7 +21,7 @@ export const RentPage = ({carsList
     let [carsCity, setCarsCity] = useState([]);
     let [carsCategory, setCarsCategory] = useState([]);
 
-    let [isFinder, setFinder] = useState(true);
+    let [isFinder, setFinder] = useState(false);
     let [isMapOpen, setMapOpen] = useState(false);
     let [isMobilFinder, setMobilFinder] = useState(false);
 
@@ -90,7 +90,7 @@ export const RentPage = ({carsList
 
                         <InputMenu list={carsCity} defaultValue="Санкт-Петербург" 
                         name="city" label="Местоположение" id="rent-city"
-                        ref={register({ required: true })} 
+                        ref={register({ required: true })} cityFinder
                         isFinder={isFinder} isMobilFinder={isMobilFinder}
                         />
 

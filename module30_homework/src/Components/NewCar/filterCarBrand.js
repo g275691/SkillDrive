@@ -1,4 +1,4 @@
-export const carBrandApi = (eTargetValue, setList) => {
+export const filterCarBrand = (eTargetValue, setList) => {
     
     const url = "https://suggestions.dadata.ru/suggestions/api/4_1/rs/suggest/car_brand";
     const token = "7560a435a70e3b34f9bc651710e0a3486a64a000";

@@ -4,12 +4,14 @@ import InputMenuItem from './InputMenuItem';
 import { useDispatch } from 'react-redux';
 import { setFinderHeading, setSecondDate } from '../../../Store/RentPage/actions';
 import iconLupaGreen from '../../../Assets/img/Rent-page/icon-lupa-green.svg';
-import {carBrandApi} from '../../NewCar/carBrandApi';
+import {filterCarBrand} from '../../NewCar/filterCarBrand';
+import { filterCarCity } from './filterCarCity';
+import { cityRegion } from '../../NewCar/city';
 
 const InputMenu = React.forwardRef(({ 
     list=[],
-    datePicker, category, allFilter,  
-    menuBrand, arrow,
+    datePicker, category, cityFinder, allFilter,  
+    menuBrand, menuCity, arrow,
     defaultValue,
     name, label, id, idFilterAll,
     value, placeholder, type,
@@ -18,12 +20,14 @@ const InputMenu = React.forwardRef(({
     , stateDispatch, stateDispatch2, 
     isFinder, isMobilFinder,
     onClick, unlockSubmit,
-    errorName
+    errorName,
+    setValue
 }, ref) => {
-    
+
     const dispatch = useDispatch();
 
-    let [inputValue, setInputValue] = useState(defaultValue)
+    let [inputValue, setInputValue] = useState(defaultValue);
+
     let [isFocus, setFocus] = useState(false);
 
     let [menu, setMenu] = useState(list);
@@ -31,6 +35,7 @@ const InputMenu = React.forwardRef(({
     
     if(errorName) {
         if(errorName.type == "required") { errorName.message = "Поле не должно оставаться пустым" }
+        if(errorName.type == "validate") { errorName.message = "Необходимо ввести существующий город" }
     }
 
     let [datePickerEnabled, setDatePickerEnabled] = useState(false);
@@ -49,7 +54,10 @@ const InputMenu = React.forwardRef(({
                 placeholder={placeholder} readOnly={readOnly} type={type}
                 onFocus={e=>{
                     setFocus(true); setMenu(menu => [...new Set(menu)]);
-                    datePicker && setDatePickerEnabled(true);
+                    datePicker && (
+                        setDatePickerEnabled(true), 
+                        document.querySelector(".date-picker-container").focus()
+                    );
                     
                     if(e.target.id == "rent-date") dispatch(setFinderHeading("Даты"))
                     if(e.target.id == "rent-category") dispatch(setFinderHeading("Категория"));
@@ -60,12 +68,15 @@ const InputMenu = React.forwardRef(({
                     if(e.target.id == "rent-category") dispatch(setFinderHeading("Поиск"));
                     
                 }}
-                onChange = {e => setInputValue(e.target.value)}
+                
                 //Вот тут гон
-                value={datePicker || allFilter ? value : (list.length ? inputValue : defaultValue)}
-                //value={datePicker || allFilter ? value : defaultValue}
+                onChange = {e => setInputValue(e.target.value)}
+                value={datePicker || allFilter ? value : (menuBrand || menuCity ? defaultValue : inputValue)}
+                
                 onInput={e => {
-                    if(menuBrand) return carBrandApi(e.target.value, setMenu);
+                    if(menuBrand) return filterCarBrand(e.target.value, setMenu);
+                    if(menuCity) return filterCarCity(e.target.value, setMenu);
+
                     sortMenu.forEach((el,i,arr) => {
                         let regExp = new RegExp('^' + e.target.value, "i");
                         regExp.test(el) && e.target.value != ""
@@ -76,6 +87,7 @@ const InputMenu = React.forwardRef(({
                 }
             }
                 onClick={onClick}
+                
                 ref = {ref}
                 ></input>
                 <label className={isFocus || inputValue != "" ? "is-focus" : ""}>{label}</label>
@@ -95,10 +107,19 @@ const InputMenu = React.forwardRef(({
             onBlur={()=>setFocus(false)}
             tabIndex="1">
             {sortMenu.map((el,i) => {
-                return <InputMenuItem key={i} city={el} selectedCity={inputValue} category={category}
-                onMouseDown={e=>{setInputValue(
-                    category ? e.target.innerText.slice(0, e.target.innerText.indexOf("Категория")) : e.target.innerText.replace("🗸", ""))
-                    ; setFocus(false); }}/>;
+                return <InputMenuItem key={i} index={i} 
+                city={el} selectedCity={inputValue} 
+                category={category} menuCity
+                region={cityRegion[i].region}
+                
+                onMouseDown={e=>{
+                    setInputValue(category 
+                        ? e.target.innerText.slice(0, e.target.innerText.indexOf("Категория")) 
+                        : e.target.innerText.replace("🗸", "")); 
+                    setInputValue(el);
+                    setValue && setValue(name, el);
+                     }
+                }/>;
             })
             }
             </div>}

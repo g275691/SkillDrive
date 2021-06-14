@@ -9,7 +9,6 @@ const Step2Item = ({
     description,
     imgClass,
     service,
-
 }) => {
     const dispatch = useDispatch();
     const step2Forms = useSelector(state => state.NewCar.step2Forms);

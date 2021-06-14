@@ -1,13 +1,16 @@
 import React, { useEffect, useState } from 'react';
 import InputMenu from '../Global/InputMenu/InputMenu';
 import { useForm  } from 'react-hook-form';
-import OnSubmit from './OnSubmit';
+
+import { useDispatch, useSelector } from 'react-redux';
+import { setStep1Forms } from '../../Store/NewCar/actions';
+import { cityRegion } from './city';
 
 const Step1 = ({
     isStep, step1Forms
 }) => {
 
-    const { register, getValues, errors } = useForm({
+    const { register, getValues, errors, handleSubmit, setValue } = useForm({
         mode: 'onTouched',
         defaultValues: step1Forms && step1Forms
     });
@@ -15,7 +18,7 @@ const Step1 = ({
     const [step1OK, setStep1OK] = useState(false);
 
     useEffect(()=> {
-        
+        unlockSubmit();
     })
 
     const unlockSubmit = () => {
@@ -25,8 +28,13 @@ const Step1 = ({
         isStep == 1 && isNotEmpty ? setStep1OK(true) : setStep1OK(false);
     }
 
+    const onSubmit = () => dispatch(setStep1Forms(getValues()));
+    
+    const buttonLoad = useSelector(state => state.NewCar.buttonLoad);
+    const dispatch = useDispatch();
+
     return (<>
-        <form>
+        <form onSubmit={handleSubmit(onSubmit)}>
             <div className="form-container">
                 <fieldset>
                     <legend>Информация об автомобиле</legend>
@@ -37,6 +45,7 @@ const Step1 = ({
                         list={["Acura"]}
                         ref={register({ required: true })} name="brand"
                         errorName={errors.brand}
+                        setValue={setValue}
                         unlockSubmit={unlockSubmit}
                         />
                     </div>
@@ -56,6 +65,22 @@ const Step1 = ({
                         placeholder="2018" 
                         ref={register({ required: true })} name="year"
                         errorName={errors.year}
+                        unlockSubmit={unlockSubmit}
+                        />
+                    </div>
+                    <div className="form-block">
+                        <span>Город</span>
+                        <InputMenu menuCity arrow
+                        placeholder="Москва"
+                        list={["Москва"]}
+                        ref={register({ required: true, 
+                            validate: value => {
+                                return !cityRegion.find(el => el.city == value) ? false : true;
+                            } 
+                        })} 
+                        name="city"
+                        setValue={setValue}
+                        errorName={errors.city}
                         unlockSubmit={unlockSubmit}
                         />
                     </div>
@@ -96,7 +121,6 @@ const Step1 = ({
                         ref={register({ required: true })} name="engine"
                         errorName={errors.engine}
                         unlockSubmit={unlockSubmit}
-                        unlockSubmit={unlockSubmit}
                         />
                     </div>
                     <div className="form-block">
@@ -106,7 +130,6 @@ const Step1 = ({
                         placeholder="2,0 л" 
                         ref={register({ required: true })} name="volume"
                         errorName={errors.volume}
-                        unlockSubmit={unlockSubmit}
                         unlockSubmit={unlockSubmit}
                         />
                     </div>
@@ -223,9 +246,23 @@ const Step1 = ({
                 </fieldset>
                 
             </div>
+
+            <div className="submit-block">
+                <div className="submit-block-rect"></div>
+                <div className="button-wrapper">
+                <button type="submit" 
+                className={step1OK ? "" : "is-disable"}
+                > 
+                {buttonLoad ? " " : "Продолжить"}
+                </button>
+                <div className="cssload-container">
+                    <div className={buttonLoad 
+                        ? "cssload-zenith animate" : "cssload-zenith"}></div>
+                </div>
+                </div>
+            </div>
             
         </form>
-        <OnSubmit step1Values={getValues()} step1OK={step1OK}/>
         </>
     )
 }
