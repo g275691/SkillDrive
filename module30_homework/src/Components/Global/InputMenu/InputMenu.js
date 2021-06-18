@@ -23,7 +23,7 @@ const InputMenu = React.forwardRef(({
     errorName,
     setValue
 }, ref) => {
-
+    
     const dispatch = useDispatch();
 
     let [inputValue, setInputValue] = useState(defaultValue);
@@ -50,9 +50,11 @@ const InputMenu = React.forwardRef(({
             <div className="input__menu__container-select">
                 <input className={isFocus ? (isMini ? "is-focus is-mini2" : "is-focus") : (isMini ? "is-mini2" : "")} 
                 style={{borderColor: errorName && "#EB5757"}}
+
                 name={name} autoComplete="off" id={id}
                 placeholder={placeholder} readOnly={readOnly} type={type}
                 onFocus={e=>{
+                    if(name == "powerKWT") return;
                     setFocus(true); setMenu(menu => [...new Set(menu)]);
                     datePicker && (
                         setDatePickerEnabled(true), 
@@ -84,6 +86,7 @@ const InputMenu = React.forwardRef(({
                     })
                     setMenu(sortMenu);
                     unlockSubmit && unlockSubmit();
+                    
                 }
             }
                 onClick={onClick}

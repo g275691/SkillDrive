@@ -14,7 +14,16 @@ export class CreateRentCarDto {
     year: string
 
     @IsNotEmpty()
-    licence: string
+    city: string
+
+    @IsNotEmpty()
+    geo: Array<any>
+
+    @IsNotEmpty()
+    category: string
+
+    @IsNotEmpty()
+    license: string
 
     @IsNotEmpty()
     VIN: string
@@ -62,17 +71,14 @@ export class CreateRentCarDto {
     driveUnit: string
 
     @IsNotEmpty()
-    photosCars: Array<any>
+    options: Array<any>
 
-    @IsNotEmpty()
-    photosCarsDocs: Array<any>
+    // @IsNotEmpty()
+    // photosCars: Array<String>
 
+    // @IsNotEmpty()
+    // photosCarsDocs: Array<String>
+
+    rating: number
     owner: string
-    city: string
-    geo: string
-    category: string
-    rating: string
-    photo: string
-
-    dateAvailable: any
 }

@@ -18,17 +18,30 @@ export class RentCarService {
     newRentCar.brand = createRentCarDto.brand;
     newRentCar.model = createRentCarDto.model;
     newRentCar.year = createRentCarDto.year;
-    newRentCar.engine = createRentCarDto.engine;
-    newRentCar.power = createRentCarDto.power;
-    newRentCar.transmission = createRentCarDto.transmission;
-    newRentCar.driveUnit = createRentCarDto.driveUnit;
-    newRentCar.price = Number(createRentCarDto.price);
     newRentCar.city = createRentCarDto.city;
     newRentCar.geo = createRentCarDto.geo;
     newRentCar.category = createRentCarDto.category;
-    newRentCar.rating = createRentCarDto.rating;
-    newRentCar.photo = createRentCarDto.photo;
-    newRentCar.dateAvailable = createRentCarDto.dateAvailable;
+    newRentCar.license = createRentCarDto.license;
+    newRentCar.VIN = createRentCarDto.VIN;
+    newRentCar.color = createRentCarDto.color;
+    newRentCar.engine = createRentCarDto.engine;
+    newRentCar.volume = createRentCarDto.volume;
+    newRentCar.power = createRentCarDto.power;
+    newRentCar.transmission = createRentCarDto.transmission;
+    newRentCar.mileage = createRentCarDto.mileage;
+    newRentCar.PTS = createRentCarDto.PTS;
+    newRentCar.STS = createRentCarDto.STS;
+    newRentCar.price = Number(createRentCarDto.price);
+    newRentCar.price3 = Number(createRentCarDto.price3);
+    newRentCar.price5 = Number(createRentCarDto.price5);
+    newRentCar.OSAGO = createRentCarDto.OSAGO;
+    newRentCar.CASCO = createRentCarDto.CASCO;
+    newRentCar.driveUnit = createRentCarDto.driveUnit;
+    newRentCar.options = createRentCarDto.options;
+    // newRentCar.photosCars = createRentCarDto.photosCars;
+    // newRentCar.photosCarsDocs = createRentCarDto.photosCarsDocs;
+
+    newRentCar.rating = 0;
 
     newRentCar.owner = new RegistrationEntity();
     newRentCar.owner.mail = createRentCarDto.owner;
@@ -111,7 +124,6 @@ export class RentCarService {
   }
 
   remove(id: number) {
-    
     return `This action removes a #${id} rentCar`;
   }
 }

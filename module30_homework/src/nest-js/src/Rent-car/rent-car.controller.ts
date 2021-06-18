@@ -9,7 +9,7 @@ export class RentCarController {
 
   @Post('create')
   async create(@Body() createRentCarDto: CreateRentCarDto) {
-    console.log(createRentCarDto)
+    console.log(createRentCarDto);
     return this.rentCarService.create(createRentCarDto);
   }
 

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-
+import { Redirect } from 'react-router';
 import Header from '../../Containers/Header/Header';
 import BackPageArrowC from '../Global/BackPageArrow/BackPageArrowC';
 import Step1 from './Step1';
@@ -18,7 +18,7 @@ export const NewCar = ({
     photosCars, setPhotosCars,
     photosCarsDocs, setPhotosCarsDocs
 }) => {
-
+    if(isStep == "Success") return ( <Redirect to="/success-new-car"/> );
     return (<>
         <div className={warning ? "warning is-active" : "warning"}>{warning}</div>
         <Header />
@@ -36,19 +36,6 @@ export const NewCar = ({
                     el.geo = cityGeo[i]
                 })
                 console.log(cityRegion);
-
-                // let newCityGeo = [];
-                // cityRegion.forEach(el => {
-                //     setTimeout(() => {
-                //     fetch(`http://search.maps.sputnik.ru/search/addr?q=${el.city}`)
-                //     .then(data=>data.json()
-                //     .then(json=>{
-                //         console.log(json.result.address[0].features[0].geometry.geometries[0].coordinates.reverse());
-                //         newCityGeo.push(json.result.address[0].features[0].geometry.geometries[0].coordinates.reverse());
-                //         setCityGeo(newCityGeo);
-                //     }))
-                // }, 500);
-                // })
             }}>
             {isStep == 4 ? "Фото документов" 
             : isStep == 3 ? "Фото автомобиля" 

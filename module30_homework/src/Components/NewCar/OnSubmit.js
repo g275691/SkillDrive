@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { setPhotosCarsDocs, setStep, setStep1Forms } from '../../Store/NewCar/actions';
+import { createCar, setPhotosCarsDocs, setStep, setStep1Forms } from '../../Store/NewCar/actions';
 
 const OnSubmit = ({ 
     step1Values, step1OK,
@@ -27,6 +27,7 @@ const OnSubmit = ({
             isStep == 1 ? dispatch(setStep1Forms(step1Values)) : "";
             isStep == 2 ? dispatch(setStep(3)) : "";
             isStep == 3 ? dispatch(setStep(4)) : "";
+            isStep == 4 ? dispatch(createCar()) : "";
             }}
             > 
             {buttonLoad ? " " : "Продолжить"}

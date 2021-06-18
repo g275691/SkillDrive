@@ -16,7 +16,28 @@ export class RentCar {
     year: string;
 
     @Column()
+    city: string;
+
+    @Column()
+    geo: Array<any>;
+
+    @Column()
+    category: string;
+
+    @Column()
+    license: string;
+
+    @Column()
+    VIN: string;
+
+    @Column()
+    color: string;
+
+    @Column()
     engine: string;
+
+    @Column()
+    volume: string;
 
     @Column()
     power: string;
@@ -25,25 +46,46 @@ export class RentCar {
     transmission: string;
 
     @Column()
-    driveUnit: string;
+    mileage: string;
+
+    @Column()
+    PTS: string;
+
+    @Column()
+    STS: string;
 
     @Column()
     price: Number;
+
+    @Column()
+    price3: Number;
+
+    @Column()
+    price5: Number;
+
+    @Column()
+    OSAGO: string;
+
+    @Column()
+    CASCO: string;
+
+    @Column()
+    driveUnit: string;
+
+    @Column()
+    options: Array<any>;
+
+    @Column()
+    photosCars: Array<any>;
+
+    @Column()
+    photosCarsDocs: Array<any>;
 
     @Column(()=> owner )
     owner: owner;
 
     @Column()
-    city: string;
-
-    @Column()
-    geo: string;
-
-    @Column()
-    category: string;
-
-    @Column()
-    rating: string;
+    rating: any;
 
     @Column()
     photo: string

@@ -19,7 +19,7 @@ const Step1 = ({
 
     useEffect(()=> {
         unlockSubmit();
-    })
+    },[]);
 
     const unlockSubmit = () => {
         let isNotEmpty = Object.values(getValues())
@@ -85,11 +85,31 @@ const Step1 = ({
                         />
                     </div>
                     <div className="form-block">
+                        <span>Категория</span>
+                        <InputMenu category readOnly
+                        list={["Легковая", "Грузовая", "Мотоциклы"]}
+                        placeholder="Легковая" 
+                        ref={register({ required: true })} name="category"
+                        errorName={errors.category}
+                        unlockSubmit={unlockSubmit}
+                        />
+                    </div>
+                    <div className="form-block">
+                        <span>Привод</span>
+                        <InputMenu category readOnly
+                        list={["Передний", "Задний", "Полный"]}
+                        placeholder="Задний" 
+                        ref={register({ required: true })} name="driveUnit"
+                        errorName={errors.driveUnit}
+                        unlockSubmit={unlockSubmit}
+                        />
+                    </div>
+                    <div className="form-block">
                         <span>Гос. номер</span>
-                        <InputMenu 
+                        <InputMenu type="number"
                         isMini
                         placeholder="М123КА178" 
-                        ref={register({ required: true })} name="licence"
+                        ref={register({ required: true })} name="license"
                         errorName={errors.licence}
                         unlockSubmit={unlockSubmit}
                         />
@@ -137,15 +157,15 @@ const Step1 = ({
                     <span>Мощность</span>
                         <div className="form-block-engine">
 
-                            <InputMenu 
+                            <InputMenu type="number"
                             placeholder="184 л.с." name="power"
                             ref={register({ required: true })} 
-                            errorName={errors.power}
-                            unlockSubmit={unlockSubmit}
+                            errorName={errors.power} 
+                            unlockSubmit={unlockSubmit} 
                             />
-                            <InputMenu type="number"
-                            placeholder="135,332 кВт" 
+                            <InputMenu type="number" name="powerKWT"
                             
+                            placeholder="135,332 кВт" 
                             readOnly
                             />
                         </div>

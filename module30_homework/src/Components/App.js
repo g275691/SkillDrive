@@ -14,6 +14,7 @@ import ResetPassword from '../Containers/ResetPass';
 import RentPage from '../Containers/RentPage/RentPage';
 import MyCars from '../Containers/MyCars/MyCars';
 import NewCar from '../Containers/NewCar/NewCar';
+import SuccessNewCar from './NewCar/SuccessNewCar';
 
 const App = () => {
 
@@ -21,6 +22,7 @@ const App = () => {
     
       <Switch>
         <Route path="users/:id" />
+        <Route path="/success-new-car" component={SuccessNewCar} />
         <Route path="/new-car" component={NewCar} />
         <Route path="/my-cars" component={MyCars} />
         <Route path="/rent-page" component={RentPage} />
