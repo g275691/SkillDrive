@@ -5,7 +5,7 @@ export const VERY_SIZE_DOCS = "Общий размер документов не
 
 export const CODE_401 = "Такой почтовый ящик уже зарегистрирован";
 export const CODE_500 = "Server: Данные введены некорректно";
-
+export const CODE_400 = "Server: Данные введены некорректно";
 export const FAILED_TO_FETCH = "Не удалось продолжить регистрацию. Попробуйте ещё раз";
 export const DIFFERENT_PASSWORDS = "Пароли не совпадают";
 

@@ -12,7 +12,16 @@ export class step1ValidateDto {
     year: string
 
     @IsNotEmpty()
-    licence: string
+    city: string
+
+    @IsNotEmpty()
+    category: string
+
+    @IsNotEmpty()
+    driveUnit: string
+
+    @IsNotEmpty()
+    license: string
 
     @IsNotEmpty()
     VIN: string

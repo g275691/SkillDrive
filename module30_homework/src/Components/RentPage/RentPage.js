@@ -12,6 +12,7 @@ import iconMap from '../../Assets/img/Rent-page/icon-map.svg';
 import iconLupa from '../../Assets/img/Rent-page/icon-lupa.svg';
 
 import { YMaps, Map, Placemark } from "react-yandex-maps";
+import { yandexMarker } from './yandexMarker';
 
 export const RentPage = ({carsList
     , setCarsList, sortCarsList,
@@ -171,25 +172,7 @@ export const RentPage = ({carsList
                             {carsList.map((el, i) => {
                                 return <Placemark key={i} 
                                 geometry={el.geo} 
-                                properties={{
-                                    
-                                    balloonContent: 
-                                    `
-                                    <div style="display: flex; flex-direction: column">
-                                        <div style="background: url(http://localhost:8000/img-car/${el.owner.mail}/carPhotos/${el.photo}); background-size: cover; background-position: center; width: 260px; height: 160px; border-radius: 8px"></div>
-                                        
-                                        <div style="margin-top: 20px; margin-left: 20px; margin-bottom: 20px">
-                                            <div style="font-size: 16px; font-family: Roboto; font-weight: 600">${el.brand} ${el.model}, ${el.year}</div>
-                                            <div style="display: flex; font-size: 14px; font-family: Roboto; margin-top: 8px"> 
-                                                <div>${el.price} ₽ в сутки</div>
-                                                <div style="margin-left: auto; margin-right: 20px"><span style="color:#F2C94C">★ </span>${el.rating} (12)</div>
-
-                                            </div>    
-                                        </div>
-                                    </div>
-                                    `,
-                                    iconContent: `<b>${el.price} ₽</b>`
-                                }}
+                                properties={yandexMarker(el)}
                                 options={{
                                     preset: 'islands#grayStretchyIcon',
                                 }}/>

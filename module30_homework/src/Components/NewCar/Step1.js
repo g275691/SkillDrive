@@ -110,7 +110,7 @@ const Step1 = ({
                         isMini
                         placeholder="М123КА178" 
                         ref={register({ required: true })} name="license"
-                        errorName={errors.licence}
+                        errorName={errors.license}
                         unlockSubmit={unlockSubmit}
                         />
                     </div>

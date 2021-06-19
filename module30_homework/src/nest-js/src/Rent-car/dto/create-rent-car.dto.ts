@@ -17,7 +17,7 @@ export class CreateRentCarDto {
     city: string
 
     @IsNotEmpty()
-    geo: Array<any>
+    geo: string
 
     @IsNotEmpty()
     category: string
@@ -71,13 +71,11 @@ export class CreateRentCarDto {
     driveUnit: string
 
     @IsNotEmpty()
-    options: Array<any>
+    options: any
 
-    // @IsNotEmpty()
-    // photosCars: Array<String>
+    photosCars: Array<String>
 
-    // @IsNotEmpty()
-    // photosCarsDocs: Array<String>
+    photosCarsDocs: Array<String>
 
     rating: number
     owner: string

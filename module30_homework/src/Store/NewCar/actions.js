@@ -14,6 +14,7 @@ export const setStep1FormsSuccess = createAction('SET_STEP1_FORMS_SUCCESS');
 export const setStep1FormsFailure = createAction('SET_STEP1_FORMS_FAILURE');
 export const setStep1Forms = data => {
     return (dispatch, getStore) => {
+        console.log(data)
         dispatch(setStep1FormsRequest());
         fetch("http://localhost:8000/rent-car/step1", {
             method: 'POST',  
@@ -22,12 +23,11 @@ export const setStep1Forms = data => {
             .then(response => {
             dispatch(setStep1FormsRequest());
             if(!response.ok) {
-
-                dispatch(setStep1FormsFailure(error.CODE_500));
+                dispatch(setStep1FormsFailure(error.CODE_400));
                 setTimeout(() => { dispatch(setStep1FormsFailure(false)); }, 2000);
+                response.json().then(json=>console.log(json))             
             } else {
-                //dispatch(setStep1FormsSuccess(data));
-                dispatch(setStep(2));
+                dispatch(setStep1FormsSuccess(data));
             }
             },
             err => {
@@ -52,32 +52,41 @@ export const createCar =  data => {
     return async (dispatch, getStore) => {
         let fullUserData = {...getStore().NewCar.step1Forms};
         fullUserData.options = getStore().NewCar.step2Forms;
-        fullUserData.photosCars = getStore().NewCar.photosCars;
-        fullUserData.photosCarsDocs = getStore().NewCar.photosCarsDocs;
+
         fullUserData.owner = localStorage.getItem("userMail");
         fullUserData.geo = await getGeo(getStore().NewCar.step1Forms.city);
 
-        console.log(getGeo(getStore().NewCar.step1Forms.city));
-        console.log(fullUserData);
-
+        const formData = new FormData();
+        for(let key in fullUserData) {
+            formData.append(key, fullUserData[key]);
+        }
+        
+        Object.values(getStore().NewCar.photosCarsDocs).map(el => {
+            formData.append('imgDoc', el);
+        })
+        Object.values(getStore().NewCar.photosCars).map(el => {
+            formData.append('imgCar', el);
+        })
+        
         dispatch(createCarRequest());
         fetch("http://localhost:8000/rent-car/create", {
-            method: 'POST',  
-            headers: { 'Content-Type': 'application/json', },  
-            body: JSON.stringify(fullUserData) })
+            method: 'POST',   
+            body:  formData })
             .then(response => {
             dispatch(createCarRequest());
             if(!response.ok) {
                 dispatch(createCarFailure(error.WRONG_PASSWORD));
                 setTimeout(() => { dispatch(createCarFailure(false)); }, 2000);
+                response.json().then(error=>console.log(error))
             } else {
-                dispatch(createCarSuccess());
+                dispatch(createCarSuccess());              
             }
             },
             err => {
                 dispatch(createCarRequest());
                 setTimeout(() => { dispatch(createCarFailure(false)); }, 3000);
                 dispatch(createCarFailure(error.FAILED_TO_FETCH));
+                
             }
             )
         }

@@ -13,6 +13,7 @@ export const RentPageCar = ({
     })
 
     let imgCar = `http://localhost:8000/img-car/${carsList[index].owner.mail}/carPhotos/${carsList[index].photo}`;
+    //let imgCar = carsList[index].photosCars[0] ? carsList[index].photosCars[0] : "qwert"
     let nameCar = `${carsList[index].brand} ${carsList[index].model}, ${carsList[index].year}`;
     let priceCar = `${carsList[index].price} ₽/сутки`;
     let imgAvatar = `http://localhost:8000/img-car/${carsList[index].owner.mail}/avatar/avatar.jpg`;

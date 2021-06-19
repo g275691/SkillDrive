@@ -1,9 +1,13 @@
 import { Injectable } from '@nestjs/common';
+import { writeFile, ensureDir } from 'fs-extra';
 import { RegistrationEntity } from 'src/Registration/entities/registration.entity';
-import { getMongoManager, ObjectID } from 'typeorm';
+import { getMongoManager } from 'typeorm';
 import { CreateRentCarDto } from './dto/create-rent-car.dto';
 import { RentCar as RentCarEntity } from './entities/rent-car.entity';
 import { RentCarRepository } from './repositories/rent-car.repository';
+import { createUniqName } from './config/createUniqName';
+var ObjectId = require('mongodb').ObjectId; 
+var mongoose = require('mongoose');
 
 @Injectable()
 export class RentCarService {
@@ -11,15 +15,36 @@ export class RentCarService {
     
     ) {}
 
-  async create(createRentCarDto: CreateRentCarDto) {
+  async create(createRentCarDto: CreateRentCarDto, img) {
+    const id = mongoose.Types.ObjectId();
+    const uploadFolderCar = `users/${createRentCarDto.owner}/${id}/imgCar/`;
+    const uploadForlderDocs = `users/${createRentCarDto.owner}/${id}/imgDocs/`
     
-    const newRentCar = new RentCarEntity();
+    await ensureDir(uploadFolderCar);
+    await ensureDir(uploadForlderDocs);
 
+    const carPhotos = [];
+    const carDocs = [];
+
+    const newRentCar = new RentCarEntity();
+    for(const file of img) {
+      if(file.fieldname == "imgCar") {
+        const newName = createUniqName(file);
+        await writeFile(`${uploadFolderCar}/${newName}`, file.buffer);
+        carPhotos.push(`http://localhost:8000/img-car/${createRentCarDto.owner}/${id}/imgCar/${newName}`)
+      } else if(file.fieldname == "imgDoc") {
+        const newName = createUniqName(file);
+        await writeFile(`${uploadForlderDocs}/${newName}`, file.buffer);
+        carDocs.push(`http://localhost:8000/img-car/${createRentCarDto.owner}/${id}/imgDocs/${newName}`)
+      }
+    }
+    
+    newRentCar._id = id
     newRentCar.brand = createRentCarDto.brand;
     newRentCar.model = createRentCarDto.model;
     newRentCar.year = createRentCarDto.year;
     newRentCar.city = createRentCarDto.city;
-    newRentCar.geo = createRentCarDto.geo;
+    newRentCar.geo = createRentCarDto.geo.split(",");
     newRentCar.category = createRentCarDto.category;
     newRentCar.license = createRentCarDto.license;
     newRentCar.VIN = createRentCarDto.VIN;
@@ -36,10 +61,10 @@ export class RentCarService {
     newRentCar.price5 = Number(createRentCarDto.price5);
     newRentCar.OSAGO = createRentCarDto.OSAGO;
     newRentCar.CASCO = createRentCarDto.CASCO;
-    newRentCar.driveUnit = createRentCarDto.driveUnit;
-    newRentCar.options = createRentCarDto.options;
-    // newRentCar.photosCars = createRentCarDto.photosCars;
-    // newRentCar.photosCarsDocs = createRentCarDto.photosCarsDocs;
+    newRentCar.driveUnit = createRentCarDto.driveUnit + " привод";
+    newRentCar.options = createRentCarDto.options.split(",");
+    newRentCar.photosCars = carPhotos;
+    newRentCar.photosCarsDocs = carDocs;
 
     newRentCar.rating = 0;
 
@@ -121,6 +146,13 @@ export class RentCarService {
         ['owner.mail']: req.mail
       }
     })
+  }
+
+  async getCar(req) {
+    const manager = getMongoManager();
+    console.log(req.id)
+    return await manager.find(RentCarEntity, {"_id": ObjectId(req.id)})
+
   }
 
   remove(id: number) {
