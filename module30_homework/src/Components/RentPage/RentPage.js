@@ -36,7 +36,7 @@ export const RentPage = ({carsList
     const onSubmit = () => {
         new Date(availableCar) > new Date(availableCar2) ? dispatch(setAvailableCar2(availableCar)) : "";
         sortCarsList(setCarsList
-            , `http://localhost:8000/rent-car?city=${getValues().city}&category=${getValues().category}&dateAvailable=${availableCar}|${availableCar2}&sort=${sort}`);                          
+            , `http://localhost:8000/rent-car?city=${getValues().city}&category=${getValues().category}&sort=${sort}`);                          
         setFinder(true);
         setMobilFinder(false)
     }
@@ -164,9 +164,7 @@ export const RentPage = ({carsList
                         ]}>
                             <Placemark geometry={[59.91, 30.315332]} 
                             properties={{
-    
                                 balloonContent: `<div>TEST</div>`
-
                             }}
                             />
                             {carsList.map((el, i) => {

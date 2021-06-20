@@ -9,10 +9,10 @@ export const RentPageCar = ({
 }) => {
 
     useState(()=> {
-        
+        console.log(carsList[index].photosCars[0]);
     })
 
-    let imgCar = `http://localhost:8000/img-car/${carsList[index].owner.mail}/carPhotos/${carsList[index].photo}`;
+    let imgCar = carsList[index].photosCars[0];
     //let imgCar = carsList[index].photosCars[0] ? carsList[index].photosCars[0] : "qwert"
     let nameCar = `${carsList[index].brand} ${carsList[index].model}, ${carsList[index].year}`;
     let priceCar = `${carsList[index].price} ₽/сутки`;

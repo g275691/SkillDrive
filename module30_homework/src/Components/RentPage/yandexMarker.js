@@ -3,7 +3,7 @@ export const yandexMarker = el => {
         balloonContent: 
         `
         <div style="display: flex; flex-direction: column">
-            <div style="background: url(http://localhost:8000/img-car/${el.owner.mail}/carPhotos/${el.photo}); background-size: cover; background-position: center; width: 260px; height: 160px; border-radius: 8px"></div>
+            <div style="background: url(${el.photosCars[0]}); background-size: cover; background-position: center; width: 260px; height: 160px; border-radius: 8px"></div>
             
             <div style="margin-top: 20px; margin-left: 20px; margin-bottom: 20px">
                 <div style="font-size: 16px; font-family: Roboto; font-weight: 600">${el.brand} ${el.model}, ${el.year}</div>

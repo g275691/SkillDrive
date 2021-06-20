@@ -1,14 +1,18 @@
 import { Controller, Get, Query, Post, Body, Param, Delete, Put, HttpCode, UseInterceptors, UploadedFiles, UploadedFile, UsePipes, ValidationPipe } from '@nestjs/common';
-import { RentCarService } from './rent-car.service';
+import { RentCarService } from './Services/rent-car.service';
 import { CreateRentCarDto } from './dto/create-rent-car.dto';
 import { step1ValidateDto } from './dto/step1-validate.dto';
 import { AnyFilesInterceptor, FileInterceptor, FilesInterceptor } from '@nestjs/platform-express';
 import { diskStorage } from 'multer';
 import { editFileName, imgFileFilter } from 'src/Registration/config/filterEditName';
+import { CreateCarService } from './Services/create-car.service';
 
 @Controller('rent-car')
 export class RentCarController {
-  constructor(private readonly rentCarService: RentCarService) {}
+  constructor(
+    private readonly rentCarService: RentCarService,
+    private readonly createCarService: CreateCarService
+    ) {}
 
   @Post('create')
   @UseInterceptors(AnyFilesInterceptor())
@@ -16,7 +20,7 @@ export class RentCarController {
     @Body() createRentCarDto: CreateRentCarDto,
     @UploadedFiles() img: Express.Multer.File,
   ) {
-    return this.rentCarService.create(createRentCarDto, img);
+    return this.createCarService.create(createRentCarDto, img);
   }
 
   @Post('step1')

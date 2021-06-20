@@ -1,5 +1,5 @@
 export const defaultState = {
-    isStep: 4,
+    isStep: 1,
     buttonLoad: false,
     warning: false,
 
