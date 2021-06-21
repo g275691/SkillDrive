@@ -42,7 +42,7 @@ const Step1 = ({
                         <span>Марка</span>
                         <InputMenu menuBrand arrow
                         placeholder="Acura"
-                        list={["Acura"]}
+                        list={[]}
                         ref={register({ required: true })} name="brand"
                         errorName={errors.brand}
                         setValue={setValue}
@@ -72,7 +72,7 @@ const Step1 = ({
                         <span>Город</span>
                         <InputMenu menuCity arrow
                         placeholder="Москва"
-                        list={["Москва"]}
+                        list={[]}
                         ref={register({ required: true, 
                             validate: value => {
                                 return !cityRegion.find(el => el.city == value) ? false : true;
@@ -106,7 +106,7 @@ const Step1 = ({
                     </div>
                     <div className="form-block">
                         <span>Гос. номер</span>
-                        <InputMenu type="number"
+                        <InputMenu 
                         isMini
                         placeholder="М123КА178" 
                         ref={register({ required: true })} name="license"
@@ -256,7 +256,7 @@ const Step1 = ({
                     </div>
                     <div className="form-block">
                         <span>Полис КАСКО (если есть)</span>
-                        <InputMenu 
+                        <InputMenu casco
                         placeholder="ААА 123456789" 
                         ref={register({ required: true })} name="CASCO"
                         errorName={errors.CASCO}

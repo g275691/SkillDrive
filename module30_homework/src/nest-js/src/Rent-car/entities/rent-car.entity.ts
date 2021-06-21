@@ -1,3 +1,4 @@
+import { TripEntity } from "src/trip/entities/trip.entity";
 import { Column, Entity, ObjectIdColumn } from "typeorm";
 import { RegistrationEntity as owner} from "../../Registration/Entities/registration.entity";
 
@@ -89,7 +90,4 @@ export class RentCar {
 
     @Column()
     photo: string
-
-    @Column()
-    dateAvailable: any
 }

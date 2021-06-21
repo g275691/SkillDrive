@@ -25,7 +25,7 @@ export const NewCar = createReducer( defaultState, {
         state.buttonLoad = state.buttonLoad ? false : true
     },
     [actions.createCarSuccess]: (state, action) => { 
-        // { state.isStep = "Success"; }
+        state.isStep = "Success"; 
     },
     [actions.setStep1FormsFailure]: (state, action) => { 
         state.warning = action.payload;

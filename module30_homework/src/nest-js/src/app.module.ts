@@ -7,6 +7,7 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { MulterModule } from '@nestjs/platform-express';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { RentCarModule } from './Rent-car/rent-car.module';
+import { TripModule } from './trip/trip.module';
 
 @Module({
   imports: 
@@ -30,6 +31,7 @@ import { RentCarModule } from './Rent-car/rent-car.module';
     RegistrationModule,
     LoginModule,
     RentCarModule,
+    TripModule,
 
   
   ],

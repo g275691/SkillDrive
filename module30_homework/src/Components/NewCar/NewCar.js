@@ -1,12 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
 import { Redirect } from 'react-router';
 import Header from '../../Containers/Header/Header';
 import BackPageArrowC from '../Global/BackPageArrow/BackPageArrowC';
 import Step1 from './Step1';
 import Step2 from './Step2';
 import UploaderCloud from '../Global/UploaderCloud/UploaderCloud';
-import OnSubmit from './OnSubmit';
 import { cityRegion } from './city';
 import { cityGeo } from './cityGeo';
 
@@ -51,7 +49,6 @@ export const NewCar = ({
             {isStep == 2 && <Step2 />}
             {isStep == 3 && <UploaderCloud photos={photosCars} setPhotos={setPhotosCars}/>}
             {isStep == 4 && <UploaderCloud photos={photosCarsDocs} setPhotos={setPhotosCarsDocs}/>}
-            {/* <OnSubmit setStep1Forms={setStep1Forms} isStep={isStep} setStep={setStep}/> */}
         </div>
     </>)
 }

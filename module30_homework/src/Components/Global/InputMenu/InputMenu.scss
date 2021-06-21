@@ -117,7 +117,14 @@
             pointer-events: none;
             font-size: 80%;
           }
-
+          .buy-casco {
+            position: absolute;
+            align-self: flex-end;
+            margin-right: 13px;
+            font-size: 14px;
+            color: #61A199;
+            cursor:pointer;
+          }
     }
     &-list {
         position: fixed;

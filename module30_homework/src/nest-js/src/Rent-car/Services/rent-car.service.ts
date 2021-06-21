@@ -1,5 +1,6 @@
 import { Injectable } from '@nestjs/common';
-import { getMongoManager } from 'typeorm';
+import { TripEntity } from 'src/trip/entities/trip.entity';
+import { getMongoManager, LessThan, MoreThan, Not } from 'typeorm';
 import { RentCar as RentCarEntity } from '../entities/rent-car.entity';
 import { RentCarRepository } from '../repositories/rent-car.repository';
 const ObjectId = require('mongodb').ObjectId; 
@@ -11,7 +12,7 @@ export class RentCarService {
     ) {}
     
   async findStart(param) {
-    /*Это тестовый запрос*/
+    /*Стартовый запрос*/
     const manager = getMongoManager();
     delete param["dateAvailable"];
 
@@ -20,21 +21,23 @@ export class RentCarService {
 
   async find(param) {
     const manager = getMongoManager();
-    
-    // if(param.dateAvailable) {
-    //   param.dateAvailable = param.dateAvailable.split("|");
-    //   param.dateAvailable[0] = param.dateAvailable[0].split(",");
-    //   param.dateAvailable[1] = param.dateAvailable[1].split(",");
-    // }
-    // let findDate = param.dateAvailable;
-    // let availableCars = [];
-    
-    /*Тут сначала фильтруются данные по городу и категории*/
+    console.log(new Date(param.endrent));
+    let filterTrip = await manager.find(TripEntity, {
+      where: {
+        startRent: {$lte: new Date(param.startrent)}, 
+        endRent: {$gte: new Date(param.endrent)}
+      }
+    })
+
+    console.log(filterTrip);
+
+    let filterLicense = filterTrip.map(el=>el.license);
 
     let findCars = await manager.find( RentCarEntity, {
       where: {
         city: param.city,
-        category: param.category
+        category: param.category,
+        license: {$nin : filterLicense}
       },
       order: 
       param.sort == "price" && { price: 1 }
@@ -42,25 +45,6 @@ export class RentCarService {
       || param.sort == "driveUnit" && { driveUnit: 1 }
       || param.sort == "engine" && { engine: 1 }
     }  )
-
-    /*Перебор по доступным датам пока такой странный - в следующем модуле уже нормальный сделаю, в отдельную сущность переведу*/
-    // findCars.forEach(car => {
-    //   !car.dateAvailable.length
-    //   ? availableCars.push(car)
-    //   : car.dateAvailable.forEach((date,index) => {
-    //     if((new Date(findDate[0]) < new Date(date[0]) 
-    //     && new Date(findDate[1]) < new Date(date[0]))
-    //     ||
-    //     (new Date(findDate[0]) > new Date(date[1]) 
-    //     && new Date(findDate[1]) > new Date(date[1]))) {
-    //       availableCars.push(car);
-    //       return availableCars;
-    //     } else {
-    //       console.log(`Автомобиль ${car.brand} ${car.model} занят в это время`)
-    //     }
-    //   })
-    //   return availableCars;
-    // }) 
     
     return findCars;
   }

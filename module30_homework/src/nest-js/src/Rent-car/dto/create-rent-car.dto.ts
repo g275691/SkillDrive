@@ -79,4 +79,6 @@ export class CreateRentCarDto {
 
     rating: number
     owner: string
+
+    
 }

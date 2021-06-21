@@ -2,10 +2,15 @@ import React, { useEffect, useState } from 'react';
 import logo from '../../Assets/img/logo.svg';
 import { Link } from 'react-router-dom';
 import succesImg from '../../Assets/img/successNewCar.svg';
+import { useDispatch, useSelector } from 'react-redux';
+import { setStep } from '../../Store/NewCar/actions';
 
 const SuccessNewCar = ({
 
 }) => {
+
+    const dispatch = useDispatch();
+
     return (<>
         <div className="success__container">
             <Link to="/" rel="nofollow">
@@ -16,7 +21,7 @@ const SuccessNewCar = ({
             <span className="success__container-text">Автомобиль добавлен. Дождитесь, когда указанная вами информация
 пройдёт проверку модераторами.</span>
             <Link to="/" rel="nofollow">
-                <button>Перейти на главную</button>
+                <button onClick={()=>dispatch(setStep(1))}>Перейти на главную</button>
             </Link>
         </div>
     </>)

@@ -36,7 +36,7 @@ export const RentPage = ({carsList
     const onSubmit = () => {
         new Date(availableCar) > new Date(availableCar2) ? dispatch(setAvailableCar2(availableCar)) : "";
         sortCarsList(setCarsList
-            , `http://localhost:8000/rent-car?city=${getValues().city}&category=${getValues().category}&sort=${sort}`);                          
+            , `http://localhost:8000/rent-car?city=${getValues().city}&category=${getValues().category}&startrent=${availableCar}&endrent=${availableCar2}&sort=${sort}`);                          
         setFinder(true);
         setMobilFinder(false)
     }
@@ -122,7 +122,7 @@ export const RentPage = ({carsList
                 ? <span className="rent-page-recommend">Рекомендуем поблизости</span>
                 : <div className="rent-page-container__sort">
                 <div className="wrapper">
-                    <button className={sort == "price" ? "active" : ""} onClick={()=>setSort("price")} >Любая цена</button>
+                    <button className={sort == "price" ? "active" : ""} onClick={()=>setSort("price")}>{sort == "price" ? "Цена ▲" : "Любая цена"}</button>
                     <button className={sort == "transmission" ? "active" : ""} onClick={()=>setSort("transmission")}>Любые КПП</button>
                     <button className={sort == "driveUnit" ? "active" : ""} onClick={()=>setSort("driveUnit")}>Любой привод</button>
                     <button className={sort == "engine" ? "active" : ""} onClick={()=>setSort("engine")}>Любые двигатели</button>

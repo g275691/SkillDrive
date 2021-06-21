@@ -10,7 +10,7 @@ import { cityRegion } from '../../NewCar/city';
 
 const InputMenu = React.forwardRef(({ 
     list=[],
-    datePicker, category, cityFinder, allFilter,  
+    datePicker, category, cityFinder, allFilter, casco,
     menuBrand, menuCity, arrow,
     defaultValue,
     name, label, id, idFilterAll,
@@ -71,7 +71,6 @@ const InputMenu = React.forwardRef(({
                     
                 }}
                 
-                //Вот тут гон
                 onChange = {e => setInputValue(e.target.value)}
                 value={datePicker || allFilter ? value : (menuBrand || menuCity ? defaultValue : inputValue)}
                 
@@ -100,6 +99,7 @@ const InputMenu = React.forwardRef(({
                 style={{background: `url(${iconLupaGreen})` }}
                 ></div>}
                 {category || arrow ? <div className="icon-category">▼</div> : ""}
+                {casco ? <a className="buy-casco" href="https://ru.wikipedia.org/wiki/%D0%9A%D0%B0%D1%81%D0%BA%D0%BE" target="_blank" rel="nofollow">Купить КАСКО</a> : ""}
             </div>
             
             {list 
