@@ -1,7 +1,7 @@
 export const defaultState = {
   userData: 
   {
-    "name": "JackyChan",
+    "name": "JamesBrown",
     "birthday": "2001-09-26",
     "mail": "test@yandex.ru",
     "phone": "89081245672",

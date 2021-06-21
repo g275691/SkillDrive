@@ -30,7 +30,6 @@ export const sortCarsList = (getJson, url) => {
                 response.json()
                 .then(json => {
                     getJson(json);
-                    console.log(json)
                     dispatch(setFirstCarLocation(json[0].geo))
                 })
             }

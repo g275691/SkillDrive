@@ -37,6 +37,14 @@
             @include breakpoint (medium) {
                 flex-direction: column;
                 height: auto;
+
+            }
+            &-car {
+                @include breakpoint (medium) {
+                    background-position: center;
+                    height: 240px;
+                    width: auto;
+                }
             }
             @include breakpoint (iphone5) {
                 zoom: 0.8;

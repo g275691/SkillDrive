@@ -201,6 +201,15 @@
                 margin: 15px 12.5px;
                 
                 border-radius: 10px;
+                &-car {
+                    min-width: 328px;
+                    border-radius: 10px;
+                    @include breakpoint (medium) {
+                        background-position: center;
+                        height: 240px;
+                        width: auto;
+                    }
+                }
                 &:first-child {
                     @include breakpoint (medium) {
                         margin-top: 30px;
@@ -215,12 +224,7 @@
                         height: auto;
                     }
                 }
-                img {
-                    @include breakpoint (medium) {
-                        
-                    }
-                    
-                }
+
                 &-info {
                     display: flex;
                     flex-direction: column;

@@ -40,7 +40,6 @@ export const onAuth = data => {
 
                     dispatch(setAuth(jwtDecode(json.accessToken).mail))
                     getName();
-
                  })
              }
          },
@@ -57,7 +56,7 @@ export const onForgetPassRequest = createAction('ON_FORGET_PASS_REQUEST');
 export const onForgetPassSuccess = createAction('ON_FORGET_PASS_SUCCESS');
 export const onForgetPassFailure = createAction('ON_FORGET_PASS_FAILURE');
 export const onForgetPass = data => {
-    console.log("222")
+    
     return dispatch => {
         dispatch(onForgetPassRequest());
         fetch("http://localhost:8000/users/auth/pass-recovery", {
@@ -115,6 +114,16 @@ export const onResetPass = data => {
                 })
             } else {
                 dispatch(onResetPassSuccess());
+                return response.json()
+                .then(json => {
+                   dispatch(onAuthSuccess());
+                   localStorage.setItem("accessToken", json.accessToken);
+                   localStorage.setItem("refreshToken", json.refreshToken);
+                   localStorage.setItem("userMail", jwtDecode(json.accessToken).mail);
+
+                   dispatch(setAuth(jwtDecode(json.accessToken).mail))
+                   getName();
+                })
             }
         },
         err => {

@@ -4,11 +4,6 @@ import * as error from '../Constants/Errors';
 
 export const setStep = createAction('SET_STEP');
 
-// export const onAuthRequest = createAction('ON_AUTH_REQUEST');
-// export const onAuthSuccess = createAction('ON_AUTH_SUCCESS');
-// export const onAuthFailure = createAction('ON_AUTH_FAILURE');
-
-// export const setStep1Forms = createAction('SET_STEP1_FORMS');
 export const setStep1FormsRequest = createAction('SET_STEP1_FORMS_REQUEST');
 export const setStep1FormsSuccess = createAction('SET_STEP1_FORMS_SUCCESS');
 export const setStep1FormsFailure = createAction('SET_STEP1_FORMS_FAILURE');
@@ -48,7 +43,7 @@ export const createCarRequest = createAction('CREATE_CAR_REQUEST');
 export const createCarFailure = createAction('CREATE_CAR_FAILURE');
 export const createCarSuccess = createAction('CREATE_CAR_SUCCESS');
 
-export const createCar =  data => {
+export const createCar = data => {
     return async (dispatch, getStore) => {
         let fullUserData = {...getStore().NewCar.step1Forms};
         fullUserData.options = getStore().NewCar.step2Forms;

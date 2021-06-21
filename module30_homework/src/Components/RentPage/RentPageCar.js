@@ -9,7 +9,7 @@ export const RentPageCar = ({
 }) => {
 
     useState(()=> {
-        console.log(carsList[index].photosCars[0]);
+        
     })
 
     let imgCar = carsList[index].photosCars[0];
@@ -26,7 +26,11 @@ export const RentPageCar = ({
     return (
         <div className={isFinder ? "car-frame is-finder" : "car-frame"} 
         >
-            <img className="car-frame-car" src={imgCar}></img>
+            <div className="car-frame-car" 
+
+            style={{backgroundImage: `url(${imgCar})`, backgroundSize: `cover`, backgroundRepeat:"no-repeat", width: "328px" }}>
+
+            </div>
             {!myCars && <div className={isFinder ? "wrapper is-finder" : "wrapper"}>
                 <div className="car-frame-avatar" 
                 style={{backgroundImage:`url(${imgAvatar})`, backgroundSize: `cover`}}></div>
