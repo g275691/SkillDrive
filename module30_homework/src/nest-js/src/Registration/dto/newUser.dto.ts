@@ -44,4 +44,6 @@ export class newUserDto {
 
     @IsNotEmpty()
     photosDoc: Array<any>
+
+    idRecovery: String;
 }

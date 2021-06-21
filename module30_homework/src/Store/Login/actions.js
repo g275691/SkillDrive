@@ -57,6 +57,7 @@ export const onForgetPassRequest = createAction('ON_FORGET_PASS_REQUEST');
 export const onForgetPassSuccess = createAction('ON_FORGET_PASS_SUCCESS');
 export const onForgetPassFailure = createAction('ON_FORGET_PASS_FAILURE');
 export const onForgetPass = data => {
+    console.log("222")
     return dispatch => {
         dispatch(onForgetPassRequest());
         fetch("http://localhost:8000/users/auth/pass-recovery", {

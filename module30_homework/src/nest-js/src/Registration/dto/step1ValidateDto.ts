@@ -37,4 +37,6 @@ export class step1ValidateDto {
     @IsNotEmpty()
     @Length(8,12)
     driverDate: string
+
+    idRecovery;
 }

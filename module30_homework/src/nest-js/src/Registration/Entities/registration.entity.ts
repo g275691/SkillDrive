@@ -45,4 +45,7 @@ export class RegistrationEntity {
 
     @Column()
     photosDoc: Array<any>
+    
+    @Column()
+    idRecovery: string;
 }

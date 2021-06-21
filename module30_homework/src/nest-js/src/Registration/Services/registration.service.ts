@@ -42,6 +42,7 @@ export class RegistrationService {
         newUser.driverDate = newUserDto.driverDate;
         newUser.imgAvatar = "avatar.jpg";
         newUser.photosDoc = newUserDto.photosDoc;
+        newUser.idRecovery = "";
 
         return await this.registrationRepository.create(newUser)
         .then(()=> {

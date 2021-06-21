@@ -10,4 +10,6 @@ export class AuthLoginDto {
     password: string
 
     passwordRepeat: string
+
+    idRecovery: string;
 }
