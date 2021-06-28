@@ -8,6 +8,11 @@ const UploaderCloudItem = ({photo, photos, setPhotos}) => {
         document.querySelector(".fake-input").value = "";
     }
 
+    const formatName = (word) => {
+        word = word.slice(0, word.indexOf("."))
+        return word.length > 25 ? `${word.substr(0,25)}...` : word;
+    }
+
     return (
         <div className="cloud__container-photo">
             <div className="cloud__container-photo-frame">
@@ -25,8 +30,8 @@ const UploaderCloudItem = ({photo, photos, setPhotos}) => {
 
             </div>
             <div className="cloud__container-photo-description">
-                <p >{ photo.name }</p>
-                <p>{ `${photo.size} Mb, ${photo.name}` }</p>
+                <p >{ formatName(photo.name) }</p>
+                <p>{ `${photo.size} Mb, ${photo.name.slice(photo.name.indexOf(".") + 1)}` }</p>
                 <span className="icon-trash" 
                 onClick={ deleteImg }
                 >

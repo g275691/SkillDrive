@@ -1,19 +1,22 @@
 import React, { useEffect, useState } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { Link, Redirect } from 'react-router-dom';
+
 import iconCran from '../../Assets/img/Rent-page/icon-cran.svg';
 import iconTechno from '../../Assets/img/Rent-page/icon-techno.svg';
+import { setCarPage } from '../../Store/CarPage/actions';
 
 export const RentPageCar = ({
     carsList,
     isFinder, isMapOpen, myCars,
     index
-}) => {
+}) => { 
 
-    useState(()=> {
-        
-    })
+    const carPage = useSelector(state => state.CarPage.carPage);
+
+    const dispatch = useDispatch();
 
     let imgCar = carsList[index].photosCars[0];
-    //let imgCar = carsList[index].photosCars[0] ? carsList[index].photosCars[0] : "qwert"
     let nameCar = `${carsList[index].brand} ${carsList[index].model}, ${carsList[index].year}`;
     let priceCar = `${carsList[index].price} ₽/сутки`;
     let imgAvatar = `http://localhost:8000/img-car/${carsList[index].owner.mail}/avatar/avatar.jpg`;
@@ -23,14 +26,18 @@ export const RentPageCar = ({
     let transmission = carsList[index].transmission;
     let driveUnit = carsList[index].driveUnit;
 
-    return (
-        <div className={isFinder ? "car-frame is-finder" : "car-frame"} 
-        >
+    let carPageId = `car-page?${carsList[index]._id}`;
+
+    return (<>
+        <div className={isFinder ? "car-frame is-finder" : "car-frame"} >
+            <Link to={carPageId}></Link>
             <div className="car-frame-car" 
 
-            style={{backgroundImage: `url(${imgCar})`, backgroundSize: `cover`, backgroundRepeat:"no-repeat", width: "328px" }}>
-
+            style={{backgroundImage: `url(${imgCar})`, backgroundSize: `cover`, backgroundRepeat:"no-repeat", width: "328px" }}
+            >
             </div>
+  
+            
             {!myCars && <div className={isFinder ? "wrapper is-finder" : "wrapper"}>
                 <div className="car-frame-avatar" 
                 style={{backgroundImage:`url(${imgAvatar})`, backgroundSize: `cover`}}></div>
@@ -71,5 +78,5 @@ export const RentPageCar = ({
 
 
         </div>
-    )
+    </>)
 }

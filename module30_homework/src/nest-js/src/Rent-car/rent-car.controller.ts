@@ -50,10 +50,10 @@ export class RentCarController {
     return this.rentCarService.getByOwner(param)
   }
 
-  // @Get(':id')
-  // GetCar(@Param() param: string) {
-  //   return this.rentCarService.getCar(param)
-  // }
+  @Get('car-page/:id')
+  GetCar(@Param() param: string) {
+    return this.rentCarService.getCar(param)
+  }
 
   @Delete(':id')
   remove(@Param('id') id: string) {
