@@ -6,6 +6,7 @@ import DatePicker from '../Global/Datepicker/DatePicker';
 import { month } from '../Global/Datepicker/Month';
 import Header from '../Global/Header/Header';
 import { step2Options } from '../NewCar/step2Options';
+import iconSlideShow from '../../Assets/img/Rent-page/slideShow.svg';
 
 export const CarPage = ({
     warning, setCarPage,
@@ -51,9 +52,7 @@ export const CarPage = ({
                 photo +=1;
                 setPhotoNumber(photo);
             }
-
         }
-
     }
 
     if(!carPage) return (<div><Header/></div>)
@@ -65,13 +64,16 @@ export const CarPage = ({
             <div className="wrapper">
                 <div className="main">
                     <img src={carPage[0].photosCars[0]}/>
+                    <div className="main-icon" onClick={()=>setSlideShow(true)}>
+                        <img src={iconSlideShow}></img>
+                    </div>
+                    
                 </div>
                 {carPage[0].photosCars.length > 1 ? 
                 <div className="mini">
                     <div>
                         <img src={carPage[0].photosCars[1]}></img>
                     </div>
-                    
                     {carPage[0].photosCars.length > 2 
                     ? <div>
                         <img src={carPage[0].photosCars[2]}></img>
@@ -86,6 +88,7 @@ export const CarPage = ({
                 </div> : ""}
             </div>
         </div>
+        <h2 className="h2-mobil">{`${carPage[0].brand} ${carPage[0].model}, ${carPage[0].year}`}</h2>
         <div className="owner__container">
             <h2>{`${carPage[0].brand} ${carPage[0].model}, ${carPage[0].year}`}</h2>
             <div className="owner__container-rect">
@@ -108,7 +111,8 @@ export const CarPage = ({
                 <p>при аренде более 5 дней</p>
             </div>
         </div>
-        <h3>Характеристики</h3>
+        <h3 className="h3-charact">Характеристики</h3>
+        <h3 className="h3-mobil">Характеристики</h3>
         <div className="characteristics__container">
             <div className="characteristics__container-keys">
                 <div>Год выпуска</div>
