@@ -6,6 +6,7 @@ const mongoose = require('mongoose');
 import { RentCar as RentCarEntity } from '../entities/rent-car.entity';
 import { createUniqName } from "../config/createUniqName";
 import { RegistrationEntity } from "src/Registration/entities/registration.entity";
+import { getMongoManager } from "typeorm";
 
 @Injectable()
 export class CreateCarService {
@@ -42,7 +43,9 @@ export class CreateCarService {
       Number(createRentCarDto.geo.split(",")[0]) + Number((Math.random()*0.01).toFixed(5)),
       Number(createRentCarDto.geo.split(",")[1]) + Number((Math.random()*0.01).toFixed(5))
     ]
-    
+
+    const manager = getMongoManager();
+
     newRentCar._id = id
     newRentCar.brand = createRentCarDto.brand;
     newRentCar.model = createRentCarDto.model;
@@ -70,10 +73,13 @@ export class CreateCarService {
     newRentCar.photosCars = carPhotos;
     newRentCar.photosCarsDocs = carDocs;
     newRentCar.rating = 0;
+    newRentCar.review = [];
 
     newRentCar.owner = new RegistrationEntity();
     newRentCar.owner.mail = createRentCarDto.owner;
-
-    return await this.rentCarRepository.create(newRentCar);
+    let findUser = await manager.findOne(RegistrationEntity, {mail: createRentCarDto.owner})
+    newRentCar.owner.imgAvatar = `http://localhost:8000/img-car/${createRentCarDto.owner}/avatar/${findUser.imgAvatar}`;
+    newRentCar.owner.name = findUser.name;
+    return await this.rentCarRepository.create(newRentCar)
   }
 }

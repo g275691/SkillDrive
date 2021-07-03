@@ -8,7 +8,7 @@ const DatePicker = ({onBlur
     , enabled
     , stateDate = [], stateDate2 = []
     , stateDispatch = [], stateDispatch2 = []
-    , twoDate
+    , twoDate, carPage
     , isMobilFinder
 }) => {
 
@@ -80,7 +80,7 @@ const DatePicker = ({onBlur
         style={{opacity: enabled ? 1 : 0, pointerEvents: enabled ? "all" : "none"}} 
         onBlur={onBlur}
         >
-            <div className="date-picker-container__nav">
+            {!carPage ? <div className="date-picker-container__nav">
                 <div className="date-picker-container__nav__month">
                     <span className="icon-arrow"
                     onClick={ ()=> setNewDate("month", "left") }>
@@ -99,7 +99,7 @@ const DatePicker = ({onBlur
                     onClick={ ()=> setNewDate("year", "right") }>
                     </span>
                 </div>
-            </div>
+            </div> : ""}
             <div className="date-picker-container__calendar">
                 {daysArray.map((el, i)=> 
                 <DatePickerDay key={i}

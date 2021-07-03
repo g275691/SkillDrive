@@ -19,7 +19,7 @@
             margin-bottom: 0px;
             font-size: 32px;
             text-align: center;
-            margin-top: 0px
+            margin-top: 0px;
         }
     }
     &-recommend {
@@ -207,6 +207,11 @@
                     height: 242px;
                     border-radius: 10px;
                     z-index: 2;
+                    background: black;
+                    opacity: 0;
+                    &:hover {
+                        opacity: 0.1;
+                    }
                 }
                 &-car {
                     min-width: 328px;

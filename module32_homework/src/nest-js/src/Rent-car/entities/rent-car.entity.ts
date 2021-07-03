@@ -1,6 +1,6 @@
 import { TripEntity } from "src/trip/entities/trip.entity";
-import { Column, Entity, ObjectIdColumn } from "typeorm";
-import { RegistrationEntity as owner} from "../../Registration/Entities/registration.entity";
+import { Column, Entity, ObjectIdColumn, OneToMany } from "typeorm";
+import { RegistrationEntity as Owner} from "../../Registration/Entities/registration.entity";
 
 @Entity("RentCar")
 export class RentCar {
@@ -82,12 +82,18 @@ export class RentCar {
     @Column()
     photosCarsDocs: Array<any>;
 
-    @Column(()=> owner )
-    owner: owner;
+    @Column(()=>Owner)
+    owner: Owner
+
+    @Column()
+    ownerPhoto: string
 
     @Column()
     rating: any;
 
     @Column()
     photo: string
+
+    @Column()
+    review:  Array<string>;
 }

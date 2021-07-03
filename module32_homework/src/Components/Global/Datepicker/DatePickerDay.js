@@ -53,10 +53,7 @@ const DatePickerDay = ({ day, month, year
                 && stateDate2[1] == month 
                 && twoDate
                 ? "linear-gradient(to right, #DFECEB 50%, white 50% )" : ""))
-        
-        }}
-        >
-            
+        }}>
             <div onMouseDown={()=> {index >= 7 && day!="" ? setDay() : ""
             }}
 
@@ -64,16 +61,13 @@ const DatePickerDay = ({ day, month, year
                 (stateDate[2] == day && stateDate[0] == year && stateDate[1] == month) 
                 || 
                 (stateDate2[2] == day && stateDate2[0] == year && stateDate2[1] == month) 
-
             ? "active" : ""}>
-                
                     <span className={index > 7 ? "" : "interval"}
                     style={{color: index < 7 && "#B1B1B1"
                     , cursor: index < 7 ? "auto" : "pointer"
                     }}>
                         {day}
                     </span>
-
             </div>
         </div>
     )

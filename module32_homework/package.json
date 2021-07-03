@@ -10,7 +10,8 @@
     "nodemon": "nodemon src/express/index.js",
     "nest": "cd src/nest-js & npm run start:dev",
     "nest-static": "cd src/nest-js & npm run start",
-    "all-install": "npm i & npm run build & cd src/nest-js & npm i"
+    "all-install": "npm i & npm run build & cd src/nest-js & npm i",
+    "full-start": "npm start && npm run start:dev --prefix src/nest-js"
   },
   "keywords": [],
   "author": "",

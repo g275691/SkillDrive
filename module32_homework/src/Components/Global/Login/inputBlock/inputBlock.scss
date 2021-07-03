@@ -32,10 +32,7 @@ form {
           border: 1px solid #D0CDE1;
           font-size: 14px;
           transition: all 0.2s;
-          @include breakpoint (medium) {
-            
-            
-          }
+
           &.is-valid {
             border-color: #EB5757;
           }

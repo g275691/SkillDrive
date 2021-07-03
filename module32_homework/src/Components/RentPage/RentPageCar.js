@@ -33,8 +33,7 @@ export const RentPageCar = ({
             <Link to={carPageId}></Link>
             <div className="car-frame-car" 
 
-            style={{backgroundImage: `url(${imgCar})`, backgroundSize: `cover`, backgroundRepeat:"no-repeat", width: "328px" }}
-            >
+            style={{backgroundImage: `url(${imgCar})`, backgroundSize: `cover`, backgroundRepeat:"no-repeat", width: "328px" }}>
             </div>
   
             

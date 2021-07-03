@@ -26,6 +26,7 @@ export const setCarPage = id => {
             err => {
                 dispatch(setCarPageRequest());
                 setTimeout(() => { dispatch(setCarPageFailure(false)); }, 3000);
+                
                 dispatch(setCarPageFailure(error.FAILED_TO_FETCH));
             }
             )
