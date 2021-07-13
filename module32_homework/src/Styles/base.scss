@@ -38,10 +38,14 @@
 @import "../components/Mycars/MyCars.scss";
 @import "../components/newCar/newCar.scss";
 @import "../components/carpage/carpage.scss";
+@import '../components/messages/messages.scss';
 @import '../Components/Global/InputMenu/InputMenu.scss';
 
 html {
   overflow-x: hidden;
+  &::-webkit-scrollbar { width: 8px; height: 3px;}
+  &::-webkit-scrollbar-button {  background-color: $green-rect; }      
+  &::-webkit-scrollbar-thumb { height: 50px; background-color: $green-rect }
   @include breakpoint (medium) {
     overflow-x: hidden;
   }

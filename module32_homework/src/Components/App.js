@@ -16,6 +16,7 @@ import MyCars from '../Containers/MyCars/MyCars';
 import NewCar from '../Containers/NewCar/NewCar';
 import CarPage from '../Containers/CarPage/CarPage';
 import SuccessNewCar from './NewCar/SuccessNewCar';
+import Messages from '../Containers/Messages/Messages';
 
 const App = () => {
 
@@ -23,6 +24,7 @@ const App = () => {
     
       <Switch>
         <Route path="users/:id" />
+        <Route path="/messages" component={Messages} />
         <Route path="/car-page" component={CarPage} />
         <Route path="/success-new-car" component={SuccessNewCar} />
         <Route path="/new-car" component={NewCar} />

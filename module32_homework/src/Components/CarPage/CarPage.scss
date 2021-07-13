@@ -422,15 +422,25 @@
             font-size: 150%;
             cursor: pointer;
             align-self: center;
+            
             @include breakpoint(medium) {
-                display: none;
+                position: fixed;
             }
             &.arrow-1 {
                 margin-left: 30px;
+                @include breakpoint(medium) {
+                    margin-left: 0px;
+                    left: 3%;
+                }
             }
             &.arrow-2 {
                 margin-right: 30px;
-                transform: rotateZ(180deg)
+                transform: rotateZ(180deg);
+                @include breakpoint(medium) {
+                    margin-right: 0px;
+                    left: 91%;
+                    margin-top: -1%;
+                }
 
                 
             }

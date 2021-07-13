@@ -8,6 +8,10 @@ import Header from '../Global/Header/Header';
 import { step2Options } from '../NewCar/step2Options';
 import iconSlideShow from '../../Assets/img/Rent-page/slideShow.svg';
 
+import { Swiper, SwiperSlide } from 'swiper/react';
+import SwiperCore, {Navigation, Pagination} from 'swiper/react';
+import 'swiper/swiper.scss';
+
 export const CarPage = ({
     warning, setCarPage,
     carPage, buttonLoad
@@ -34,7 +38,7 @@ export const CarPage = ({
     const date0 = `${month[monthDefault]} ${availableCar[0]}`;
     const date1 = `${month[monthDefault + 1]} ${availableCar[0]}`;
 
-    const [isSlideShow, setSlideShow] = useState(true);
+    const [isSlideShow, setSlideShow] = useState(false);
     const [photoNumber, setPhotoNumber] = useState(1);
     const changePhoto = (arrow) => {
         let photo = photoNumber;
@@ -175,17 +179,14 @@ export const CarPage = ({
     </div>
     <div className={isSlideShow ? "slide-show__container" : "slide-show__container is-disable"}>
         <div className="slide-show__container-number">{`${photoNumber} из ${carPage[0].photosCars.length} фото`}</div>
-        
         <div className="slide-show__container-frame">
             <div className="icon-arrow arrow-1" onClick={()=>changePhoto("left")}></div>
-            <img src={carPage[0].photosCars[photoNumber-1]}></img>
+            <img src={carPage[0].photosCars[photoNumber-1]}
+             ></img>
             <div className="icon-arrow arrow-2" onClick={()=>changePhoto("right")}></div>
         </div>
-
-        
-        
         <div className="slide-show__container-close" onClick={()=>setSlideShow(false)}>×</div>
-    </div>
+        </div>
     </>)
 
 }

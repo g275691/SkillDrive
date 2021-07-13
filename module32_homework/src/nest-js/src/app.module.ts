@@ -8,6 +8,7 @@ import { MulterModule } from '@nestjs/platform-express';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { RentCarModule } from './Rent-car/rent-car.module';
 import { TripModule } from './trip/trip.module';
+import { MessagesModule } from './messages/messages.module';
 
 @Module({
   imports: 
@@ -32,6 +33,7 @@ import { TripModule } from './trip/trip.module';
     LoginModule,
     RentCarModule,
     TripModule,
+    MessagesModule,
 
   
   ],

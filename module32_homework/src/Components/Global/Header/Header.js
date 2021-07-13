@@ -33,7 +33,7 @@ export const Header = ({ isMain, loginIsClose, closeLogin }) => {
                     <div className="navbar__menu is-desktop">
                             <Link to={isAuth ? "/rent-page" : "/about"} className="navbar__menu-item is-animated" rel="nofollow">{isAuth ? "Бронирования" : "О нас"}</Link>
                             <Link to={isAuth ? "/my-cars" : ""} className="navbar__menu-item is-animated" rel="nofollow">{isAuth ? "Мои автомобили" : "Условия"}</Link>
-                            <Link to="/questions" className="navbar__menu-item is-animated" rel="nofollow">{isAuth ? "Сообщения" : "Частые вопросы"}</Link>
+                            <Link to={isAuth ? "/messages" : "/questions"} className="navbar__menu-item is-animated" rel="nofollow">{isAuth ? "Сообщения" : "Частые вопросы"}</Link>
                             {isAuth 
                             ? <img className="navbar__menu-avatar" 
                             src={`http://localhost:8000/img-car/${localStorage.getItem("userMail")}/avatar/avatar.jpg`} 

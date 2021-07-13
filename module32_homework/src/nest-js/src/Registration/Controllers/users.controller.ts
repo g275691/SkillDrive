@@ -10,6 +10,7 @@ export class UsersController  {
       @Get()
       getUser(@Query() param: string) {
         return this.UsersService.getUser(param);
+        //http://localhost:8000/users?mail=test0@yandex.ru
       }
 }
 
