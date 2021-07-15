@@ -2,7 +2,10 @@ import { ObjectId } from "mongoose";
 import { IsNotEmpty } from 'class-validator';
 
 export class CreateMessageDto {
-    id;
+    _id;
+
+    @IsNotEmpty()
+    time;
 
     @IsNotEmpty()
     fromUser;

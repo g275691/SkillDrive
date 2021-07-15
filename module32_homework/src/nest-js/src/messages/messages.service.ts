@@ -14,7 +14,7 @@ export class MessagesService {
   async create(createMessageDto: CreateMessageDto) {
     const newMessage = new MessagesEntity();
 
-    newMessage._id = createMessageDto.id;
+    newMessage.time = createMessageDto.time;
     newMessage.message = createMessageDto.message;
     newMessage.isRead = createMessageDto.isRead;
 
@@ -33,7 +33,6 @@ export class MessagesService {
   }
 
   async findChat(query) {
-    console.log(query);
     const manager = getMongoManager();
     const findChat = await manager.find( MessagesEntity, { 
       where: {
@@ -44,17 +43,16 @@ export class MessagesService {
           $in: [query.fromUser, query.toUser]
         }
       },
-      order: {_id: 1}
+      order: {time: 1}
     } );
-    console.log(findChat)
     return findChat
     // .length 
     // ? findChat 
     // : [{
-    //   id: Date.now(),
+    //   _id: Date.now(),
     //   toUser: query.toUser,
     //   fromUser: query.fromUser,
-    //   message: "Приветствую! Желаете немедленно арендовать машину?"
+    //   message: "Приветствую! Интересуюсь крутыми тачками? Есть такие?"
     // }]
   }
 

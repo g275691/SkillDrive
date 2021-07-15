@@ -7,6 +7,9 @@ export class MessagesEntity {
     _id;
 
     @Column()
+    time: Number;
+
+    @Column()
     fromUser: string
 
     @Column()

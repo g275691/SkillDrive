@@ -2,7 +2,7 @@ import React, {useEffect, useRef, useState} from 'react';
 
 const User = ({
     user, setChat, 
-    getChat, setMessages
+    getChatHistory, setMessages, messages
 }) => {
     const userImg = `http://localhost:8000/img-car/${user.mail}/avatar/avatar.jpg`
     const setFormatName = (name) => {
@@ -16,7 +16,7 @@ const User = ({
         <div className="user__container" 
         onClick={()=>{
             setChat(true);
-            getChat(user.mail);
+            getChatHistory(user.mail, setFormatName(user.name), messages);
         }}>
             <div className="user__container-avatar"
             style={{background: `url(${userImg})`, backgroundSize: "cover"}}>

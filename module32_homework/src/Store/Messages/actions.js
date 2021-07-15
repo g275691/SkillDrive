@@ -29,30 +29,42 @@ export const getUsers = () => {
         }
     }
 
-export const getChatRequest = createAction('GET_CHAT_REQUEST');
-export const getChatSuccess = createAction('GET_CHAT_SUCCESS');
-export const getChatFailure = createAction('GET_CHAT_FAILURE');  
+export const getChatHistoryRequest = createAction('GET_CHAT_HISTORY_REQUEST');
+export const getChatHistorySuccess = createAction('GET_CHAT_HISTORY_SUCCESS');
+export const getChatHistoryFailure = createAction('GET_CHAT_HISTORY_FAILURE');  
 
-export const getChat = toUser => {
-    const fromUser = localStorage.getItem("userMail");
+export const fromUser = createAction('FROM_USER');
+export const toUser = createAction('TO_USER');
+export const toUserName = createAction('TO_USER_NAME')
+
+export const getChatHistory = (data, name, onlineMessage) => {
     return (dispatch, getStore) => {
-        dispatch(getChatRequest());
-        fetch(`http://localhost:8000/messages/chat?fromUser=${fromUser}&toUser=${toUser}`)
+        dispatch(getChatHistoryRequest());
+        fetch(`http://localhost:8000/messages/chat?fromUser=${localStorage.getItem("userMail")}&toUser=${data}`)
             .then(response => {
-            dispatch(getChatRequest());
+            dispatch(getChatHistoryRequest());
             if(!response.ok) {
-                dispatch(getChatFailure(error.WRONG_PASSWORD));
-                setTimeout(() => { dispatch(getChatFailure(false)); }, 2000);
+                dispatch(getChatHistoryFailure(error.WRONG_PASSWORD));
+                setTimeout(() => { dispatch(getChatHistoryFailure(false)); }, 2000);
             } else {
                 response.json()
                 .then(json => {
-                    dispatch(getChatSuccess(json))})
-                
+                    let mainArr = json.map(el=> {
+                        delete el["_id"];
+                        return JSON.stringify(el)
+                        }),
+                        newArr = onlineMessage.map(el=>JSON.stringify(el));
+                    mainArr = mainArr.filter( ( el ) => !newArr.includes( el ) );
+                    dispatch(getChatHistorySuccess(mainArr.map(el=>JSON.parse(el))))})
+                    
+                    dispatch(fromUser(localStorage.getItem("userMail")));
+                    dispatch(toUser(data));
+                    dispatch(toUserName(name))
             }
             },
             err => {
                 dispatch(getChatRequest());
-                setTimeout(() => { dispatch(getChatFailure(false)); }, 3000);
+                setTimeout(() => { dispatch(getChatHistoryFailure(false)); }, 3000);
                 dispatch(getChatFailure(error.FAILED_TO_FETCH));
             }
             )

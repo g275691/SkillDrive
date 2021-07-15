@@ -6,23 +6,60 @@
     justify-content: flex-start;
     align-items: center;
     height: 80%;
+    margin-top: 50px;
     h2 {
         margin-top: 96px;
     }
-
-    input {
-        margin-top: auto;
-        width: 45%;
+    &-name {
+        align-self: center;
+        font-size: 20px;
+        font-weight: 400;
     }
+    &-date {
+        color: #BDBDBD;
+        align-self: center;
+        margin-bottom: 30px;
+    }
+    &-input {
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+        margin-top: auto;
+        width: 40%;  
+        margin-left: -40px;
+        input {
+            width: 100%; 
+            
+            &[type=text] {
+                padding-left: 40px;
+                
+ 
+            }
+        }
+        img {
+            position: absolute;
+            cursor: pointer;
+            &:first-child {
+               align-self: flex-start;
+               margin-left: 13px;
+            }
+            &:last-child {
+                align-self: flex-end;
+                margin-right: -36px;
+            }
+        }
+    }
+
+
     &-area {
         @include green-scroll();
         display: flex;
         flex-direction: column;
         width: 40%;
-        max-height: 90%;
+        max-height: 75%;
         overflow-y: scroll; 
         padding: 0px 2%;
-        
+        margin-top: 30px;
     }
     .wrapper {
         @include green-scroll();
@@ -71,6 +108,7 @@
     align-self: flex-end;
     &:last-child {
         margin-bottom: 0px;
+
     }
     &.not-owner {
         align-self: flex-start;
@@ -89,6 +127,7 @@
         background: $green-rect;
         padding: 20px 20px 10px 20px;
         border-radius: 8px;
+        border-bottom-right-radius: 0px;
         width: 417px;
         margin-left: 20px;
         .time {
@@ -102,6 +141,8 @@
             background: #F2F2F2;
             color: black;
             width: 364px;
+            border-radius: 8px;
+            border-bottom-left-radius: 0px;
             .time {
                 align-self: flex-start;
                 color: #828282;

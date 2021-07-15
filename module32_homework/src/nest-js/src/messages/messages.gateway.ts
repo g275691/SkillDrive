@@ -24,7 +24,6 @@ import { CreateMessageDto } from './dto/create-message.dto';
     @MessageBody() payload: CreateMessageDto,
     @ConnectedSocket() client: Socket,
     ): void {
-    console.log(payload)
     this.messagesService.create(payload);
     this.server.emit('msgToClient', payload);
   }
@@ -33,6 +32,7 @@ import { CreateMessageDto } from './dto/create-message.dto';
   handleRoomLeave(client: Socket, room: string ) {
     client.leave(room);
     client.emit('leftRoom', room);
+    console.log("23123123")
   }
 
   afterInit(server: Server) {
@@ -45,5 +45,6 @@ import { CreateMessageDto } from './dto/create-message.dto';
  
   handleConnection(client: Socket, ...args: any[]) {
    //this.logger.log(`Client connected: ${client.id}`);
+   
   }
  }
