@@ -20,6 +20,7 @@ export class MessagesService {
 
     newMessage.fromUser = createMessageDto.fromUser;
     newMessage.toUser = createMessageDto.toUser;
+    this.findChat("test0@yandex.ru")
     return await this.messagesRepository.create(newMessage);
   }
 
@@ -34,7 +35,7 @@ export class MessagesService {
 
   async findChat(query) {
     const manager = getMongoManager();
-    const findChat = await manager.find( MessagesEntity, { 
+    const findChat = await manager.find( MessagesEntity,  {  
       where: {
         fromUser: {
           $in: [query.fromUser, query.toUser]
@@ -43,21 +44,26 @@ export class MessagesService {
           $in: [query.fromUser, query.toUser]
         }
       },
-      order: {time: 1}
-    } );
-    return findChat
-    // .length 
-    // ? findChat 
-    // : [{
-    //   _id: Date.now(),
-    //   toUser: query.toUser,
-    //   fromUser: query.fromUser,
-    //   message: "Приветствую! Интересуюсь крутыми тачками? Есть такие?"
-    // }]
+     order: {time: 1}
+    } )
+
+    this.updateReadMessage(query)
+
+    return findChat;
   }
 
   update(id: number, updateMessageDto: UpdateMessageDto) {
     return `This action updates a #${id} message`;
+  }
+
+  async updateReadMessage(query) {
+    const manager = getMongoManager();
+    await manager.updateMany(
+      MessagesEntity, {
+      fromUser: query.toUser,
+      toUser: query.fromUser
+    }, 
+    { $set: {  isRead: true }});
   }
 
   remove(id: number) {

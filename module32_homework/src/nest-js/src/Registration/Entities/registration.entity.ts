@@ -48,4 +48,7 @@ export class RegistrationEntity {
     
     @Column()
     idRecovery: string;
+
+    @Column()
+    haveNotReadMessage: boolean;
 }

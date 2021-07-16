@@ -14,11 +14,7 @@ export const Messages = ({
 }) => {
 
     const [inputValue, setInputValue] = useState("");
-    const [messages, setMessages] = useState(
-        [
- 
-        ]
-    );
+    const [messages, setMessages] = useState([]);
 
     const getDate = (date) => {
         let day = new Date(date).getDate(),
@@ -42,12 +38,10 @@ export const Messages = ({
         socket.on('msgToClient', (message) => {
             newMessage.push(message);
             setMessages([...newMessage]);
+            document.querySelector(".messages__container-area").scrollTop = 1900;
         });
         getUsers();
-
-        socket.on("connect", () => {
-            console.log("test"); // "G5p5..."
-          });
+        
     },[]);
 
     const sendMessage = () => {
@@ -64,22 +58,26 @@ export const Messages = ({
     }
     
     useEffect(()=>{
-
-    })
+        
+    }, [messages])
 
     if((!isChat && !users) 
     || (isChat && !chatHistory)) 
     return (<div><Header /></div>)
     return (<>
-        <Header />
+        <Header messages={messages}/>
         <div className="messages__container">
             {!isChat 
             ? <><h2>Сообщения</h2> 
             <div className="wrapper">
-            {users.filter(el=>el.mail != localStorage.getItem("userMail"))
-                .map((el,i) => {
-                return <User key={i} user={el} setChat={setChat} getChatHistory={getChatHistory} messages={messages} />
-            })}
+            {
+            users.map((el,i) => {
+                return <User key={i} user={el} setChat={setChat} 
+                getChatHistory={getChatHistory} chatHistory={chatHistory}
+                messages={messages} setMessages={setMessages}
+                toUser={toUser}/>
+            })
+            }
             </div>
             </>
             : "" }
@@ -87,7 +85,10 @@ export const Messages = ({
             {isChat 
             ? <>
             <div className="back-page-arrow" 
-                onClick={()=> {setChat(false)}}>
+                onClick={()=> {
+                    setChat(false);
+                    getUsers()
+                    }}>
                 <span className="icon-back"></span>
                 <span>Назад</span>
             </div>
@@ -122,8 +123,8 @@ export const Messages = ({
                             <Message key={i} payload={el} chatHistory={chatHistory} setMessages={setMessages}
                             toUser={toUser} fromUser={fromUser}/>
                         </>)
-                }
-                })
+                    }
+                    })
                 }
             </div>
             <div className="messages__container-input">

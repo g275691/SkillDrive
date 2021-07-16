@@ -46,4 +46,6 @@ export class newUserDto {
     photosDoc: Array<any>
 
     idRecovery: String;
+
+    haveNotReadMessage: boolean;
 }

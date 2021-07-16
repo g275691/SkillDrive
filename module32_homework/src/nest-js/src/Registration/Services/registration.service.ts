@@ -43,6 +43,7 @@ export class RegistrationService {
         newUser.imgAvatar = "avatar.jpg";
         newUser.photosDoc = newUserDto.photosDoc;
         newUser.idRecovery = "";
+        newUser.haveNotReadMessage = false;
 
         return await this.registrationRepository.create(newUser)
         .then(()=> {

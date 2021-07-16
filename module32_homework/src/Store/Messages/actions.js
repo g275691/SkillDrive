@@ -8,7 +8,7 @@ export const getUsersFailure = createAction('GET_USERS_FAILURE');
 export const getUsers = () => {
     return (dispatch, getStore) => {
         dispatch(getUsersRequest());
-        fetch("http://localhost:8000/users/")
+        fetch(`http://localhost:8000/users?mail=${localStorage.getItem("userMail")}`)
             .then(response => {
             dispatch(getUsersRequest());
             if(!response.ok) {
@@ -49,13 +49,22 @@ export const getChatHistory = (data, name, onlineMessage) => {
             } else {
                 response.json()
                 .then(json => {
-                    let mainArr = json.map(el=> {
+                    let mainArr = [...json];
+                    mainArr = mainArr.map(el=> {
                         delete el["_id"];
+                        el["isRead"] = true;
                         return JSON.stringify(el)
-                        }),
-                        newArr = onlineMessage.map(el=>JSON.stringify(el));
+                    });
+                    let newArr = [...onlineMessage]
+                    newArr = newArr.map(el=>{
+                        el["isRead"] = true;
+                        return JSON.stringify(el)
+                    });
                     mainArr = mainArr.filter( ( el ) => !newArr.includes( el ) );
-                    dispatch(getChatHistorySuccess(mainArr.map(el=>JSON.parse(el))))})
+                    mainArr = mainArr.map(el=>JSON.parse(el))
+                    mainArr.forEach(el=>el["isRead"] = true)
+
+                    dispatch(getChatHistorySuccess(mainArr))})
                     
                     dispatch(fromUser(localStorage.getItem("userMail")));
                     dispatch(toUser(data));
