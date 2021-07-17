@@ -23,14 +23,11 @@ messages }) => {
     const [messageSignalHistory, setMessageSignalHistory] = useState(false);
 
     useEffect(()=> {
-        messagesHistory.map(el => {
-            if(el.isRead == false) {
-                setMessageSignalHistory(true);
-                console.log(el)
-            }
-        })
+        messagesHistory.every(el => el.isRead == true) 
+        ? setMessageSignalHistory(false)
+        : setMessageSignalHistory(true)
         
-        messages.map(el => {
+        messages && messages.map(el => {
             if(el.isRead == false && el.toUser == localStorage.getItem("userMail")) {
                 setMessageSignalOnline(true);
                 console.log(el)
@@ -55,7 +52,8 @@ messages }) => {
                             <Link to={isAuth ? "/my-cars" : ""} className="navbar__menu-item is-animated" rel="nofollow">{isAuth ? "Мои автомобили" : "Условия"}</Link>
                             <Link to={isAuth ? "/messages" : "/questions"} className="navbar__menu-item is-animated" rel="nofollow">
                                 {isAuth ? "Сообщения" : "Частые вопросы"}
-                                {messageSignalOnline ||  messageSignalHistory ? <div>●</div> : ""}
+                                {messageSignalHistory || messageSignalOnline
+                                ? <div>●</div> : ""}
                             </Link>
                             {isAuth 
                             ? <img className="navbar__menu-avatar" 
