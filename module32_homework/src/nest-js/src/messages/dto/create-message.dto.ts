@@ -18,4 +18,6 @@ export class CreateMessageDto {
 
     @IsNotEmpty()
     isRead: boolean;
+
+    
 }

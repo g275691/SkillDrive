@@ -14,7 +14,31 @@ export const Messages = ({
 }) => {
 
     const [inputValue, setInputValue] = useState("");
-    const [messages, setMessages] = useState([]);
+    const [messages, setMessages] = useState(
+        [
+            // {
+            //     fromUser: "test0@yandex.ru",
+            //     isRead: false,
+            //     message: "Вы хотели бы арендовать машину, абсолютно верно, не так ли, да?",
+            //     time: 1626411775560,
+            //     toUser: "test1@yandex.ru"
+            // },
+            // {
+            //     fromUser: "test1@yandex.ru",
+            //     isRead: false,
+            //     message: "Вы хотели бы арендовать машину, абсолютно верно, не так ли, да?",
+            //     time: 1626499735560,
+            //     toUser: "test0@yandex.ru"
+            // },
+            // {
+            //     fromUser: "test0@yandex.ru",
+            //     isRead: false,
+            //     message: "Зачем вы меня передразниваете?",
+            //     time: 1626499275560,
+            //     toUser: "test1@yandex.ru"
+            // },
+        ]
+    );
 
     const getDate = (date) => {
         let day = new Date(date).getDate(),
@@ -52,13 +76,12 @@ export const Messages = ({
             toUser: toUser,
             message: inputValue,
             isRead: false,
-        }
-        );
+        });
         setInputValue("");
     }
-    
+
     useEffect(()=>{
-        
+        console.log(messages)
     }, [messages])
 
     if((!isChat && !users) 
@@ -75,7 +98,8 @@ export const Messages = ({
                 return <User key={i} user={el} setChat={setChat} 
                 getChatHistory={getChatHistory} chatHistory={chatHistory}
                 messages={messages} setMessages={setMessages}
-                toUser={toUser}/>
+                toUser={toUser}
+                />
             })
             }
             </div>
@@ -121,7 +145,9 @@ export const Messages = ({
                                 {getDate(el.time)}
                             </div>)}
                             <Message key={i} payload={el} chatHistory={chatHistory} setMessages={setMessages}
-                            toUser={toUser} fromUser={fromUser}/>
+                            toUser={toUser} fromUser={fromUser}
+                            socket={socket}
+                            />
                         </>)
                     }
                     })

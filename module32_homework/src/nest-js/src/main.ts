@@ -12,6 +12,7 @@ async function bootstrap() {
   app.enableCors();
   app.use('/static', express.static('uploads'))
   app.use('/img-car', express.static('users'))
+  app.use('/emoji', express.static('emoji'))
   app.useStaticAssets(join(__dirname, '..', 'static'));
   await app.listen(8000);
 }

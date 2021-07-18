@@ -27,6 +27,15 @@ import { CreateMessageDto } from './dto/create-message.dto';
     this.messagesService.create(payload);
     this.server.emit('msgToClient', payload);
   }
+
+  @SubscribeMessage('emojiToServer')
+  handleEmoji(
+    @MessageBody() payload,
+    @ConnectedSocket() client: Socket,
+    ): void {
+    console.log(payload);
+    this.server.emit('emojiToClient', payload);
+  }
  
   @SubscribeMessage('leaveRoom')
   handleRoomLeave(client: Socket, room: string ) {
