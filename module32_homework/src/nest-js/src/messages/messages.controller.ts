@@ -27,9 +27,9 @@ export class MessagesController {
     return this.messagesService.findChat(query);
   }
 
-  @Put(':id')
-  update(@Param('id') id: string, @Body() updateMessageDto: UpdateMessageDto) {
-    return this.messagesService.update(+id, updateMessageDto);
+  @Put()
+  update(@Body() updateMessageDto: any) {
+    return this.messagesService.update(updateMessageDto);
   }
 
   @Delete(':id')

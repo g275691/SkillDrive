@@ -4,6 +4,7 @@ import { CreateMessageDto } from './dto/create-message.dto';
 import { UpdateMessageDto } from './dto/update-message.dto';
 import { MessagesEntity } from './entities/message.entity';
 import { MessagesRepository } from './Repositories/messages.repository';
+const ObjectId = require('mongodb').ObjectId; 
 
 @Injectable()
 export class MessagesService {
@@ -20,6 +21,8 @@ export class MessagesService {
 
     newMessage.fromUser = createMessageDto.fromUser;
     newMessage.toUser = createMessageDto.toUser;
+    newMessage.emoji = createMessageDto.emoji;
+
     this.findChat("test0@yandex.ru")
     return await this.messagesRepository.create(newMessage);
   }
@@ -37,12 +40,12 @@ export class MessagesService {
     const manager = getMongoManager();
     const findChat = await manager.find( MessagesEntity,  {  
       where: {
-        fromUser: {
-          $in: [query.fromUser, query.toUser]
-        },
-        toUser: {
-          $in: [query.fromUser, query.toUser]
-        }
+        // fromUser: {
+        //   $in: [query.fromUser, query.toUser]
+        // },
+        // toUser: {
+        //   $in: [query.fromUser, query.toUser]
+        // }
       },
      order: {time: 1}
     } )
@@ -52,8 +55,18 @@ export class MessagesService {
     return findChat;
   }
 
-  update(id: number, updateMessageDto: UpdateMessageDto) {
-    return `This action updates a #${id} message`;
+  async update(payload) {
+    const manager = getMongoManager();
+    console.log(payload);
+    let findMessage = await manager.findOne(MessagesEntity, {time: payload.messageTime});
+    let newEmojiArray = [...findMessage.emoji, payload.emoji];
+    console.log(findMessage);
+
+    await manager.update(
+      MessagesEntity, 
+      { time: payload.messageTime },
+      { emoji: newEmojiArray }
+    )
   }
 
   async updateReadMessage(query) {

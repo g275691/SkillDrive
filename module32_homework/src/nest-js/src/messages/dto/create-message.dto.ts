@@ -19,5 +19,6 @@ export class CreateMessageDto {
     @IsNotEmpty()
     isRead: boolean;
 
-    
+    @IsNotEmpty()
+    emoji: Array<string>
 }

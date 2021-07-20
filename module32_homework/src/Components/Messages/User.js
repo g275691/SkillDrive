@@ -2,7 +2,7 @@ import React, {useEffect, useRef, useState} from 'react';
 
 const User = ({
     user, setChat, 
-    getChatHistory, setMessages, messages
+    getChatHistory, chatMessage
 }) => {
     const userImg = `http://localhost:8000/img-car/${user.mail}/avatar/avatar.jpg`
     const setFormatName = (name) => {
@@ -20,7 +20,7 @@ const User = ({
     }
 
     useEffect(()=> {
-        messages.forEach(el=>{
+        chatMessage.forEach(el=>{
             
             if(el.fromUser == user.mail && el.toUser == localStorage.getItem("userMail")) {
                 setLastMessage(el);
@@ -31,25 +31,25 @@ const User = ({
                 }
             }
         })
-    }, [messages])
+    }, [chatMessage])
 
     return (<>
         <div className="user__container" 
         onClick={()=>{
 
             setChat(true);
-            getChatHistory(user.mail, setFormatName(user.name), messages);
+            getChatHistory(user.mail, setFormatName(user.name));
             setReadOnline(true);
 
-            let onlineMessages = [...messages];
+            // let onlineMessages = [...messages];
             
-            onlineMessages.forEach(el=>{
-                if(el.fromUser == user.mail) {
-                    el["isRead"] = true;
-                }
-            })
+            // onlineMessages.forEach(el=>{
+            //     if(el.fromUser == user.mail) {
+            //         el["isRead"] = true;
+            //     }
+            // })
 
-            setMessages(onlineMessages);
+            // setMessages(onlineMessages);
         }}
         >
             <div className="user__container-avatar"

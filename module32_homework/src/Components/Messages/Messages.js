@@ -1,4 +1,4 @@
-import React, {useEffect, useRef, useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import Header from '../Global/Header/Header';
 import io from "socket.io-client";
@@ -10,35 +10,11 @@ import imgSendDoc from '../../Assets/img/Messages/imgSendDoc.svg';
 
 export const Messages = ({
     getUsers, users, getChatHistory, chatHistory,
-    toUser, toUserName, fromUser
+    toUser, toUserName, fromUser,
+    chatMessage, setChatMessage
 }) => {
-
+    
     const [inputValue, setInputValue] = useState("");
-    const [messages, setMessages] = useState(
-        [
-            // {
-            //     fromUser: "test0@yandex.ru",
-            //     isRead: false,
-            //     message: "Вы хотели бы арендовать машину, абсолютно верно, не так ли, да?",
-            //     time: 1626411775560,
-            //     toUser: "test1@yandex.ru"
-            // },
-            // {
-            //     fromUser: "test1@yandex.ru",
-            //     isRead: false,
-            //     message: "Вы хотели бы арендовать машину, абсолютно верно, не так ли, да?",
-            //     time: 1626499735560,
-            //     toUser: "test0@yandex.ru"
-            // },
-            // {
-            //     fromUser: "test0@yandex.ru",
-            //     isRead: false,
-            //     message: "Зачем вы меня передразниваете?",
-            //     time: 1626499275560,
-            //     toUser: "test1@yandex.ru"
-            // },
-        ]
-    );
 
     const getDate = (date) => {
         let day = new Date(date).getDate(),
@@ -54,18 +30,16 @@ export const Messages = ({
     }
 
     const [isChat, setChat] = useState(false);
-    const socket = io('http://localhost:5000', 
-    { transports: ['websocket'] });
+    const socket = io('http://localhost:5000', { transports: ['websocket'] });
+
+    const addMessage = (message) => {
+        setChatMessage(message);
+        //document.querySelector(".messages__container-area").scrollTop = 3900;
+    }
 
     useEffect(()=> {
-        const newMessage = [];
-        socket.on('msgToClient', (message) => {
-            newMessage.push(message);
-            setMessages([...newMessage]);
-            document.querySelector(".messages__container-area").scrollTop = 1900;
-        });
+        socket.on('msgToClient', addMessage);
         getUsers();
-        
     },[]);
 
     const sendMessage = () => {
@@ -76,19 +50,18 @@ export const Messages = ({
             toUser: toUser,
             message: inputValue,
             isRead: false,
+            emoji: []
         });
         setInputValue("");
-    }
+    };
 
-    useEffect(()=>{
-        console.log(messages)
-    }, [messages])
+    const sendEmoji = emoji => socket.emit('emojiToServer', emoji);
 
     if((!isChat && !users) 
     || (isChat && !chatHistory)) 
     return (<div><Header /></div>)
     return (<>
-        <Header messages={messages}/>
+        <Header chatMessage={chatMessage}/>
         <div className="messages__container">
             {!isChat 
             ? <><h2>Сообщения</h2> 
@@ -97,8 +70,7 @@ export const Messages = ({
             users.map((el,i) => {
                 return <User key={i} user={el} setChat={setChat} 
                 getChatHistory={getChatHistory} chatHistory={chatHistory}
-                messages={messages} setMessages={setMessages}
-                toUser={toUser}
+                chatMessage={chatMessage} toUser={toUser}
                 />
             })
             }
@@ -119,39 +91,27 @@ export const Messages = ({
             <div className="messages__container-name">{toUserName}</div>
             <div className="messages__container-area">
                 
-                {chatHistory
-                .map((el,i)=>{
+            {chatMessage
+            .map((el, i)=>{
+                if((el.toUser == toUser && el.fromUser == fromUser)
+                || (el.toUser == fromUser && el.fromUser == toUser)) {
+                    
                     let date = new Date(el.time).getDate(),
-                    prevDate = chatHistory[i-1] && new Date(chatHistory[i-1].time).getDate();
+                    prevDate = chatMessage[i-1] && new Date(chatMessage[i-1].time).getDate();
 
                     return (<>
-                    {prevDate != date && (<div className="messages__container-date" key={el._id}>{getDate(el.time)}</div>)}    
-                    
-                    <Message key={i} payload={el} chatHistory={chatHistory} setMessages={setMessages}
-                    toUser={toUser} /> 
+                        {prevDate != date && 
+                        (<div className="messages__container-date">
+                            {getDate(el.time)}
+                        </div>)}
+                        <Message key={i} payload={el} chatHistory={chatHistory}
+                        toUser={toUser} fromUser={fromUser} sendEmoji={sendEmoji}
+                        setChatMessage={setChatMessage} chatMessage={chatMessage}
+                        />
                     </>)
-                })}
-                {messages
-                .map((el, i)=>{
-                    if((el.toUser == toUser && el.fromUser == fromUser)
-                    || (el.toUser == fromUser && el.fromUser == toUser)) {
-                        
-                        let date = new Date(el.time).getDate(),
-                        prevDate = messages[i-1] && new Date(messages[i-1].time).getDate();
-
-                        return (<>
-                            {prevDate != date && 
-                            (<div className="messages__container-date">
-                                {getDate(el.time)}
-                            </div>)}
-                            <Message key={i} payload={el} chatHistory={chatHistory} setMessages={setMessages}
-                            toUser={toUser} fromUser={fromUser}
-                            socket={socket}
-                            />
-                        </>)
-                    }
-                    })
                 }
+                })
+            }
             </div>
             <div className="messages__container-input">
                 <img src={imgSendDoc} />

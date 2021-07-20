@@ -20,4 +20,7 @@ export class MessagesEntity {
 
     @Column()
     isRead: boolean
+
+    @Column()
+    emoji: Array<string>
 }

@@ -35,9 +35,10 @@ export const getChatHistoryFailure = createAction('GET_CHAT_HISTORY_FAILURE');
 
 export const fromUser = createAction('FROM_USER');
 export const toUser = createAction('TO_USER');
-export const toUserName = createAction('TO_USER_NAME')
+export const toUserName = createAction('TO_USER_NAME');
+export const setChatMessage = createAction('SET_CHAT_MESSAGE');
 
-export const getChatHistory = (data, name, onlineMessage) => {
+export const getChatHistory = (data, name) => {
     return (dispatch, getStore) => {
         dispatch(getChatHistoryRequest());
         fetch(`http://localhost:8000/messages/chat?fromUser=${localStorage.getItem("userMail")}&toUser=${data}`)
@@ -49,22 +50,7 @@ export const getChatHistory = (data, name, onlineMessage) => {
             } else {
                 response.json()
                 .then(json => {
-                    let mainArr = [...json];
-                    mainArr = mainArr.map(el=> {
-                        delete el["_id"];
-                        el["isRead"] = true;
-                        return JSON.stringify(el)
-                    });
-                    let newArr = [...onlineMessage]
-                    newArr = newArr.map(el=>{
-                        el["isRead"] = true;
-                        return JSON.stringify(el)
-                    });
-                    mainArr = mainArr.filter( ( el ) => !newArr.includes( el ) );
-                    mainArr = mainArr.map(el=>JSON.parse(el))
-                    mainArr.forEach(el=>el["isRead"] = true)
-
-                    dispatch(getChatHistorySuccess(mainArr))})
+                    dispatch(getChatHistorySuccess(json))})
                     
                     dispatch(fromUser(localStorage.getItem("userMail")));
                     dispatch(toUser(data));

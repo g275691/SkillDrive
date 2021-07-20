@@ -3,15 +3,22 @@ import { useDispatch, useSelector } from 'react-redux';
 
 const EmojiMenuItem = ({
     emoji, setEmojiMenu, 
-    emojiMessage, setEmojiMessage,
-    sendEmoji, socket
+    sendEmoji, payload
 }) => {
 
     return (<>
         <div className="emoji-item" 
         onClick={()=>{
             setEmojiMenu(false);
-            sendEmoji(emoji);
+            console.log(emoji)
+            sendEmoji(
+                {
+                    time: Date.now(),
+                    messageTime: payload.time,
+                    emoji,
+                    fromUser: payload.fromUser,
+                    toUser: payload.toUser
+                });
         }}>
             {emoji}
         </div>

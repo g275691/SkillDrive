@@ -24,8 +24,13 @@ import { CreateMessageDto } from './dto/create-message.dto';
     @MessageBody() payload: CreateMessageDto,
     @ConnectedSocket() client: Socket,
     ): void {
-    this.messagesService.create(payload);
-    this.server.emit('msgToClient', payload);
+    this.messagesService.create(payload)
+    .then(()=>{
+      this.messagesService.findChat({})
+      .then(data=>{
+        this.server.emit('msgToClient', data);
+      })
+    })
   }
 
   @SubscribeMessage('emojiToServer')
@@ -34,9 +39,17 @@ import { CreateMessageDto } from './dto/create-message.dto';
     @ConnectedSocket() client: Socket,
     ): void {
     console.log(payload);
+    this.messagesService.update(payload)
+    .then(()=>{
+      this.messagesService.findChat({})
+      .then(data=>{
+        this.server.emit('msgToClient', data);
+      })
+    })
+
     this.server.emit('emojiToClient', payload);
   }
- 
+
   @SubscribeMessage('leaveRoom')
   handleRoomLeave(client: Socket, room: string ) {
     client.leave(room);
