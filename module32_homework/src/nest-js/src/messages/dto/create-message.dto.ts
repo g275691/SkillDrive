@@ -21,4 +21,7 @@ export class CreateMessageDto {
 
     @IsNotEmpty()
     emoji: Array<string>
+
+    @IsNotEmpty()
+    chatBot;
 }

@@ -1,9 +1,9 @@
-import { Controller, Get, Post, Body, Put, Param, Delete, Response, Request, HttpCode } from '@nestjs/common';
+import { Controller, Get, Post, Body, Put, Param, Delete, Response, Request, HttpCode, Query } from '@nestjs/common';
 import { TripService } from './trip.service';
 import { CreateTripDto } from './dto/create-trip.dto';
 import { UpdateTripDto } from './dto/update-trip.dto';
 
-@Controller('rent-car/trip')
+@Controller('trip')
 export class TripController {
   constructor(private readonly tripService: TripService) {}
 
@@ -12,20 +12,21 @@ export class TripController {
     return this.tripService.create(createTripDto, res);
   }
 
+  // @Get()
+  // findOne(@Body() data) {
+  //   console.log(data);
+  //   return '2222'
+  //   return this.tripService.findOne(data);
+  // }
+
   @Get()
-  findAll() {
-    return this.tripService.findAll();
+  find(@Query() data: string) {
+    return this.tripService.find(data);
   }
 
-  @Get(':license')
-  findOne(@Param('license') license: string) {
-    console.log(license)
-    return this.tripService.findOne(license);
-  }
-
-  @Put(':id')
-  update(@Param('id') id: string, @Body() updateTripDto: UpdateTripDto) {
-    return this.tripService.update(+id, updateTripDto);
+  @Put()
+  update(@Body() updateTripDto: UpdateTripDto) {
+    return this.tripService.update(updateTripDto);
   }
 
   @Delete(':id')

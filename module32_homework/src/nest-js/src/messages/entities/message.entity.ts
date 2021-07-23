@@ -23,4 +23,7 @@ export class MessagesEntity {
 
     @Column()
     emoji: Array<string>
+
+    @Column()
+    chatBot;
 }

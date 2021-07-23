@@ -11,4 +11,10 @@ export const CarPage = createReducer( defaultState, {
     [actions.setCarPageRequest]: (state, action) => { 
         state.buttonLoad = action.payload
     },
+    [actions.createTripSuccess]: (state, action) => { 
+        state.trip = action.payload
+    },
+    [actions.updateTripSuccess]: (state, action) => { 
+        state.trip = action.payload
+    },
 })

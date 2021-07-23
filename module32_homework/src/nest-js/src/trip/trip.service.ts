@@ -13,6 +13,7 @@ export class TripService {
     
     ) {}
   async create(createTripDto: CreateTripDto, res) {
+    console.log(createTripDto);
     const manager = getMongoManager();
 
     const license = await manager.find(RentCar, {
@@ -24,36 +25,46 @@ export class TripService {
    
     const newTrip = new TripEntity();
     newTrip.license = license[0].license;
-    newTrip.owner = license[0].owner.mail;
+    newTrip.ownerCar = license[0].owner.mail;
+    newTrip.client = createTripDto.client;
+    newTrip.car = license[0];
 
     newTrip.startRent = new Date(createTripDto.startRent);
     newTrip.endRent = new Date(createTripDto.endRent);
     newTrip.price = createTripDto.price;
     newTrip.comment = createTripDto.comment;
-    newTrip.optionsDelivery = createTripDto.optionsDelivery;
-    newTrip.optionsBabyChair = createTripDto.optionsBabyChair;
-    newTrip.optionsEndRentAnywhere = createTripDto.optionsEndRentAnywhere;
-
+    newTrip.optionsDelivery = Boolean(createTripDto.optionsDelivery);
+    newTrip.optionsBabyChair = Boolean(createTripDto.optionsBabyChair);
+    newTrip.optionsEndRentAnywhere = Boolean(createTripDto.optionsEndRentAnywhere);
+    newTrip.rate = 0;
+    newTrip.statusStartRent = createTripDto.statusStartRent;
+    newTrip.statusStartTalkOwner = createTripDto.statusStartTalkOwner;
+    newTrip.statusStartTalkClient = createTripDto.statusStartTalkClient;
+    newTrip.days = createTripDto.days;
     newTrip.dateRent = new Date();
     res.status(200).send("Поездка забронирована");
     return await this.tripRepository.create(newTrip);
   }
 
-  findAll() {
-    return `This action returns all trip`;
-  }
-
-  async findOne(license) {
+  async findOne(data) {
+    console.log(data)
     const manager = getMongoManager();
-    return await manager.find(TripEntity, {
-      where: {
-        ['owner.license']: license
-      }
-    })
+    // return await manager.find(TripEntity, {
+    //   where: {
+    //     ['owner.license']: license
+    //   }
+    // })
+    return await manager.find(TripEntity, data)
   }
 
-  update(id: number, updateTripDto: UpdateTripDto) {
-    return `This action updates a #${id} trip`;
+  async find(data) {
+    console.log(data)
+    const manager = getMongoManager();
+    return await manager.find(TripEntity, data)
+  }
+
+  update(updateTripDto: UpdateTripDto) {
+    return `This action updates a trip`;
   }
 
   remove(id: number) {

@@ -33,6 +33,10 @@ const User = ({
         })
     }, [chatMessage])
 
+    useEffect(()=>{
+        user.lastTrip && console.log(user.lastTrip.car)
+    })
+
     return (<>
         <div className="user__container" 
         onClick={()=>{
@@ -57,7 +61,9 @@ const User = ({
             </div>
             <div className="user__container-name">{setFormatName(user.name)}
                 {!user.isRead || !isReadOnline ? <span className="user__container-read">●</span> : ""}
-                <p>Hyundai Solaris, 2018</p>
+                <p>{user.lastTrip && user.lastTrip.car 
+                ? `${user.lastTrip.car.brand} ${user.lastTrip.car.model}, ${user.lastTrip.car.year}` 
+                : ""}</p>
             </div>
             
             

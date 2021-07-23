@@ -11,7 +11,10 @@ export class TripEntity {
     license: string;
 
     @Column()
-    owner: string;
+    client: string;
+
+    @Column()
+    ownerCar: string;
 
     @Column()
     startRent: Date;
@@ -36,4 +39,22 @@ export class TripEntity {
 
     @Column()
     dateRent: Date;
+
+    @Column()
+    rate: number;
+
+    @Column()
+    statusStartRent: boolean;
+
+    @Column()
+    statusStartTalkOwner: boolean;
+
+    @Column()
+    statusStartTalkClient: boolean;
+
+    @Column()
+    days: number;
+
+    @Column()
+    car: object;
 }

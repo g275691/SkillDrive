@@ -23,6 +23,8 @@ export class MessagesService {
     newMessage.toUser = createMessageDto.toUser;
     newMessage.emoji = createMessageDto.emoji;
 
+    newMessage.chatBot = createMessageDto.chatBot;
+
     this.findChat("test0@yandex.ru")
     return await this.messagesRepository.create(newMessage);
   }
@@ -59,14 +61,21 @@ export class MessagesService {
     const manager = getMongoManager();
     console.log(payload);
     let findMessage = await manager.findOne(MessagesEntity, {time: payload.messageTime});
-    let newEmojiArray = [...findMessage.emoji, payload.emoji];
-    console.log(findMessage);
-
-    await manager.update(
-      MessagesEntity, 
-      { time: payload.messageTime },
-      { emoji: newEmojiArray }
-    )
+    
+    if(payload.emoji) {
+      let newEmojiArray = [...findMessage.emoji, payload.emoji];
+      await manager.update(
+        MessagesEntity, 
+        { time: payload.messageTime },
+        { emoji: newEmojiArray }
+      )
+    } else {
+      await manager.update(
+        MessagesEntity, 
+        { time: payload.messageTime },
+        payload
+      )
+    }
   }
 
   async updateReadMessage(query) {

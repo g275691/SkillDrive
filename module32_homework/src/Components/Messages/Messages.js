@@ -32,10 +32,7 @@ export const Messages = ({
     const [isChat, setChat] = useState(false);
     const socket = io('http://localhost:5000', { transports: ['websocket'] });
 
-    const addMessage = (message) => {
-        setChatMessage(message);
-        //document.querySelector(".messages__container-area").scrollTop = 3900;
-    }
+    const addMessage = message => setChatMessage(message);
 
     useEffect(()=> {
         socket.on('msgToClient', addMessage);
@@ -50,11 +47,13 @@ export const Messages = ({
             toUser: toUser,
             message: inputValue,
             isRead: false,
-            emoji: []
+            emoji: [],
+            chatBot: false
         });
         setInputValue("");
     };
 
+    const updateMessage = data => socket.emit('updateMessage', data);
     const sendEmoji = emoji => socket.emit('emojiToServer', emoji);
 
     if((!isChat && !users) 
@@ -94,7 +93,8 @@ export const Messages = ({
             {chatMessage
             .map((el, i)=>{
                 if((el.toUser == toUser && el.fromUser == fromUser)
-                || (el.toUser == fromUser && el.fromUser == toUser)) {
+                || (el.toUser == fromUser && el.fromUser == toUser))
+                {
                     
                     let date = new Date(el.time).getDate(),
                     prevDate = chatMessage[i-1] && new Date(chatMessage[i-1].time).getDate();
@@ -107,6 +107,7 @@ export const Messages = ({
                         <Message key={i} payload={el} chatHistory={chatHistory}
                         toUser={toUser} fromUser={fromUser} sendEmoji={sendEmoji}
                         setChatMessage={setChatMessage} chatMessage={chatMessage}
+                        updateMessage={updateMessage}
                         />
                     </>)
                 }

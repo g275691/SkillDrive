@@ -12,10 +12,12 @@ import { Logger } from '@nestjs/common';
 import { Socket, Server } from 'socket.io';
 import { MessagesService } from './messages.service';
 import { CreateMessageDto } from './dto/create-message.dto';
+import { TripService } from 'src/trip/trip.service';
  
  @WebSocketGateway(5000)
  export class MessagesGateway implements OnGatewayInit, OnGatewayConnection, OnGatewayDisconnect {
   constructor(private readonly messagesService: MessagesService) {}
+
   @WebSocketServer() server: Server;
   private logger: Logger = new Logger('AppGateway');
  
@@ -46,9 +48,22 @@ import { CreateMessageDto } from './dto/create-message.dto';
         this.server.emit('msgToClient', data);
       })
     })
-
-    this.server.emit('emojiToClient', payload);
   }
+
+  @SubscribeMessage('updateMessage')
+  updateMessage(
+    @MessageBody() payload,
+    @ConnectedSocket() client: Socket,
+    ): void {
+      console.log(payload);
+      this.messagesService.update(payload)
+      .then(()=>{
+        this.messagesService.findChat({})
+        .then(data=>{
+          this.server.emit('msgToClient', data);
+        })
+      })
+    }
 
   @SubscribeMessage('leaveRoom')
   handleRoomLeave(client: Socket, room: string ) {

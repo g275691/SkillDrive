@@ -7,7 +7,10 @@ export class CreateTripDto {
     @IsNotEmpty()
     license: string;
 
-    owner;
+    @IsNotEmpty()
+    client: string;
+
+    ownerCar;
 
     @IsNotEmpty()
     startRent: Date;
@@ -29,4 +32,19 @@ export class CreateTripDto {
 
     @IsNotEmpty()
     optionsEndRentAnywhere: boolean;
+
+    rate: number;
+
+    @IsNotEmpty()
+    statusStartRent: boolean;
+
+    @IsNotEmpty()
+    statusStartTalkOwner: boolean;
+
+    @IsNotEmpty()
+    statusStartTalkClient: boolean;
+
+    days;
+
+    car;
 }

@@ -8,13 +8,10 @@ import Header from '../Global/Header/Header';
 import { step2Options } from '../NewCar/step2Options';
 import iconSlideShow from '../../Assets/img/Rent-page/slideShow.svg';
 
-import { Swiper, SwiperSlide } from 'swiper/react';
-import SwiperCore, {Navigation, Pagination} from 'swiper/react';
-import 'swiper/swiper.scss';
-
 export const CarPage = ({
     warning, setCarPage,
-    carPage, buttonLoad
+    carPage, buttonLoad,
+    createTrip
 }) => {
 
     useEffect(()=>{
@@ -167,7 +164,8 @@ export const CarPage = ({
         </div>
         <div className="submit-block-rect last"></div>
         <div className="button-wrapper">
-            <button type="submit">
+            <button type="submit"
+            onClick={()=>createTrip()}>
             {buttonLoad ? " " : "Арендовать"}
             </button>
             <div className="cssload-container">

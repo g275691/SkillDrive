@@ -134,6 +134,57 @@
         border-bottom-right-radius: 0px;
         width: 417px;
         margin-left: 20px;
+        &-bot {
+            display: flex;
+            align-items: center;
+            padding-bottom: 10px;
+            img {
+                width: 32px;
+                height: 32px;
+            }
+            span {
+                font-size: 16px;
+                margin-left: 11px;
+                font-weight: 500;
+            }
+        }
+        &-rate {
+            display: flex;
+            margin-left: 11px;
+            
+            .rate-item {
+                color: #E0E0E0;
+                font-size: 250%;
+                cursor: pointer;
+
+                transition: 0.1s ease-in all;
+                &:hover {
+                    color: #F2C94C;
+                }
+                &.select {
+                    color: #F2C94C;
+                }
+            }
+        }
+        &-button {
+            color: $green-rect;
+
+            width: auto;
+            margin-left: 11px;
+            margin-top: 15px;
+            cursor: pointer;
+
+            span {
+                border: 1px solid $green-rect;
+                display: inline-block;
+                border-radius: 6px;
+                padding: 8px 20px;
+                &:hover {
+                    background: $green-rect;
+                    color: white;
+                }
+            }
+        }
         .under__message {
             display: flex;
             align-items: center;
