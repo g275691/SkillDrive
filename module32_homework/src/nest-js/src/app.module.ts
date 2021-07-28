@@ -26,9 +26,9 @@ import { MessagesModule } from './messages/messages.module';
       ]
     }),
     MongooseModule.forRoot('mongodb://localhost/skilldrive2'),
-    MulterModule.register({
-      dest: './files'
-    }),
+    // MulterModule.register({
+    //   dest: './files'
+    // }),
     RegistrationModule,
     LoginModule,
     RentCarModule,

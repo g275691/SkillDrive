@@ -27,13 +27,13 @@ export class MessagesController {
     return this.messagesService.findChat(query);
   }
 
-  @Put()
-  update(@Body() updateMessageDto: any) {
-    return this.messagesService.update(updateMessageDto);
+  @Put(':id')
+  update(@Param('id') messageTime, @Body() payload) {
+    return this.messagesService.update(messageTime, payload);
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.messagesService.remove(+id);
+  remove(@Param('id') messageTime: string) {
+    return this.messagesService.remove(+messageTime);
   }
 }

@@ -1,4 +1,5 @@
 import { Injectable } from '@nestjs/common';
+import { TripEntity } from 'src/trip/entities/trip.entity';
 import { getMongoManager } from 'typeorm';
 import { CreateMessageDto } from './dto/create-message.dto';
 import { UpdateMessageDto } from './dto/update-message.dto';
@@ -24,8 +25,8 @@ export class MessagesService {
     newMessage.emoji = createMessageDto.emoji;
 
     newMessage.chatBot = createMessageDto.chatBot;
+    newMessage.lastTrip = createMessageDto.lastTrip;
 
-    this.findChat("test0@yandex.ru")
     return await this.messagesRepository.create(newMessage);
   }
 
@@ -57,16 +58,15 @@ export class MessagesService {
     return findChat;
   }
 
-  async update(payload) {
+  async update(messageTime, payload) {
     const manager = getMongoManager();
-    console.log(payload);
-    let findMessage = await manager.findOne(MessagesEntity, {time: payload.messageTime});
+    let findMessage = await manager.findOne(MessagesEntity, {time: Number(messageTime)});
     
     if(payload.emoji) {
       let newEmojiArray = [...findMessage.emoji, payload.emoji];
       await manager.update(
         MessagesEntity, 
-        { time: payload.messageTime },
+        { time: Number(messageTime) },
         { emoji: newEmojiArray }
       )
     } else {
@@ -76,6 +76,18 @@ export class MessagesService {
         payload
       )
     }
+  }
+
+  async updateTrip(payload) {
+    
+    const manager = getMongoManager();
+    let test = await manager.find(TripEntity, { dateRent: new Date(payload.tripTime) })
+
+    await manager.update(
+      TripEntity, 
+      { dateRent: new Date(payload.tripTime) },
+      payload.update
+    )
   }
 
   async updateReadMessage(query) {
@@ -88,7 +100,9 @@ export class MessagesService {
     { $set: {  isRead: true }});
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} message`;
+  async remove(messageTime) {
+    
+    const manager = getMongoManager();
+    return await manager.delete(MessagesEntity, {time: messageTime})
   }
 }

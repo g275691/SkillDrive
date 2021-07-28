@@ -13,7 +13,7 @@ export class TripService {
     
     ) {}
   async create(createTripDto: CreateTripDto, res) {
-    console.log(createTripDto);
+
     const manager = getMongoManager();
 
     const license = await manager.find(RentCar, {
@@ -32,7 +32,7 @@ export class TripService {
     newTrip.startRent = new Date(createTripDto.startRent);
     newTrip.endRent = new Date(createTripDto.endRent);
     newTrip.price = createTripDto.price;
-    newTrip.comment = createTripDto.comment;
+    newTrip.review = [];
     newTrip.optionsDelivery = Boolean(createTripDto.optionsDelivery);
     newTrip.optionsBabyChair = Boolean(createTripDto.optionsBabyChair);
     newTrip.optionsEndRentAnywhere = Boolean(createTripDto.optionsEndRentAnywhere);
@@ -42,7 +42,8 @@ export class TripService {
     newTrip.statusStartTalkClient = createTripDto.statusStartTalkClient;
     newTrip.days = createTripDto.days;
     newTrip.dateRent = new Date();
-    res.status(200).send("Поездка забронирована");
+
+    res.status(200).send(newTrip);
     return await this.tripRepository.create(newTrip);
   }
 
@@ -58,13 +59,18 @@ export class TripService {
   }
 
   async find(data) {
-    console.log(data)
+    
     const manager = getMongoManager();
     return await manager.find(TripEntity, data)
   }
 
-  update(updateTripDto: UpdateTripDto) {
-    return `This action updates a trip`;
+  async update(tripTime, payload) {
+    const manager = getMongoManager();
+    return await manager.update(
+      TripEntity, 
+      { dateRent: new Date(tripTime) },
+      payload
+    )
   }
 
   remove(id: number) {

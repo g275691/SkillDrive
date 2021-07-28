@@ -1,5 +1,7 @@
 import { createAction } from "@reduxjs/toolkit";
 import * as error from '../Constants/Errors';
+import { chatBot } from "./config/chatBot";
+import { wsSend } from "./config/wsSend";
 
 export const getUsersRequest = createAction('GET_USERS_REQUEST');
 export const getUsersSuccess = createAction('GET_USERS_SUCCESS');
@@ -37,8 +39,9 @@ export const fromUser = createAction('FROM_USER');
 export const toUser = createAction('TO_USER');
 export const toUserName = createAction('TO_USER_NAME');
 export const setChatMessage = createAction('SET_CHAT_MESSAGE');
+export const lastTrip = createAction('LAST_TRIP');
 
-export const getChatHistory = (data, name) => {
+export const getChatHistory = (data, name, trip) => {
     return (dispatch, getStore) => {
         dispatch(getChatHistoryRequest());
         fetch(`http://localhost:8000/messages/chat?fromUser=${localStorage.getItem("userMail")}&toUser=${data}`)
@@ -54,7 +57,8 @@ export const getChatHistory = (data, name) => {
                     
                     dispatch(fromUser(localStorage.getItem("userMail")));
                     dispatch(toUser(data));
-                    dispatch(toUserName(name))
+                    dispatch(toUserName(name));
+                    dispatch(lastTrip(trip));
             }
             },
             err => {
@@ -65,3 +69,191 @@ export const getChatHistory = (data, name) => {
             )
         }
     }
+
+export const updateTripRequest = createAction('UPDATE_TRIP_REQUEST');
+export const updateTripSuccess = createAction('UPDATE_TRIP_SUCCESS');
+export const updateTripFailure = createAction('UPDATE_TRIP_FAILURE');  
+
+export const updateTrip = (payload, rate, review) => {
+    
+    return (dispatch, getStore) => {
+        
+        dispatch(updateTripRequest());
+        fetch(`http://localhost:8000/trip/${payload.lastTrip.dateRent}`, {
+            method: 'PUT',  
+            headers: { 'Content-Type': 'application/json', },  
+            body: JSON.stringify(
+                payload.chatBot == "setRentOwner" ? {statusStartTalkOwner: true}
+                : payload.chatBot == "setRentClient" ? {statusStartRent: true}
+                : payload.chatBot == "setRentEnd" ? 
+                {
+                    statusStartRent: false,
+                    statusStartTalkOwner: false,
+                    statusStartTalClient: false,
+                }
+                : payload.chatBot == "rate" ? {
+                    rate: rate,
+                    review: review
+                }
+                : ""
+                ) 
+        })
+            .then(response => {
+            dispatch(updateTripRequest());
+            if(!response.ok) {
+                dispatch(updateTripFailure(error.WRONG_PASSWORD));
+                setTimeout(() => { dispatch(updateTripFailure(false)); }, 2000);
+            } else {
+                response.json()
+                .then(json => {
+                    dispatch(updateTripSuccess(json))});
+                    dispatch(removeMessage(payload.time));
+                    
+                    if(payload.chatBot == "setRentOwner") {
+                        dispatch(createMessage(chatBot(
+                            payload.fromUser, payload.toUser, "setRezerv", payload.lastTrip
+                        )))
+                        dispatch(createMessage(chatBot(
+                            payload.toUser, payload.fromUser, "setRezerv", payload.lastTrip
+                        ), 500))
+                        dispatch(createMessage(chatBot(
+                            payload.toUser, payload.fromUser, "map", payload.lastTrip
+                        ), 1000))
+                        dispatch(createMessage(chatBot(
+                            payload.toUser, payload.fromUser, "setRentClient", payload.lastTrip
+                        )))
+                    } else if(payload.chatBot == "setRentClient") {
+                        dispatch(createMessage(chatBot(
+                            payload.toUser, payload.fromUser, "rentStart", payload.lastTrip
+                        )))
+                        dispatch(createMessage(chatBot(
+                            payload.fromUser, payload.toUser, "rentStart", payload.lastTrip
+                        ), 500))
+                        dispatch(createMessage(chatBot(
+                            payload.fromUser, payload.toUser, "setRentEnd", payload.lastTrip
+                        ), 1000))
+                    } else if(payload.chatBot == "setRentEnd") {
+                        console.log("end")
+                        dispatch(createMessage(chatBot(
+                            payload.toUser, payload.fromUser, "rentEnd", payload.lastTrip
+                        )))
+                        dispatch(createMessage(chatBot(
+                            payload.fromUser, payload.toUser, "rentEnd", payload.lastTrip
+                        ), 500))
+                        dispatch(createMessage(chatBot(
+                            payload.fromUser, payload.toUser, "rate", payload.lastTrip
+                        ), 1000))
+                    } else if(payload.chatBot == "rate") {
+                        dispatch(createMessage(chatBot(
+                            payload.fromUser, payload.toUser, "rateOk", payload.lastTrip
+                        )))
+                    }
+                }
+            },
+            err => {
+                dispatch(updateTripRequest());
+                setTimeout(() => { dispatch(updateTripFailure(false)); }, 3000);
+                dispatch(getChatFailure(error.FAILED_TO_FETCH));
+            }
+            )
+        }
+    }
+
+export const removeMessageRequest = createAction('REMOVE_MESSAGE_REQUEST');
+export const removeMessageSuccess = createAction('REMOVE_MESSAGE_SUCCESS');
+export const removeMessageFailure = createAction('REMOVE_MESSAGE_FAILURE');
+
+export const removeMessage = (messageTime) => {
+    return (dispatch, getStore) => {
+        dispatch(removeMessageRequest());
+        fetch(`http://localhost:8000/messages/${messageTime}`, {
+            method: 'DELETE',  
+        })
+            .then(response => {
+            dispatch(removeMessageRequest());
+            if(!response.ok) {
+                dispatch(removeMessageFailure(error.WRONG_PASSWORD));
+                setTimeout(() => { dispatch(removeMessageFailure(false)); }, 2000);
+            } else {
+                response.json()
+                .then(json => {
+                    dispatch(removeMessageSuccess(json))})
+                    wsSend();
+                }
+            },
+            err => {
+                dispatch(removeMessageRequest());
+                setTimeout(() => { dispatch(updateTripFailure(false)); }, 3000);
+                dispatch(getChatFailure(error.FAILED_TO_FETCH));
+            }
+            )
+        }
+    }
+
+export const createMessageRequest = createAction('CREATE_MESSAGE_REQUEST');
+export const createMessageSuccess = createAction('CREATE_MESSAGE_SUCCESS');
+export const createMessageFailure = createAction('CREATE_MESSAGE_FAILURE');
+
+export const createMessage = (payload) => {
+    
+    return (dispatch, getStore) => {
+        dispatch(createMessageRequest());
+        fetch(`http://localhost:8000/messages/`, {
+            method: 'POST',  
+            headers: { 'Content-Type': 'application/json', },  
+            body: JSON.stringify(payload) 
+        })
+            .then(response => {
+            dispatch(createMessageRequest());
+            if(!response.ok) {
+                dispatch(createMessageFailure(error.WRONG_PASSWORD));
+                setTimeout(() => { dispatch(createMessageFailure(false)); }, 2000);
+                response.json()
+                .then(json=>console.log(json))
+            } else {
+                response.json()
+                .then(json => {
+                    dispatch(createMessageSuccess(json))});
+                    wsSend();
+                }
+            },
+            err => {
+                dispatch(createMessageeRequest());
+                setTimeout(() => { dispatch(createMessageFailure(false)); }, 3000);
+                dispatch(createMessageFailure(error.FAILED_TO_FETCH));
+            }
+            )
+        }
+    
+}
+
+export const updateMessageRequest = createAction('CREATE_MESSAGE_REQUEST');
+export const updateMessageSuccess = createAction('CREATE_MESSAGE_SUCCESS');
+export const updateMessageFailure = createAction('CREATE_MESSAGE_FAILURE');
+
+export const updateMessage = (messageTime, payload) => {
+    return (dispatch, getStore) => {
+        dispatch(updateMessageRequest());
+        fetch(`http://localhost:8000/messages/${messageTime}`, {
+            method: 'PUT',  
+            headers: { 'Content-Type': 'application/json', },  
+            body: JSON.stringify(payload) 
+        })
+            .then(response => {
+            dispatch(updateMessageRequest());
+            if(!response.ok) {
+                dispatch(updateMessageFailure(error.WRONG_PASSWORD));
+                setTimeout(() => { dispatch(updateMessageFailure(false)); }, 2000);
+                response.json().then(json=>console.log(json))
+            } else {
+                    dispatch(updateMessageSuccess())};
+                    wsSend();
+            },
+            err => {
+                dispatch(createMessageeRequest());
+                setTimeout(() => { dispatch(updateMessageFailure(false)); }, 3000);
+                dispatch(updateMessageFailure(error.FAILED_TO_FETCH));
+            }
+            )
+        }
+}

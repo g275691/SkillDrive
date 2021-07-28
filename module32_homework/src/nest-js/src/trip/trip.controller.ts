@@ -24,9 +24,9 @@ export class TripController {
     return this.tripService.find(data);
   }
 
-  @Put()
-  update(@Body() updateTripDto: UpdateTripDto) {
-    return this.tripService.update(updateTripDto);
+  @Put(':id')
+  update(@Param('id') tripTime: string, @Body() payload) {
+    return this.tripService.update(tripTime, payload);
   }
 
   @Delete(':id')

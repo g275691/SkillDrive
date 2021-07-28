@@ -13,7 +13,6 @@ export class CreateMessageDto {
     @IsNotEmpty()
     toUser;
 
-    @IsNotEmpty()
     message: string;
 
     @IsNotEmpty()
@@ -24,4 +23,6 @@ export class CreateMessageDto {
 
     @IsNotEmpty()
     chatBot;
+
+    lastTrip: object;
 }

@@ -21,8 +21,7 @@ export class CreateTripDto {
     @IsNotEmpty()
     price: number;
 
-    @IsNotEmpty()
-    comment: string;
+    review: Array<string>
 
     @IsNotEmpty()
     optionsDelivery: boolean;

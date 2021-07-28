@@ -1,6 +1,8 @@
 import { createAction } from "@reduxjs/toolkit";
 import * as error from '../Constants/Errors';
 import io from "socket.io-client";
+import { createMessage } from "../Messages/actions";
+import { chatBot } from "../Messages/config/chatBot";
 
 export const setCarPageRequest = createAction('SET_CAR_PAGE_REQUEST');
 export const setCarPageSuccess = createAction('SET_CAR_PAGE_SUCCESS');
@@ -36,10 +38,11 @@ export const createTripRequest = createAction('CREATE_TRIP_REQUEST');
 export const createTripSuccess = createAction('CREATE_TRIP_SUCCESS');
 export const createTripFailure = createAction('CREATE_TRIP_FAILURE');
 
-export const createTrip = () => {
+export const createTrip = (cb) => {
     return (dispatch, getStore) => {
         let days = (new Date(getStore().global.availableCar2) - new Date(getStore().global.availableCar)) / (8.64e+7),
-        client = localStorage.getItem("userMail");
+        client = localStorage.getItem("userMail"),
+        toUser = getStore().CarPage.carPage[0].owner.mail
         dispatch(createTripRequest(true));
         fetch(`http://localhost:8000/trip`, {
             method: 'POST',  
@@ -68,18 +71,14 @@ export const createTrip = () => {
                 response.json()
                 .then(json=>console.log(json));
             } else {
-                dispatch(createTripSuccess())
-                io('http://localhost:5000', { transports: ['websocket'] })
-                .emit('msgToServer',
-                {
-                    time: Date.now(),
-                    fromUser: client,
-                    toUser: getStore().CarPage.carPage[0].owner.mail,
-                    message: "",
-                    isRead: false,
-                    emoji: [],
-                    chatBot: "setRentOwner"
-                })
+                response.json()
+                .then(json=>{
+                    dispatch(createTripSuccess());
+                    dispatch(createMessage(chatBot(
+                        client, toUser, "setRentOwner", json
+                    )))
+                });
+
             }
         },
             err => {
@@ -112,17 +111,9 @@ export const createTrip = () => {
                     .then(json=>console.log(json));
                 } else {
                     dispatch(updateTripSuccess())
-                    io('http://localhost:5000', { transports: ['websocket'] })
-                    .emit('msgToServer',
-                    {
-                        time: Date.now(),
-                        fromUser: client,
-                        toUser: getStore().CarPage.carPage[0].owner.mail,
-                        message: "",
-                        isRead: false,
-                        emoji: [],
-                        chatBot: "setRent"
-                    })
+                    dispatch(createMessage(chatBot(
+
+                    )))
                 }
             },
                 err => {

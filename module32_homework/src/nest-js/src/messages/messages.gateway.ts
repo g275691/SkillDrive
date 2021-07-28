@@ -13,6 +13,7 @@ import { Socket, Server } from 'socket.io';
 import { MessagesService } from './messages.service';
 import { CreateMessageDto } from './dto/create-message.dto';
 import { TripService } from 'src/trip/trip.service';
+import { messageBot } from './config/messageBot';
  
  @WebSocketGateway(5000)
  export class MessagesGateway implements OnGatewayInit, OnGatewayConnection, OnGatewayDisconnect {
@@ -26,50 +27,51 @@ import { TripService } from 'src/trip/trip.service';
     @MessageBody() payload: CreateMessageDto,
     @ConnectedSocket() client: Socket,
     ): void {
-    this.messagesService.create(payload)
-    .then(()=>{
-      this.messagesService.findChat({})
+    this.messagesService.findChat({})
       .then(data=>{
         this.server.emit('msgToClient', data);
       })
-    })
   }
 
-  @SubscribeMessage('emojiToServer')
-  handleEmoji(
-    @MessageBody() payload,
-    @ConnectedSocket() client: Socket,
-    ): void {
-    console.log(payload);
-    this.messagesService.update(payload)
-    .then(()=>{
-      this.messagesService.findChat({})
-      .then(data=>{
-        this.server.emit('msgToClient', data);
-      })
-    })
-  }
+  // @SubscribeMessage('emojiToServer')
+  // handleEmoji(
+  //   @MessageBody() payload,
+  //   @ConnectedSocket() client: Socket,
+  //   ): void {
+  //   console.log(payload);
+  //   this.messagesService.update(payload)
+  //   .then(()=>{
+  //     this.messagesService.findChat({})
+  //     .then(data=>{
+  //       this.server.emit('msgToClient', data);
+  //     })
+  //   })
+  // }
 
-  @SubscribeMessage('updateMessage')
-  updateMessage(
+  @SubscribeMessage('updateTrip')
+  updateTrip(
     @MessageBody() payload,
     @ConnectedSocket() client: Socket,
     ): void {
       console.log(payload);
-      this.messagesService.update(payload)
+      this.messagesService.updateTrip(payload)
       .then(()=>{
+        this.messagesService.remove(payload)
+        .then(()=>{
         this.messagesService.findChat({})
         .then(data=>{
           this.server.emit('msgToClient', data);
         })
       })
+    })
+
     }
 
   @SubscribeMessage('leaveRoom')
   handleRoomLeave(client: Socket, room: string ) {
     client.leave(room);
     client.emit('leftRoom', room);
-    console.log("23123123")
+    
   }
 
   afterInit(server: Server) {

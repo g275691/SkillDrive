@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 
 const EmojiMenuItem = ({
     emoji, setEmojiMenu, 
-    sendEmoji, payload
+    payload, updateMessage
 }) => {
 
     return (<>
@@ -11,14 +11,7 @@ const EmojiMenuItem = ({
         onClick={()=>{
             setEmojiMenu(false);
             console.log(emoji)
-            sendEmoji(
-                {
-                    time: Date.now(),
-                    messageTime: payload.time,
-                    emoji,
-                    fromUser: payload.fromUser,
-                    toUser: payload.toUser
-                });
+            updateMessage(payload.time, {emoji})
         }}>
             {emoji}
         </div>

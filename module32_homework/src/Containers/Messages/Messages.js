@@ -2,7 +2,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from "redux";
 import { Messages } from '../../Components/Messages/Messages';
 
-import { getUsers, getChatHistory, setChatMessage } from '../../Store/Messages/actions';
+import { getUsers, getChatHistory, updateTrip, setChatMessage, removeMessage, createMessage, updateMessage } from '../../Store/Messages/actions';
 
 const mapStateToProps = state => {
     const { Messages } = state;
@@ -13,7 +13,11 @@ const mapDispatchToProps = dispatch => {
    return bindActionCreators({
        getUsers,
        getChatHistory,
-       setChatMessage
+       setChatMessage,
+       updateTrip,
+       removeMessage,
+       createMessage,
+       updateMessage
    }, dispatch)
 };
 

@@ -70,8 +70,19 @@ export class RentCarService {
 
   async getCar(req) {
     const manager = getMongoManager();
-    console.log(req.id)
-    return await manager.find(RentCarEntity, {"_id": ObjectId(req.id)})
+    const findCar = await manager.find(RentCarEntity, {"_id": ObjectId(req.id)});
+
+    const trips = await manager.find(TripEntity, {
+      where: {
+          ['car._id']: ObjectId(req.id)
+      }
+    })
+
+    findCar[0]["trips"] = trips;
+
+    console.log(findCar);
+
+    return findCar;
 
   }
 

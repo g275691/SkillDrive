@@ -138,6 +138,10 @@
             display: flex;
             align-items: center;
             padding-bottom: 10px;
+            .ymaps-2-1-78-map {
+                width: 364px !important;
+                height: 300px !important;
+            }
             img {
                 width: 32px;
                 height: 32px;
@@ -147,6 +151,14 @@
                 margin-left: 11px;
                 font-weight: 500;
             }
+        }
+        &-review {
+            margin-left: 11px;
+            border: 1px solid $green-rect;
+            
+            border-radius: 8px;
+            border-bottom-right-radius: 0px;
+            resize: none;
         }
         &-rate {
             display: flex;

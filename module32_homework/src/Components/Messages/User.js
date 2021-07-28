@@ -34,7 +34,7 @@ const User = ({
     }, [chatMessage])
 
     useEffect(()=>{
-        user.lastTrip && console.log(user.lastTrip.car)
+        
     })
 
     return (<>
@@ -42,7 +42,7 @@ const User = ({
         onClick={()=>{
 
             setChat(true);
-            getChatHistory(user.mail, setFormatName(user.name));
+            getChatHistory(user.mail, setFormatName(user.name), user.lastTrip);
             setReadOnline(true);
 
             // let onlineMessages = [...messages];

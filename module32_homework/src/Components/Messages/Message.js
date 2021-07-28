@@ -5,19 +5,30 @@ import { emojiList } from './emojiList';
 import EmojiMenuItem from './EmojiMenuItem';
 import chatBot from '../../Assets/img/Messages/chatBot.svg';
 import okRent from '../../Assets/img/Messages/okRent.svg';
+import { YMaps, Map, Placemark } from "react-yandex-maps";
+import { yandexMarker } from '../RentPage/yandexMarker';
 
 const Message = ({
-    payload, toUser, sendEmoji,
-    updateMessage
+    payload, toUser, 
+    updateTrip, updateMessage
 }) => {
 
-    const time = `${new Date(payload.time).getHours()}:${new Date(payload.time).getMinutes()}`;
-    const isOwner = payload.fromUser == localStorage.getItem("userMail");
+    useEffect(()=>{
+        
+    })
+
+
     const [rate, setRate] = useState(-1);
     const [emojiMenu, setEmojiMenu] = useState(false);
+    const [buttonActive, setButtonActive] = useState(true);
+    const [review, setReview] = useState(false);
+    const [reviewValue, setReviewValue] = useState("")
+
     let botText = "",
-    botButtonText = false,
-    updateData = {};
+    botButtonText = false;
+    const time = `${new Date(payload.time).getHours()}:${new Date(payload.time).getMinutes()}`;
+    const isOwner = payload.fromUser == localStorage.getItem("userMail");
+    
     switch (payload.chatBot) {
         case "rentStart":
             botText = "Аренда начата";
@@ -34,10 +45,6 @@ const Message = ({
             break;
         case "setRentOwner":
             botText = "Подтвердите, если одобряете заявку на бронирование";
-            updateData = {
-                messageTime: payload.time,
-                statusStartTalkOwner: true 
-            }
             botButtonText = "Забронировать";
             break;
         case "setRentClient":
@@ -45,11 +52,11 @@ const Message = ({
             botButtonText = "Начать аренду";
             break;
         case "map":
-            botText = "Автомобиль будет вас ждать по адресу: Санкт-Петербург, ул. Невский пр-кт, 2";
+            botText = `Автомобиль будет вас ждать по адресу:`;
             break;
         case "rate":
-            botText = "Оцените аренду. Всё ли хорошо? Оставьте отзыв автомобилю и владельцу, и вы сможете увидеть отзыв о себе";
-            botButtonText = "Написать отзыв";
+            botText = review ? "" : "Оцените аренду. Всё ли хорошо? Оставьте отзыв автомобилю и владельцу, и вы сможете увидеть отзыв о себе";
+            botButtonText = review ? "Отправить отзыв" : "Написать отзыв";
             break;
         case "rateOk":
             botText = "Отзыв отправлен";
@@ -74,11 +81,19 @@ const Message = ({
             : "message__container-text not-owner"}>
             {payload.chatBot 
             ? <div className="message__container-text-bot">
-                {!botButtonText ? <img src={okRent}></img> : ""}
+                {!botButtonText && payload.chatBot != "map" ? <img src={okRent}></img> : ""}
                 <span
-                style={{color: !botButtonText && "#61A199",
-                fontWeight: !botButtonText ? "500" : "normal"}}>{botText}</span>
+                style={{color: !botButtonText && payload.chatBot != "map" && "#61A199",
+                fontWeight: !botButtonText && payload.chatBot != "map" ? "500" : "normal"}}>
+                    {botText} {payload.chatBot == "map" ? <p style={{fontWeight: "500"}}>{payload.lastTrip.car.city}</p> : ""}
+                </span>
+                
             </div> : ""}
+
+                {review 
+                ? <textarea className="message__container-text-review" value={reviewValue}
+                onChange={e=>{setReviewValue(e.target.value)}}>
+                </textarea> : ""}
 
                 {payload.chatBot == "rate" 
                 ? <div className="message__container-text-rate">
@@ -90,17 +105,47 @@ const Message = ({
                     })}
                 </div> : ""}
 
+
+                {payload.chatBot == "map" 
+                ?   <YMaps >
+                        <div style={{marginTop: "10px", marginLeft: "11px"}}>
+                            <Map defaultState={{ center: payload.lastTrip.car.geo, zoom: 14 }} 
+                            modules={[
+                            "layout.ImageWithContent", 
+                            'geoObject.addon.balloon', 
+                            'geoObject.addon.hint',
+                            ]}>
+                            <Placemark
+                                geometry={payload.lastTrip.car.geo} 
+                                properties={yandexMarker(payload.lastTrip.car, true)}
+                                options={{
+                                    preset: 'islands#grayStretchyIcon',
+                                }}/>
+                            </Map>
+                        </div>
+                </YMaps> : ""}
+
             {botButtonText ? <div className="message__container-text-button">
-                <span
+                <span style={{pointerEvents: buttonActive ? "all" : "none"}}
                 onClick={()=>{
-                    updateMessage(updateData)
+                    setButtonActive(false);
+                    if(payload.chatBot != "rate") {
+                        updateTrip(payload)
+                    } else {
+                        if(review) {
+                            updateTrip(payload, rate, reviewValue);
+                            setReview(false);
+                        } else {
+                            setReview(true);
+                        }
+                    }               
                 }}>{botButtonText}</span></div> : ""}
             {payload.message}
                 {!payload.chatBot ? <div className="under__message">
                     <div className={emojiMenu ? "under__message-menu active" : "under__message-menu"}>
                         {emojiList.map(el=>{
                             return <EmojiMenuItem emoji={el} setEmojiMenu={setEmojiMenu}                             
-                            sendEmoji={sendEmoji} payload={payload}
+                            payload={payload} updateMessage={updateMessage}
                             />
                         })}
                     </div>

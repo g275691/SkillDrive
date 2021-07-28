@@ -42,9 +42,7 @@ export class UsersService {
 
     users.forEach(elUsers => {
         trips.forEach(elTrip => {
-            console.log(elTrip)
             if(elTrip.client == elUsers.mail || elTrip.ownerCar == elUsers.mail) {
-                console.log(elUsers.mail)
                 elUsers["lastTrip"] = elTrip}; 
         })
     })

@@ -9,10 +9,27 @@ const DatePickerDay = ({ day, month, year
 , stateDate, stateDate2, twoDate,
  }) => {
 
-    useEffect(()=> {
-       
-    },[])
     
+    let [dayReserve, setDayReserve] = useState(false);
+    const carPage = useSelector(state => state.CarPage.carPage);
+
+    useEffect(()=> {
+        let trips = [...carPage[0].trips];
+        trips.every(trip=>{
+            if(new Date(trip.startRent).getTime() < new Date([year, month, day]).getTime() 
+            && new Date(trip.endRent).getTime() > new Date([year, month, day]).getTime()) {
+                setDayReserve(true);
+                
+            }
+        })
+            
+
+    },[carPage])
+    
+    console.log(dayReserve)
+    
+    //setDayReserve(true)
+
     const dispatch = useDispatch();
     const isSecondDate = useSelector(state => state.RentPage.isSecondDate);
 
@@ -51,7 +68,7 @@ const DatePickerDay = ({ day, month, year
             : (stateDate2[2] == day 
                 && stateDate2[0] == year 
                 && stateDate2[1] == month 
-                && twoDate
+                && twoDate && !dayReserve
                 ? "linear-gradient(to right, #DFECEB 50%, white 50% )" : ""))
         }}>
             <div onMouseDown={()=> {index >= 7 && day!="" ? setDay() : ""

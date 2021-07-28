@@ -26,4 +26,7 @@ export class MessagesEntity {
 
     @Column()
     chatBot;
+
+    @Column()
+    lastTrip: object;
 }

@@ -1,6 +1,6 @@
-export const yandexMarker = el => {
+export const yandexMarker = (el, chat) => {
     return {                            
-        balloonContent: 
+        balloonContent: !chat && 
         `
         <div style="display: flex; flex-direction: column">
             <div style="background: url(${el.photosCars[0]}); background-size: cover; background-position: center; width: 260px; height: 160px; border-radius: 8px"></div>

@@ -26,7 +26,7 @@ export class TripEntity {
     price: Number;
 
     @Column()
-    comment: string;
+    review: Array<string>;
 
     @Column()
     optionsDelivery: boolean;

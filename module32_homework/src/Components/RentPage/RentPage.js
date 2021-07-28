@@ -30,7 +30,8 @@ export const RentPage = ({carsList
     
     const mapState = React.useMemo(() => ({ center: firstCarLocation, zoom: 13 }), [
         firstCarLocation,
-    ])
+    ]);
+    
     const windowHeight = window.screen.height;
 
     const onSubmit = () => {
@@ -162,11 +163,6 @@ export const RentPage = ({carsList
                             'geoObject.addon.balloon', 
                             'geoObject.addon.hint',
                         ]}>
-                            <Placemark geometry={[59.91, 30.315332]} 
-                            properties={{
-                                balloonContent: `<div>TEST</div>`
-                            }}
-                            />
                             {carsList.map((el, i) => {
                                 return <Placemark key={i} 
                                 geometry={el.geo} 

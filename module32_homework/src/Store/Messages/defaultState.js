@@ -23,7 +23,8 @@ export const defaultState = {
             //     time: 1626499275560,
             //     toUser: "test1@yandex.ru"
             // },
-    ]
+    ],
     // fromUser: "test0@yandex.ru",
-    // toUser: "test4@yandex.ru"
+    // toUser: "test4@yandex.ru",
+    lastTrip: {}
 }

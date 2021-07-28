@@ -72,10 +72,7 @@ export const RentPageCar = ({
             {isFinder && !isMapOpen && !myCars ?  
             <div className="car-frame-button-wrapper">
                 <button className="car-frame-action">Арендовать</button>
-            </div> : ""
-            }
-
-
+            </div> : ""}
         </div>
     </>)
 }
