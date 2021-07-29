@@ -29,8 +29,8 @@ export class TripService {
     newTrip.client = createTripDto.client;
     newTrip.car = license[0];
 
-    newTrip.startRent = new Date(createTripDto.startRent);
-    newTrip.endRent = new Date(createTripDto.endRent);
+    newTrip.startRent = new Date(createTripDto.startRent).getTime();
+    newTrip.endRent = new Date(createTripDto.endRent).getTime();
     newTrip.price = createTripDto.price;
     newTrip.review = [];
     newTrip.optionsDelivery = Boolean(createTripDto.optionsDelivery);

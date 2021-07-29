@@ -76,6 +76,7 @@
             &.is-focus {
                 border: 3px solid $green-rect;
                 z-index: 103;
+                width: 100%;
             }
 
         }
@@ -176,7 +177,7 @@
               align-self: flex-end;
               font-size: 11px;
               color: #828282;
-
+              padding-bottom: 5px;
             }
         }
     }

@@ -20,6 +20,9 @@ export class RentCar {
     city: string;
 
     @Column()
+    street: string;
+
+    @Column()
     geo: Array<any>;
 
     @Column()
@@ -96,4 +99,5 @@ export class RentCar {
 
     @Column()
     review:  Array<string>;
+
 }

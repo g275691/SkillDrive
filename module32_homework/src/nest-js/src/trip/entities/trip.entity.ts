@@ -17,10 +17,10 @@ export class TripEntity {
     ownerCar: string;
 
     @Column()
-    startRent: Date;
+    startRent
 
     @Column()
-    endRent: Date;
+    endRent
 
     @Column()
     price: Number;

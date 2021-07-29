@@ -9,7 +9,7 @@ export const setStep1FormsSuccess = createAction('SET_STEP1_FORMS_SUCCESS');
 export const setStep1FormsFailure = createAction('SET_STEP1_FORMS_FAILURE');
 export const setStep1Forms = data => {
     return (dispatch, getStore) => {
-        console.log(data)
+        
         dispatch(setStep1FormsRequest());
         fetch("http://localhost:8000/rent-car/step1", {
             method: 'POST',  
@@ -74,7 +74,28 @@ export const createCar = data => {
                 setTimeout(() => { dispatch(createCarFailure(false)); }, 2000);
                 response.json().then(error=>console.log(error))
             } else {
-                dispatch(createCarSuccess());              
+                response.json()
+                .then(json=>{
+                    dispatch(createCarSuccess());
+                    fetch(`http://www.mapquestapi.com/geocoding/v1/reverse?key=POAiebt1jWMb0N9ej4rfYaRfXVGoBjsz&location=${json.geo[0]},${json.geo[1]}&includeRoadMetadata=true&includeNearestIntersection=true`)
+                    .then(response=>{
+                        response.json()
+                        .then(location=> {
+                            console.log(json._id)
+                            fetch(`http://localhost:8000/rent-car/${json._id}`, {
+                                method: 'PUT',   
+                                headers: { 'Content-Type': 'application/json', }, 
+                                body:  JSON.stringify({street: location.results[0].locations[0].street}) })
+                                .then(response=>{
+                                    if(!response.ok) {
+                                        response.json().then(json=>console.log(json))
+                                    }
+                                })
+                        })
+                        })
+
+                })
+                           
             }
             },
             err => {

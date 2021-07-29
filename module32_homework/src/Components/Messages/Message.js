@@ -52,7 +52,7 @@ const Message = ({
             botButtonText = "Начать аренду";
             break;
         case "map":
-            botText = `Автомобиль будет вас ждать по адресу:`;
+            botText = `Автомобиль будет вас ждать по адресу: ${payload.lastTrip.car.city}, ${payload.lastTrip.car.street}`;
             break;
         case "rate":
             botText = review ? "" : "Оцените аренду. Всё ли хорошо? Оставьте отзыв автомобилю и владельцу, и вы сможете увидеть отзыв о себе";

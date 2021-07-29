@@ -16,10 +16,14 @@ export const setFirstCarLocation = createAction('SET_FIRST_CAR_LOCATION');
 
 export const setFinderHeading = createAction("SET_FINDER_HEADING");
 
-export const sortCarsList = (getJson, url) => {
+export const sortCarsList = (getJson, data) => {
+    let findStartRent = new Date(data.startRent).getTime();
+    let findEndRent = new Date(data.endRent).getTime();
+
     return (dispatch, getStore) => {
+        console.log(data)
         dispatch(sortCarsListRequest());
-        fetch(url)
+        fetch(`http://localhost:8000/rent-car?city=${data.city}&category=${data.category}&startRent=${findStartRent}&endRent=${findEndRent}&sort=${data.sort}`)
             .then(response => {
             dispatch(sortCarsListRequest());
             if(!response.ok) {

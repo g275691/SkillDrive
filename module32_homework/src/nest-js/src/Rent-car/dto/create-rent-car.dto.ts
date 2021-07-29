@@ -16,6 +16,8 @@ export class CreateRentCarDto {
     @IsNotEmpty()
     city: string
 
+    street: string
+
     geo: string
 
     @IsNotEmpty()

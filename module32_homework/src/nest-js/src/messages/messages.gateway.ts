@@ -13,7 +13,6 @@ import { Socket, Server } from 'socket.io';
 import { MessagesService } from './messages.service';
 import { CreateMessageDto } from './dto/create-message.dto';
 import { TripService } from 'src/trip/trip.service';
-import { messageBot } from './config/messageBot';
  
  @WebSocketGateway(5000)
  export class MessagesGateway implements OnGatewayInit, OnGatewayConnection, OnGatewayDisconnect {

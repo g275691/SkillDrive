@@ -53,7 +53,7 @@ export const RentPageCar = ({
                         <img src={iconCran}/>
                         <span>2.0 л / {power} л.с. / {engine}</span>
                     </div>
-                    <div 
+                    <div style={{marginLeft: "30px"}}
                     className={isMapOpen 
                         ? "info-driveunit-map" 
                         : ""}>

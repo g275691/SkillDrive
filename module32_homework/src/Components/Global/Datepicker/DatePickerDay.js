@@ -14,19 +14,20 @@ const DatePickerDay = ({ day, month, year
     const carPage = useSelector(state => state.CarPage.carPage);
 
     useEffect(()=> {
-        let trips = [...carPage[0].trips];
-        trips.every(trip=>{
-            if(new Date(trip.startRent).getTime() < new Date([year, month, day]).getTime() 
-            && new Date(trip.endRent).getTime() > new Date([year, month, day]).getTime()) {
-                setDayReserve(true);
-                
-            }
-        })
-            
-
+        const setCalendarReserve = () => {
+            if(!/car-page/.test(location.href)) return;
+            let trips = [...carPage[0].trips];
+            trips.map(trip=>{
+                let startRent = new Date(trip.startRent);
+                startRent.setDate(startRent.getDate()-1)
+                if(startRent <= new Date([year, month, day])
+                && new Date(trip.endRent) > new Date([year, month, day])) {
+                    setDayReserve(true);
+                }
+            })
+        }
+        setCalendarReserve();
     },[carPage])
-    
-    console.log(dayReserve)
     
     //setDayReserve(true)
 
@@ -54,16 +55,17 @@ const DatePickerDay = ({ day, month, year
     return (
         <div className={
             new Date([year, month,day]) > new Date(stateDate) 
-            && new Date([year, month,day]) < new Date(stateDate2)
+            && new Date([year, month,day]) < new Date(stateDate2) && !dayReserve
             ? "marking-date interval"
             : "marking-date"
         }
         style={{
             background: 
-            (stateDate[2] == day 
+            (
+                stateDate[2] == day 
                 && stateDate[0] == year 
-                && stateDate[1] == month 
-                && twoDate
+                && stateDate[1] == month
+                && twoDate && !dayReserve
                 ? "linear-gradient(to left, #DFECEB 50%, white 50% )" 
             : (stateDate2[2] == day 
                 && stateDate2[0] == year 
@@ -79,7 +81,7 @@ const DatePickerDay = ({ day, month, year
                 || 
                 (stateDate2[2] == day && stateDate2[0] == year && stateDate2[1] == month) 
             ? "active" : ""}>
-                    <span className={index > 7 ? "" : "interval"}
+                    <span className={index > 7 ? (dayReserve ? "reserve" : "") : "interval"}
                     style={{color: index < 7 && "#B1B1B1"
                     , cursor: index < 7 ? "auto" : "pointer"
                     }}>

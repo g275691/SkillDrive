@@ -13,10 +13,10 @@ export class CreateTripDto {
     ownerCar;
 
     @IsNotEmpty()
-    startRent: Date;
+    startRent
 
     @IsNotEmpty()
-    endRent: Date;
+    endRent
 
     @IsNotEmpty()
     price: number;

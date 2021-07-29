@@ -30,9 +30,9 @@ export class RentCarController {
     return;
   }
 
-  @Put(':model')
-  async updateAll(@Body() createRentCarDto: CreateRentCarDto, @Param() param: string) {
-    return this.rentCarService.update(createRentCarDto, param);
+  @Put(':_id')
+  async updateAll(@Body() payload, @Param() param: string) {
+    return this.rentCarService.update(payload, param);
   }
 
   @Get()

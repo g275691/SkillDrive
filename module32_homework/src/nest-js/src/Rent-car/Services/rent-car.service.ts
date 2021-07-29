@@ -15,21 +15,33 @@ export class RentCarService {
     /*Стартовый запрос*/
     const manager = getMongoManager();
     delete param["dateAvailable"];
-
+    console.log(param)
     return await manager.find( RentCarEntity, param )
   }
 
   async find(param) {
     const manager = getMongoManager();
-    console.log(new Date(param.endrent));
-    let filterTrip = await manager.find(TripEntity, {
-      where: {
-        startRent: {$lte: new Date(param.startrent)}, 
-        endRent: {$gte: new Date(param.endrent)}
+
+    console.log(typeof Number(param.startRent))
+
+    let filterTrip = await manager.find(TripEntity, {where: {
+      $or: [{
+        startRent: {$lte: Number(param.startRent)},
+        endRent: {$lt: Number(param.startRent)},
+      },
+    {
+      startRent: {$gt: Number(param.endRent)},
+      endRent: {$gte: Number(param.endRent)},
+    }]
+
+        
+        // $or : [
+        //   {startRent: "Tom"}, 
+        //   {endRent: 22}]
       }
     })
 
-    console.log(filterTrip);
+    console.log(filterTrip)
 
     let filterLicense = filterTrip.map(el=>el.license);
 
@@ -37,7 +49,7 @@ export class RentCarService {
       where: {
         city: param.city,
         category: param.category,
-        license: {$nin : filterLicense}
+        license: {$in : filterLicense}
       },
       order: 
       param.sort == "price" && { price: 1 }
@@ -49,14 +61,14 @@ export class RentCarService {
     return findCars;
   }
 
-  async update(req, param) {
+  async update(payload, param) {
     const manager = getMongoManager();
-
-    return await manager.updateMany(
+    console.log(payload)
+    return await manager.update(
       RentCarEntity,
-      {}, 
-      { $set: {  geo: req.geo }}
-  )
+      {_id: ObjectId(param._id)}, 
+      payload
+    )
   }
 
   async getByOwner(req) {
