@@ -1,5 +1,7 @@
 import { Injectable } from '@nestjs/common';
+import { RegistrationEntity } from 'src/Registration/entities/registration.entity';
 import { TripEntity } from 'src/trip/entities/trip.entity';
+import { TripService } from 'src/trip/trip.service';
 import { getMongoManager, LessThan, MoreThan, Not } from 'typeorm';
 import { RentCar as RentCarEntity } from '../entities/rent-car.entity';
 import { RentCarRepository } from '../repositories/rent-car.repository';
@@ -15,41 +17,39 @@ export class RentCarService {
     /*Стартовый запрос*/
     const manager = getMongoManager();
     delete param["dateAvailable"];
-    console.log(param)
     return await manager.find( RentCarEntity, param )
   }
 
   async find(param) {
     const manager = getMongoManager();
 
-    console.log(typeof Number(param.startRent))
-
-    let filterTrip = await manager.find(TripEntity, {where: {
+    let isEmptyBase = await manager.count(TripEntity);
+    let filterTrip = [];
+    !isEmptyBase
+    ? filterTrip = await manager.find(TripEntity, {})
+    : filterTrip = await manager.find(TripEntity, {where: {
       $or: [{
-        startRent: {$lte: Number(param.startRent)},
-        endRent: {$lt: Number(param.startRent)},
+        startRent: {$lte: Number(param.endRent), $gte: Number(param.startRent)},
       },
-    {
-      startRent: {$gt: Number(param.endRent)},
-      endRent: {$gte: Number(param.endRent)},
-    }]
-
-        
-        // $or : [
-        //   {startRent: "Tom"}, 
-        //   {endRent: 22}]
+      {
+        startRent: {$lte: Number(param.startRent)},
+        endRent: {$gte: Number(param.endRent)}
+      },
+      {
+        endRent: {$lte: Number(param.endRent), $gte: Number(param.startRent)},
+      }
+  ]
       }
     })
 
-    console.log(filterTrip)
+    console.log(filterTrip);
 
     let filterLicense = filterTrip.map(el=>el.license);
-
     let findCars = await manager.find( RentCarEntity, {
       where: {
         city: param.city,
         category: param.category,
-        license: {$in : filterLicense}
+        license: !isEmptyBase ? { $exists: true } : {$nin : filterLicense}
       },
       order: 
       param.sort == "price" && { price: 1 }
@@ -62,8 +62,8 @@ export class RentCarService {
   }
 
   async update(payload, param) {
+    console.log(param)
     const manager = getMongoManager();
-    console.log(payload)
     return await manager.update(
       RentCarEntity,
       {_id: ObjectId(param._id)}, 
@@ -84,15 +84,15 @@ export class RentCarService {
     const manager = getMongoManager();
     const findCar = await manager.find(RentCarEntity, {"_id": ObjectId(req.id)});
 
-    const trips = await manager.find(TripEntity, {
+
+    let trips = await manager.find(TripEntity, {
       where: {
           ['car._id']: ObjectId(req.id)
       }
     })
 
     findCar[0]["trips"] = trips;
-
-    console.log(findCar);
+    findCar[0]["trips"].forEach(trip=> delete trip["car"])
 
     return findCar;
 

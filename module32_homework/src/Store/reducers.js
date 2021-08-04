@@ -8,6 +8,7 @@ import { MyCars } from "./MyCars/reducers";
 import { NewCar } from "./NewCar/reducers";
 import { CarPage } from "./CarPage/reducers";
 import { Messages } from "./Messages/reducers";
+import { RegistrationRent } from "./RegistrationRent/reducers";
 
 export default combineReducers({
   registration,
@@ -17,5 +18,6 @@ export default combineReducers({
   MyCars,
   NewCar,
   CarPage,
-  Messages
+  Messages,
+  RegistrationRent
 })

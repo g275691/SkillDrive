@@ -51,6 +51,7 @@ export class CreateCarService {
     newRentCar.model = createRentCarDto.model;
     newRentCar.year = createRentCarDto.year;
     newRentCar.city = createRentCarDto.city;
+    newRentCar.street = createRentCarDto.street;
     newRentCar.geo = randomGeo;
     newRentCar.category = createRentCarDto.category;
     newRentCar.license = createRentCarDto.license;
@@ -73,7 +74,7 @@ export class CreateCarService {
     newRentCar.photosCars = carPhotos;
     newRentCar.photosCarsDocs = carDocs;
     newRentCar.rating = 0;
-    newRentCar.review = [];
+    newRentCar.review = "";
 
     newRentCar.owner = new RegistrationEntity();
     newRentCar.owner.mail = createRentCarDto.owner;

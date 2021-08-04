@@ -14,6 +14,9 @@ export class TripEntity {
     client: string;
 
     @Column()
+    clientInfo;
+
+    @Column()
     ownerCar: string;
 
     @Column()
@@ -26,7 +29,7 @@ export class TripEntity {
     price: Number;
 
     @Column()
-    review: Array<string>;
+    review: string;
 
     @Column()
     optionsDelivery: boolean;

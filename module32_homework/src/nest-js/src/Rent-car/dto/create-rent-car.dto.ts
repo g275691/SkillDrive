@@ -74,7 +74,7 @@ export class CreateRentCarDto {
     @IsNotEmpty()
     options: any
 
-    review: Array<String>
+    review: string
 
     photosCars: Array<String>
 

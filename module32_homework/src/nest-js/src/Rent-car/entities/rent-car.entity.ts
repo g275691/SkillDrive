@@ -98,6 +98,8 @@ export class RentCar {
     photo: string
 
     @Column()
-    review:  Array<string>;
+    review:  string;
 
+    @Column()
+    trip: Array<any>
 }

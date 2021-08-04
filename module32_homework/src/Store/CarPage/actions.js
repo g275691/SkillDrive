@@ -1,6 +1,5 @@
 import { createAction } from "@reduxjs/toolkit";
 import * as error from '../Constants/Errors';
-import io from "socket.io-client";
 import { createMessage } from "../Messages/actions";
 import { chatBot } from "../Messages/config/chatBot";
 
@@ -20,7 +19,10 @@ export const setCarPage = id => {
             } else {
                 response.json()
                 .then(json=>{
+                    // json[0].trips.reduce((a, b)=>(a+b))
+                    
                     dispatch(setCarPageSuccess(json));
+                    console.log(json)
                 })
             }
         },
@@ -61,7 +63,7 @@ export const createTrip = (cb) => {
                 statusStartTalkClient: true,
                 statusStartTalkOwner: false,
                 statusStartRent: false,
-                rate: 0
+                rate: null
             }) })
             .then(response => {
             dispatch(createTripRequest(false));
@@ -96,7 +98,9 @@ export const createTrip = (cb) => {
     export const updateTripFailure = createAction('UPDATE_TRIP_FAILURE');
 
     export const updateTrip = (data) => {
+        console.log('updateStart')
         return (dispatch, getStore) => {
+            
             dispatch(updateTripRequest(true));
             fetch(`http://localhost:8000/rent-car/trip`, {
                 method: 'PUT',  
@@ -125,3 +129,5 @@ export const createTrip = (cb) => {
                 )
             }
         }
+
+export const setSuccessRent = createAction('SET_SUCCESS_RENT');

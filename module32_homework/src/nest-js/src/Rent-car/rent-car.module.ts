@@ -8,7 +8,7 @@ import { CreateCarService } from './Services/create-car.service';
 
 @Module({
   controllers: [RentCarController],
-  providers: [RentCarService, CreateCarService,RentCarRepository]
+  providers: [RentCarService, CreateCarService, RentCarRepository]
 })
 
 export class RentCarModule {

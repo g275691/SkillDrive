@@ -26,13 +26,16 @@ export class TripService {
     const newTrip = new TripEntity();
     newTrip.license = license[0].license;
     newTrip.ownerCar = license[0].owner.mail;
+
+    const client = await manager.findOne(RegistrationEntity, {"mail" : createTripDto.client})
     newTrip.client = createTripDto.client;
+    newTrip.clientInfo = client;
     newTrip.car = license[0];
 
     newTrip.startRent = new Date(createTripDto.startRent).getTime();
     newTrip.endRent = new Date(createTripDto.endRent).getTime();
     newTrip.price = createTripDto.price;
-    newTrip.review = [];
+    newTrip.review = "";
     newTrip.optionsDelivery = Boolean(createTripDto.optionsDelivery);
     newTrip.optionsBabyChair = Boolean(createTripDto.optionsBabyChair);
     newTrip.optionsEndRentAnywhere = Boolean(createTripDto.optionsEndRentAnywhere);
@@ -48,7 +51,7 @@ export class TripService {
   }
 
   async findOne(data) {
-    console.log(data)
+
     const manager = getMongoManager();
     // return await manager.find(TripEntity, {
     //   where: {

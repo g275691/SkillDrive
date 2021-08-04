@@ -17,6 +17,7 @@ import NewCar from '../Containers/NewCar/NewCar';
 import CarPage from '../Containers/CarPage/CarPage';
 import SuccessNewCar from './NewCar/SuccessNewCar';
 import Messages from '../Containers/Messages/Messages';
+import RegistrationRent from '../Containers/RegistrationRent/RegistrationRent';
 
 const App = () => {
 
@@ -34,6 +35,7 @@ const App = () => {
         <Route path="/questions" component={Questions} />
         <Route path="/success" component={Success} />
         <Route path="/Registration" component={Registration} />
+        <Route path="/registration-rent" component={RegistrationRent} />
         <Route path="/about" component={About} />
         <Route exact path="/" component={Home} />
         <Route component={NotFound} />

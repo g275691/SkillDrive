@@ -9,7 +9,7 @@ const DatePicker = ({onBlur
     , stateDate = [], stateDate2 = []
     , stateDispatch = [], stateDispatch2 = []
     , twoDate, carPage
-    , isMobilFinder
+    , isMobilFinder, forceSecondDate
 }) => {
 
     useEffect(()=> {
@@ -18,7 +18,7 @@ const DatePicker = ({onBlur
 
     const dispatch = useDispatch();
     const isSecondDate = useSelector(state => state.RentPage.isSecondDate);
-    let newUserDate = isSecondDate ? stateDate2 : stateDate;
+    let newUserDate = isSecondDate || forceSecondDate ? stateDate2 : stateDate;
 
     let firstUserDay = [...newUserDate];
     firstUserDay[2] = 1;

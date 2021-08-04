@@ -134,6 +134,15 @@
                 height: 126px;
                 width: 100%;
             }
+            &.you {
+                height: 226px;
+                @include breakpoint(medium) {
+                    align-items: flex-start;
+                    flex-direction: row; 
+                    height: 88px;
+                    width: 100%;
+                }
+            }
             &-photo {
                 width: 84px;
                 margin-top: 40px;
@@ -314,11 +323,11 @@
                     margin-left: 0px;
                 }
                 .active {
-                    background: none;
-                    color: black;
+                    //background: none;
+                    //color: black;
                 }
                 .interval {
-                    background: none;
+                    //background: none;
                 }
             }
         }
@@ -339,9 +348,51 @@
             order: 2;
         }
     }
+    .reviews {
+        display: flex;
+        width: 80%;
+        align-self: center;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        margin-top: 40px;
+        .review {
+            display: flex;
+            flex-direction: column;
+            flex-basis: 47%;
+            margin-bottom: 60px;
+            .wrapper {
+                display: flex;
+                align-items: center;
+                img {
+                    width: 10%;
+                    border-radius: 50%;
+                }
+                .name {
+                    margin-left: 16px;
+                    font-weight: 700;
+                    font-size: 18px;
+                    p {
+                        font-weight: normal;
+                        font-size: 14px;
+                        opacity: 0.4;
+                        margin-top: 6px;
+                    }
+                }
+            }
+            .text {
+                margin-top: 20px;
+            }
+        }
+    }
     .button-wrapper {
         @include breakpoint(medium) {
             order: 2;
+        }
+        a {
+            position: absolute;
+            width: 20%;
+            height: 50px;
+            
         }
         button {
             width: 20%;

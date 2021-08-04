@@ -49,8 +49,16 @@ export const RentPage = ({carsList
     }
 
     useEffect(() => {
-        sortCarsList(setCarsList, "http://localhost:8000/rent-car/start?city=Санкт-Петербург&category=Легковая");
-        
+        //sortCarsList(setCarsList, `http://localhost:8000/rent-car/start?city=Санкт-Петербург&category=Легковая`);
+        sortCarsList(setCarsList
+            , {
+                city: getValues().city,
+                category: getValues().category,
+                startRent: availableCar,
+                endRent: availableCar2,
+                sort: sort
+            });  
+
         fetch('http://localhost:8000/rent-car/start')
         .then(date => date.json()
         .then(json => {

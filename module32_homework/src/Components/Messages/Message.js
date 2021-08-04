@@ -52,7 +52,7 @@ const Message = ({
             botButtonText = "Начать аренду";
             break;
         case "map":
-            botText = `Автомобиль будет вас ждать по адресу: ${payload.lastTrip.car.city}, ${payload.lastTrip.car.street}`;
+            botText = `Автомобиль будет вас ждать по адресу: ${payload.lastTrip.car.street}`;
             break;
         case "rate":
             botText = review ? "" : "Оцените аренду. Всё ли хорошо? Оставьте отзыв автомобилю и владельцу, и вы сможете увидеть отзыв о себе";
@@ -126,11 +126,12 @@ const Message = ({
                 </YMaps> : ""}
 
             {botButtonText ? <div className="message__container-text-button">
-                <span style={{pointerEvents: buttonActive ? "all" : "none"}}
+                <span 
                 onClick={()=>{
-                    setButtonActive(false);
+                    
                     if(payload.chatBot != "rate") {
-                        updateTrip(payload)
+                        updateTrip(payload);
+                        
                     } else {
                         if(review) {
                             updateTrip(payload, rate, reviewValue);

@@ -12,9 +12,13 @@ export const CarPage = createReducer( defaultState, {
         state.buttonLoad = action.payload
     },
     [actions.createTripSuccess]: (state, action) => { 
-        state.trip = action.payload
+        state.trip = action.payload,
+        state.successRent = true
     },
     [actions.updateTripSuccess]: (state, action) => { 
         state.trip = action.payload
     },
+    [actions.setSuccessRent]: (state, action) => {
+        state.successRent = action.payload;
+    }
 })
