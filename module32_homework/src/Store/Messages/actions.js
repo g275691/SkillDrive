@@ -1,5 +1,6 @@
 import { createAction } from "@reduxjs/toolkit";
 import * as error from '../Constants/Errors';
+import { updateCar } from "../RentPage/actions";
 import { chatBot } from "./config/chatBot";
 import { wsSend } from "./config/wsSend";
 
@@ -147,6 +148,7 @@ export const updateTrip = (payload, rate, review) => {
                         dispatch(createMessage(chatBot(
                             payload.fromUser, payload.toUser, "rateOk", payload.lastTrip
                         )))
+                        updateCar(json.car._id, {rate: rate})
                     }
                 }
             },

@@ -92,7 +92,10 @@ export class RentCar {
     ownerPhoto: string
 
     @Column()
-    rating: any;
+    rating: number;
+
+    @Column()
+    ratingCount: number;
 
     @Column()
     photo: string

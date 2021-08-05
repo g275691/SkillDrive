@@ -74,6 +74,7 @@ export class CreateCarService {
     newRentCar.photosCars = carPhotos;
     newRentCar.photosCarsDocs = carDocs;
     newRentCar.rating = 0;
+    newRentCar.ratingCount = 0;
     newRentCar.review = "";
 
     newRentCar.owner = new RegistrationEntity();

@@ -64,18 +64,37 @@ export class RentCarService {
   async update(payload, param) {
     console.log(param)
     const manager = getMongoManager();
-    return await manager.update(
-      RentCarEntity,
-      {_id: ObjectId(param._id)}, 
-      payload
-    )
+    let updateData = payload;
+
+    if(payload.rate) {
+      const findCar = await manager.findOne(
+        RentCarEntity,
+        {_id: ObjectId(param._id)}, 
+      )
+      let newRating = ((findCar.rating + payload.rate) / (findCar.ratingCount + 1)).toFixed(1)
+
+      return await manager.update(
+        RentCarEntity,
+        {_id: ObjectId(param._id)}, 
+        {
+          rating: Number(newRating),
+          ratingCount: findCar.ratingCount + 1
+        }
+      )
+      
+    } else {
+      return await manager.update(
+        RentCarEntity,
+        {_id: ObjectId(param._id)}, 
+        updateData
+      )
+    }
+
   }
 
   // async updateRating(id) {
   //   const manager = getMongoManager();
   //   let findCar = await manager.findOne(RentCarEntity, {_id: ObjectId(id)});
-
-
   // }
 
   async getByOwner(req) {

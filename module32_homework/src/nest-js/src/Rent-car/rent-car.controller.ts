@@ -30,8 +30,13 @@ export class RentCarController {
     return;
   }
 
+  // @Put(':_id')
+  // async updateAll(@Body() payload, @Param() param: string) {
+  //   return this.rentCarService.update(payload, param);
+  // }
+
   @Put(':_id')
-  async updateAll(@Body() payload, @Param() param: string) {
+  async update(@Body() payload, @Param() param: string) {
     return this.rentCarService.update(payload, param);
   }
 

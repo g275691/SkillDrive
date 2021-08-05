@@ -37,7 +37,6 @@ export const RentPageCar = ({
             style={{backgroundImage: `url(${imgCar})`, backgroundSize: `cover`, backgroundRepeat:"no-repeat", width: "328px" }}>
             </div>
   
-            
             {!myCars && <div className={isFinder ? "wrapper is-finder" : "wrapper"}>
                 <div className="car-frame-avatar" 
                 style={{backgroundImage:`url(${imgAvatar})`, backgroundSize: `cover`}}></div>

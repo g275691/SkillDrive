@@ -81,6 +81,7 @@ export class CreateRentCarDto {
     photosCarsDocs: Array<String>
 
     rating: number
+    ratingCount: number
     owner: string
     ownerPhoto: string;
 }

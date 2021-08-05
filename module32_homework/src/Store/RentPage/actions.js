@@ -50,3 +50,33 @@ export const sortCarsList = (getJson, data, mail) => {
             )
         }
     }
+
+export const updateCarRequest = createAction('UPDATE_CAR_REQUEST');
+export const updateCarSuccess = createAction('UPDATE_CAR_SUCCESS');
+export const updateCarFailure = createAction('UPDATE_CAR_FAILURE');
+
+export const updateCar = (_id, payload) => {
+    return (dispatch, getStore) => {
+        
+        dispatch(updateCarRequest());
+        fetch(`http://localhost:8000/rent-car/${_id}`,{
+            method: "PUT",
+            body: JSON.stringify(payload)
+        })
+            .then(response => {
+            dispatch(updateCarRequest());
+            if(!response.ok) {
+                dispatch(updateCarFailure(error.WRONG_PASSWORD));
+                setTimeout(() => { dispatch(updateCarFailure(false)); }, 2000);
+            } else {
+                dispatch(updateCarSuccess());
+            }
+            },
+            err => {
+                dispatch(updateCarRequest());
+                setTimeout(() => { dispatch(updateCarFailure(false)); }, 3000);
+                dispatch(updateCarFailure(error.FAILED_TO_FETCH));
+            }
+            )
+        }
+    }
