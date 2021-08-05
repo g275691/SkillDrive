@@ -16,14 +16,17 @@ export const setFirstCarLocation = createAction('SET_FIRST_CAR_LOCATION');
 
 export const setFinderHeading = createAction("SET_FINDER_HEADING");
 
-export const sortCarsList = (getJson, data) => {
-    let findStartRent = new Date(data.startRent).getTime();
-    let findEndRent = new Date(data.endRent).getTime();
+export const sortCarsList = (getJson, data, mail) => {
+    console.log(mail)
+    let findStartRent = mail || new Date(data.startRent).getTime();
+    let findEndRent = mail || new Date(data.endRent).getTime();
 
     return (dispatch, getStore) => {
-        console.log(data)
+        
         dispatch(sortCarsListRequest());
-        fetch(`http://localhost:8000/rent-car?city=${data.city}&category=${data.category}&startRent=${findStartRent}&endRent=${findEndRent}&sort=${data.sort}`)
+        fetch(mail ? `http://localhost:8000/rent-car/${mail}` 
+        : `http://localhost:8000/rent-car?city=${data.city}&category=${data.category}&startRent=${findStartRent}&endRent=${findEndRent}&sort=${data.sort}`
+        )
             .then(response => {
             dispatch(sortCarsListRequest());
             if(!response.ok) {
@@ -33,6 +36,7 @@ export const sortCarsList = (getJson, data) => {
                 dispatch(sortCarsListSuccess());
                 response.json()
                 .then(json => {
+                    console.log(json)
                     getJson(json);
                     dispatch(setFirstCarLocation(json[0].geo))
                 })

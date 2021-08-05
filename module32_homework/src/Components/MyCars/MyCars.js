@@ -6,11 +6,14 @@ import ferrari from '../../Assets/img/Rent-page/ferrari.svg'
 import { Link } from 'react-router-dom';
 
 export const MyCars = ({
-    sortCarsList, setCarsList
+    sortCarsList, setCarsList,
+    
 }) => {
 
     useEffect(()=> {
-        sortCarsList(setCarsList, `http://localhost:8000/rent-car/${localStorage.getItem("userMail")}`);
+        sortCarsList(
+            setCarsList, null, localStorage.getItem("userMail")
+        );
 
     }, [])
     
@@ -27,6 +30,7 @@ export const MyCars = ({
                 {!carsList.length 
                 && 
                 <>
+                
                 <img className="mycars__container-wrapper-ferrari" src={ferrari}></img>
                 <h2>Зарабатывайте на своём автомобиле</h2>
                 <span>Сдавайте автомобиль в аренду и получайте заработок.</span>

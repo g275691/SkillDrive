@@ -48,11 +48,23 @@ export const CarPage = ({
     return (<>
     <div className={warning ? "warning is-active" : "warning"}>{warning}</div>
     <Header />
+
     <div className="car-page__container">
+        <div className="back-page-arrow" 
+            onClick={()=> {
+                }}>
+            <span className="icon-back"></span>
+            <span>Назад</span>
+            <Link to="rent-page"></Link>
+        </div>
         <div className="photo__container">
+            
             <div className="wrapper">
+
+
+
                 <div className="main">
-                    <img src={carPage[0].photosCars[0]}/>
+                    <img src={carPage[0].photosCars[0]} onClick={()=>setSlideShow(true)}/>
                     <div className="main-icon" onClick={()=>setSlideShow(true)}>
                         <img src={iconSlideShow}></img>
                     </div>
@@ -132,7 +144,7 @@ export const CarPage = ({
             {carPage[0].options.map((el, i)=> {
                 return (
                     el == "true" 
-                    ? <div className={`icon-newCar${i}`}>
+                    ? <div className={`icon-newCar${i}`} key={i}>
                         <span>{step2Options[i]}</span>
                     </div>
                     : ""
@@ -157,11 +169,13 @@ export const CarPage = ({
         <div className="submit-block-rect"></div>
         <h3>Отзывы</h3>
         <div className="rating">
-            <span style={{color: "#F2C94C"}}>★</span> {carPage[0].rating} <span style={{color: "#8D8B99"}}>(4 отзыва)</span>
+            <span style={{color: "#F2C94C"}}>★</span> {carPage[0].rating} <span style={{color: "#8D8B99"}}>
+                {`(${carPage[0].trips.length} отзыва)`}
+            </span>
         </div>
         <div className="reviews">
-            {carPage[0].trips.map(trip=>{
-                if(trip.review) return <CarPageReview trip={trip}/>
+            {carPage[0].trips.map((trip, i)=>{
+                if(trip.review) return <CarPageReview trip={trip} key={i}/>
             })}
         </div>
         <div className="submit-block-rect last"></div>

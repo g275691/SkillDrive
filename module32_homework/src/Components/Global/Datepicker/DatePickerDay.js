@@ -11,6 +11,9 @@ const DatePickerDay = ({ day, month, year
 
     
     let [dayReserve, setDayReserve] = useState(false);
+    /*Второе состояние - пофиксить конечную дату*/
+    let [dayReserveFixed, setDayReserveFixed] = useState(false);
+
     const carPage = useSelector(state => state.CarPage.carPage);
 
     useEffect(()=> {
@@ -18,11 +21,18 @@ const DatePickerDay = ({ day, month, year
             if(!/car-page/.test(location.href)) return;
             let trips = [...carPage[0].trips];
             trips.map(trip=>{
-                let startRent = new Date(trip.startRent);
-                startRent.setDate(startRent.getDate()-1)
+                let startRent = new Date(trip.startRent),
+                    endRent = new Date(trip.endRent);
+                
                 if(startRent <= new Date([year, month, day])
-                && new Date(trip.endRent) > new Date([year, month, day])) {
+                && endRent >= new Date([year, month, day])) {
                     setDayReserve(true);
+                }
+                
+                let endRentFixed = endRent.setDate(endRent.getDate()+1);
+                if(startRent <= new Date([year, month, day])
+                && endRentFixed >= new Date([year, month, day])) {
+                    setDayReserveFixed(true);
                 }
             })
         }
@@ -70,16 +80,18 @@ const DatePickerDay = ({ day, month, year
             : (stateDate2[2] == day 
                 && stateDate2[0] == year 
                 && stateDate2[1] == month 
-                && twoDate && !dayReserve
+                && twoDate && !dayReserveFixed
                 ? "linear-gradient(to right, #DFECEB 50%, white 50% )" : ""))
         }}>
             <div onMouseDown={()=> {index >= 7 && day!="" ? setDay() : ""
             }}
 
             className={
-                (stateDate[2] == day && stateDate[0] == year && stateDate[1] == month) 
+                (stateDate[2] == day && stateDate[0] == year && stateDate[1] == month 
+                && !dayReserve) 
                 || 
-                (stateDate2[2] == day && stateDate2[0] == year && stateDate2[1] == month) 
+                (stateDate2[2] == day && stateDate2[0] == year && stateDate2[1] == month
+                && !dayReserveFixed) 
             ? "active" : ""}>
                     <span className={index > 7 ? (dayReserve ? "reserve" : "") : "interval"}
                     style={{color: index < 7 && "#B1B1B1"

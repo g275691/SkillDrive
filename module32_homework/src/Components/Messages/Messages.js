@@ -78,10 +78,10 @@ export const Messages = ({
 
                     return (<>
                         {prevDate != date && 
-                        (<div className="messages__container-date">
+                        (<div className="messages__container-date" key={el.time}>
                             {formatDate(el.time)}
                         </div>)}
-                        <Message key={i} payload={el} chatHistory={chatHistory}
+                        <Message key={el} payload={el} chatHistory={chatHistory}
                         toUser={toUser} fromUser={fromUser} 
                         setChatMessage={setChatMessage} chatMessage={chatMessage}
                         updateTrip={updateTrip} updateMessage={updateMessage}

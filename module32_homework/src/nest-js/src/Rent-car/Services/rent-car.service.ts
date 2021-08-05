@@ -71,8 +71,16 @@ export class RentCarService {
     )
   }
 
+  // async updateRating(id) {
+  //   const manager = getMongoManager();
+  //   let findCar = await manager.findOne(RentCarEntity, {_id: ObjectId(id)});
+
+
+  // }
+
   async getByOwner(req) {
-    const manager = getMongoManager()
+    const manager = getMongoManager();
+    console.log(req)
     return await manager.find(RentCarEntity, {
       where: {
         ['owner.mail']: req.mail

@@ -18,8 +18,9 @@ const CarPageReview = ({
         text = trip.review;
 
     useEffect(()=>{
-        console.log(trip)
+        
     }, [])
+    
     return (<>
         <div className="review">
             <div className="wrapper">

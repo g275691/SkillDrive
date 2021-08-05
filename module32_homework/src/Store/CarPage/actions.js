@@ -19,10 +19,15 @@ export const setCarPage = id => {
             } else {
                 response.json()
                 .then(json=>{
-                    // json[0].trips.reduce((a, b)=>(a+b))
+                    // let rate = json[0].trips
+                    // .map(el=>el.rate)
+                    // .reduce((a,b) => a + b) 
+                    // / json[0].trips.length;
+
+                    // json[0].rating = rate.toFixed(1);
                     
                     dispatch(setCarPageSuccess(json));
-                    console.log(json)
+                    //console.log(json)
                 })
             }
         },

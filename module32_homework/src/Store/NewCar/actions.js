@@ -18,7 +18,7 @@ export const setStep1Forms = data => {
             .then(response => {
             dispatch(setStep1FormsRequest());
             if(!response.ok) {
-                dispatch(setStep1FormsFailure(error.CODE_400));
+                dispatch(setStep1FormsFailure(error.CODE_401_CAR));
                 setTimeout(() => { dispatch(setStep1FormsFailure(false)); }, 2000);
                 response.json().then(json=>console.log(json))             
             } else {

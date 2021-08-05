@@ -46,6 +46,8 @@ export class TripService {
     newTrip.days = createTripDto.days;
     newTrip.dateRent = new Date();
 
+    newTrip.description = `${createTripDto.startRent} - ${createTripDto.endRent}`
+
     res.status(200).send(newTrip);
     return await this.tripRepository.create(newTrip);
   }
@@ -69,11 +71,13 @@ export class TripService {
 
   async update(tripTime, payload) {
     const manager = getMongoManager();
+
     return await manager.update(
       TripEntity, 
       { dateRent: new Date(tripTime) },
       payload
     )
+
   }
 
   remove(id: number) {

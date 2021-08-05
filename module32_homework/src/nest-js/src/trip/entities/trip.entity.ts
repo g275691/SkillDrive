@@ -17,6 +17,9 @@ export class TripEntity {
     clientInfo;
 
     @Column()
+    description: string;
+
+    @Column()
     ownerCar: string;
 
     @Column()
