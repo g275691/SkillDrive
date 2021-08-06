@@ -42,8 +42,6 @@ export class RentCarService {
       }
     })
 
-    console.log(filterTrip);
-
     let filterLicense = filterTrip.map(el=>el.license);
     let findCars = await manager.find( RentCarEntity, {
       where: {

@@ -12,12 +12,6 @@ export class TripController {
     return this.tripService.create(createTripDto, res);
   }
 
-  // @Get()
-  // findOne(@Body() data) {
-  //   console.log(data);
-  //   return '2222'
-  //   return this.tripService.findOne(data);
-  // }
 
   @Get()
   find(@Query() data: string) {

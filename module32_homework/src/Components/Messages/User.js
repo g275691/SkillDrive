@@ -32,6 +32,7 @@ const User = ({
                 }
             }
         })
+        console.log(chatMessage);
     }, [chatMessage])
 
     useEffect(()=>{

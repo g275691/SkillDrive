@@ -73,7 +73,7 @@ export const createTrip = (cb) => {
             .then(response => {
             dispatch(createTripRequest(false));
             if(!response.ok) {
-                dispatch(createTripFailure(error.WRONG_PASSWORD));
+                dispatch(createTripFailure(error.CODE_401_DATE));
                 setTimeout(() => { dispatch(createTripFailure(false)); }, 2000);
                 response.json()
                 .then(json=>console.log(json));

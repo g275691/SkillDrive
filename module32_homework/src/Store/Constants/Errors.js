@@ -5,6 +5,7 @@ export const VERY_SIZE_DOCS = "Общий размер документов не
 
 export const CODE_401 = "Такой почтовый ящик уже зарегистрирован";
 export const CODE_401_CAR = "Автомобиль с таким госзнаком уже зарегистрирован";
+export const CODE_401_DATE = "На данный период времени машина уже забронирована";
 
 export const CODE_500 = "Server: Данные введены некорректно";
 export const CODE_400 = "Server: Данные введены некорректно";

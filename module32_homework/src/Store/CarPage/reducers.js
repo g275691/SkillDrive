@@ -15,6 +15,9 @@ export const CarPage = createReducer( defaultState, {
         state.trip = action.payload,
         state.successRent = true
     },
+    [actions.createTripFailure]: (state, action) => { 
+        state.warning = action.payload;
+    },
     [actions.updateTripSuccess]: (state, action) => { 
         state.trip = action.payload
     },
