@@ -100,9 +100,11 @@ export class MessagesService {
     { $set: {  isRead: true }});
   }
 
-  async remove(messageTime) {
-    
+  async remove(messageTime, payload) {
+    console.log(payload)
     const manager = getMongoManager();
-    return await manager.delete(MessagesEntity, {time: messageTime})
+    return payload.chatBot 
+    ? await manager.deleteMany(MessagesEntity, payload)
+    : await manager.delete(MessagesEntity, {time: messageTime})
   }
 }

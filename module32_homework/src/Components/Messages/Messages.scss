@@ -203,6 +203,7 @@
             }
         }
         &-review {
+            @include green-scroll();
             margin-left: 11px;
             border: 1px solid $green-rect;
             

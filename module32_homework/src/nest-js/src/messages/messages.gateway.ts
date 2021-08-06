@@ -32,40 +32,6 @@ import { TripService } from 'src/trip/trip.service';
       })
   }
 
-  // @SubscribeMessage('emojiToServer')
-  // handleEmoji(
-  //   @MessageBody() payload,
-  //   @ConnectedSocket() client: Socket,
-  //   ): void {
-  //   console.log(payload);
-  //   this.messagesService.update(payload)
-  //   .then(()=>{
-  //     this.messagesService.findChat({})
-  //     .then(data=>{
-  //       this.server.emit('msgToClient', data);
-  //     })
-  //   })
-  // }
-
-  @SubscribeMessage('updateTrip')
-  updateTrip(
-    @MessageBody() payload,
-    @ConnectedSocket() client: Socket,
-    ): void {
-      console.log(payload);
-      this.messagesService.updateTrip(payload)
-      .then(()=>{
-        this.messagesService.remove(payload)
-        .then(()=>{
-        this.messagesService.findChat({})
-        .then(data=>{
-          this.server.emit('msgToClient', data);
-        })
-      })
-    })
-
-    }
-
   @SubscribeMessage('leaveRoom')
   handleRoomLeave(client: Socket, room: string ) {
     client.leave(room);

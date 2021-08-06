@@ -59,6 +59,7 @@ export const updateCar = (_id, payload) => {
         dispatch(updateCarRequest());
         fetch(`http://localhost:8000/rent-car/${_id}`,{
             method: "PUT",
+            headers: { 'Content-Type': 'application/json', }, 
             body: JSON.stringify(payload)
         })
             .then(response => {

@@ -170,7 +170,7 @@ export const CarPage = ({
         <h3>Отзывы</h3>
         <div className="rating">
             <span style={{color: "#F2C94C"}}>★</span> {carPage[0].rating} <span style={{color: "#8D8B99"}}>
-                {`(${carPage[0].trips.length} отзыва)`}
+                {` (отзывов: ${carPage[0].ratingCount})`}
             </span>
         </div>
         <div className="reviews">

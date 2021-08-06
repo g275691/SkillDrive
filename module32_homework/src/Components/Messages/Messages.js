@@ -8,6 +8,7 @@ import User from './User';
 import imgSendMessage from '../../Assets/img/Messages/imgSendMessage.svg';
 import imgSendDoc from '../../Assets/img/Messages/imgSendDoc.svg';
 import { formatDate } from './config/getDate';
+import { wsSend } from '../../Store/Messages/config/wsSend';
 
 export const Messages = ({
     getUsers, users, getChatHistory, chatHistory,
@@ -60,7 +61,8 @@ export const Messages = ({
             <div className="back-page-arrow" 
                 onClick={()=> {
                     setChat(false);
-                    getUsers()
+                    getUsers();
+                    wsSend()
                     }}>
                 <span className="icon-back"></span>
                 <span>Назад</span>
@@ -101,7 +103,18 @@ export const Messages = ({
                     createMessage(userMessage); 
                     setInputValue("");
                 } 
-                }}>
+                }}
+                onClick={()=>{
+                    let onlineMessages = [...messages];
+                    onlineMessages.forEach(el=>{
+                        if(el.fromUser == user.mail) {
+                            el["isRead"] = true;
+                        }
+                    })
+                    setMessages(onlineMessages);
+                    wsSend()
+                }}
+                >
                 </input>
                 <img src={imgSendMessage} 
                 onClick={()=> { if(inputValue != "") {

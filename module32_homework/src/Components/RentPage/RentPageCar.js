@@ -45,7 +45,7 @@ export const RentPageCar = ({
             {isFinder 
             ? <div className="car-frame-info">
                 <div className="car-frame-rating">
-                    <span style={{color: "#F2C94C"}}>★</span> {ratingCar} (12)
+                    <span style={{color: "#F2C94C"}}>★</span> {`${carsList[index].rating} (${carsList[index].ratingCount})`} 
                 </div>
                 <div className={isFinder ? "car-frame-name finder" : "car-frame-name"}>{nameCar}</div>
                 <div className={isMapOpen ? "car-frame-info-wrapper is-map-open" : "car-frame-info-wrapper"}>

@@ -33,7 +33,7 @@ export class MessagesController {
   }
 
   @Delete(':id')
-  remove(@Param('id') messageTime: string) {
-    return this.messagesService.remove(+messageTime);
+  remove(@Param('id') messageTime: string, @Body() payload) {
+    return this.messagesService.remove(+messageTime, payload);
   }
 }

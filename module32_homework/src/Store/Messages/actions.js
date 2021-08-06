@@ -1,5 +1,6 @@
 import { createAction } from "@reduxjs/toolkit";
 import * as error from '../Constants/Errors';
+import { moveDate } from "../Global/config/moveDate";
 import { updateCar } from "../RentPage/actions";
 import { chatBot } from "./config/chatBot";
 import { wsSend } from "./config/wsSend";
@@ -76,6 +77,7 @@ export const updateTripSuccess = createAction('UPDATE_TRIP_SUCCESS');
 export const updateTripFailure = createAction('UPDATE_TRIP_FAILURE');  
 
 export const updateTrip = (payload, rate, review) => {
+    const defaultDate = new Date([new Date().getFullYear(), new Date().getMonth() + 1, new Date().getDate()]);
     
     return (dispatch, getStore) => {
         
@@ -91,13 +93,14 @@ export const updateTrip = (payload, rate, review) => {
                     statusStartRent: false,
                     statusStartTalkOwner: false,
                     statusStartTalClient: false,
+
                 }
                 : payload.chatBot == "rate" ? {
-                    rate: rate,
-                    review: review
+                    rate: rate + 1,
+                    review: review,
+                    
                 }
-                : ""
-                ) 
+                : "") 
         })
             .then(response => {
             dispatch(updateTripRequest());
@@ -107,7 +110,8 @@ export const updateTrip = (payload, rate, review) => {
             } else {
                 response.json()
                 .then(json => {
-                    dispatch(updateTripSuccess(json))});
+                    console.log(payload)
+                    dispatch(updateTripSuccess(json))
                     dispatch(removeMessage(payload.time));
                     
                     if(payload.chatBot == "setRentOwner") {
@@ -133,6 +137,7 @@ export const updateTrip = (payload, rate, review) => {
                         dispatch(createMessage(chatBot(
                             payload.fromUser, payload.toUser, "setRentEnd", payload.lastTrip
                         ), 1000))
+                        dispatch(removeMessage(payload.time));
                     } else if(payload.chatBot == "setRentEnd") {
                         console.log("end")
                         dispatch(createMessage(chatBot(
@@ -144,13 +149,21 @@ export const updateTrip = (payload, rate, review) => {
                         dispatch(createMessage(chatBot(
                             payload.fromUser, payload.toUser, "rate", payload.lastTrip
                         ), 1000))
+                        dispatch(removeMessage(false, {
+                            chatBot: "map",
+                            fromUser: payload.fromUser,
+                            toUser: payload.toUser
+                        }))
                     } else if(payload.chatBot == "rate") {
                         dispatch(createMessage(chatBot(
                             payload.fromUser, payload.toUser, "rateOk", payload.lastTrip
                         )))
-                        updateCar(json.car._id, {rate: rate})
+                        dispatch(removeMessage(payload.time));
+                        dispatch(updateCar(payload.lastTrip.car._id, {rate: rate}))
                     }
+                })
                 }
+                
             },
             err => {
                 dispatch(updateTripRequest());
@@ -165,11 +178,13 @@ export const removeMessageRequest = createAction('REMOVE_MESSAGE_REQUEST');
 export const removeMessageSuccess = createAction('REMOVE_MESSAGE_SUCCESS');
 export const removeMessageFailure = createAction('REMOVE_MESSAGE_FAILURE');
 
-export const removeMessage = (messageTime) => {
+export const removeMessage = (messageTime, payload) => {
     return (dispatch, getStore) => {
         dispatch(removeMessageRequest());
         fetch(`http://localhost:8000/messages/${messageTime}`, {
             method: 'DELETE',  
+            headers: { 'Content-Type': 'application/json', }, 
+            body: JSON.stringify(payload)
         })
             .then(response => {
             dispatch(removeMessageRequest());

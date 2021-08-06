@@ -60,7 +60,8 @@ export class RentCarService {
   }
 
   async update(payload, param) {
-    console.log(param)
+    console.log(param);
+    console.log(payload)
     const manager = getMongoManager();
     let updateData = payload;
 

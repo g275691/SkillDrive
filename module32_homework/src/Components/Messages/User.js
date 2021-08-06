@@ -1,6 +1,5 @@
 import React, {useEffect, useRef, useState} from 'react';
 
-
 const User = ({
     user, setChat, 
     getChatHistory, chatMessage
@@ -32,12 +31,8 @@ const User = ({
                 }
             }
         })
-        console.log(chatMessage);
-    }, [chatMessage])
-
-    useEffect(()=>{
         
-    })
+    }, [chatMessage])
 
     return (<>
         <div className="user__container" 
@@ -46,16 +41,6 @@ const User = ({
             setChat(true);
             getChatHistory(user.mail, setFormatName(user.name), user.lastTrip);
             setReadOnline(true);
-
-            // let onlineMessages = [...messages];
-            
-            // onlineMessages.forEach(el=>{
-            //     if(el.fromUser == user.mail) {
-            //         el["isRead"] = true;
-            //     }
-            // })
-
-            // setMessages(onlineMessages);
         }}
         >
             <div className="user__container-avatar"
