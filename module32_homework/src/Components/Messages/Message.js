@@ -108,7 +108,7 @@ const Message = ({
 
                 {payload.chatBot == "map" 
                 ?   <YMaps >
-                        <div style={{marginTop: "10px", marginLeft: "11px"}}>
+                        <div className="yandex-map" style={{marginTop: "10px", marginLeft: "11px"}}>
                             <Map defaultState={{ center: payload.lastTrip.car.geo, zoom: 14 }} 
                             modules={[
                             "layout.ImageWithContent", 

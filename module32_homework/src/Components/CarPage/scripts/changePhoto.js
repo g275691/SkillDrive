@@ -1,4 +1,4 @@
-export const changePhoto = (arrow, carPage, setPhotoNumber) => {
+export const changePhoto = (arrow, carPage, setPhotoNumber, photoNumber) => {
     let photo = photoNumber;
     if(arrow == "left") {
         if(photo == 1) {

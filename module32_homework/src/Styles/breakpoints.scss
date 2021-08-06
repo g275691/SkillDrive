@@ -53,4 +53,5 @@
   &::-webkit-scrollbar { width: 3px; height: 3px;}
   &::-webkit-scrollbar-button {  background-color: $green-rect; }      
   &::-webkit-scrollbar-thumb { height: 50px; background-color: $green-rect }
+  overflow-x:hidden;
 }

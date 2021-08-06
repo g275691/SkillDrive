@@ -1,9 +1,7 @@
 import { Link, Redirect } from 'react-router-dom';
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import BackPageArrowC from '../Global/BackPageArrow/BackPageArrowC';
 import DatePicker from '../Global/Datepicker/DatePicker';
-import { month } from '../Global/Datepicker/Month';
 import Header from '../Global/Header/Header';
 import { step2Options } from '../NewCar/step2Options';
 import iconSlideShow from '../../Assets/img/Rent-page/slideShow.svg';
@@ -26,7 +24,6 @@ export const CarPage = ({
     const availableCar = useSelector(state => state.global.availableCar);
     const availableCar2 = useSelector(state => state.global.availableCar2);
 
-    const monthDefault = new Date(availableCar).getMonth();
     const availableCarNext = [...availableCar];
     availableCarNext[1]+=1;
 
@@ -34,12 +31,6 @@ export const CarPage = ({
     const [photoNumber, setPhotoNumber] = useState(1);
 
     const areMonthsSame = new Date(availableCar).getMonth() == new Date(availableCar2).getMonth();
-
-    const setLinkToRent = () => {
-        return `registration-rent?${carPage[0]._id}`;
-    }
-    
-    const [registrationRent, setRegistrationRent] = useState(true);
 
     if(!carPage) return (<div><Header/></div>)
     if(successRent) return (
@@ -64,7 +55,10 @@ export const CarPage = ({
 
 
                 <div className="main">
-                    <img src={carPage[0].photosCars[0]} onClick={()=>setSlideShow(true)}/>
+                    <img src={carPage[0].photosCars[0]} 
+                    onClick={()=>{
+                        setPhotoNumber(1)
+                        setSlideShow(true)}}/>
                     <div className="main-icon" onClick={()=>setSlideShow(true)}>
                         <img src={iconSlideShow}></img>
                     </div>
@@ -72,11 +66,17 @@ export const CarPage = ({
                 {carPage[0].photosCars.length > 1 ? 
                 <div className="mini">
                     <div>
-                        <img src={carPage[0].photosCars[1]}></img>
+                        <img src={carPage[0].photosCars[1]} 
+                        onClick={()=>{
+                            setPhotoNumber(2)
+                            setSlideShow(true)}}></img>
                     </div>
                     {carPage[0].photosCars.length > 2 
                     ? <div>
-                        <img src={carPage[0].photosCars[2]}></img>
+                        <img src={carPage[0].photosCars[2]} 
+                        onClick={()=>{
+                            setPhotoNumber(3)
+                            setSlideShow(true)}}></img>
                         {carPage[0].photosCars.length > 3 
                         ? <div className="mini-plus"
                         onClick={()=>setSlideShow(true)}>
@@ -203,12 +203,12 @@ export const CarPage = ({
         <div className="slide-show__container-number">{`${photoNumber} из ${carPage[0].photosCars.length} фото`}</div>
         <div className="slide-show__container-frame">
             <div className="icon-arrow arrow-1" 
-            onClick={()=>changePhoto("left", carPage, setPhotoNumber) }>
+            onClick={()=>changePhoto("left", carPage, setPhotoNumber, photoNumber) }>
             </div>
             <img src={carPage[0].photosCars[photoNumber-1]}
              ></img>
             <div className="icon-arrow arrow-2" 
-            onClick={()=>changePhoto("right", carPage, setPhotoNumber)}>
+            onClick={()=>changePhoto("right", carPage, setPhotoNumber, photoNumber)}>
             </div>
         </div>
         <div className="slide-show__container-close" onClick={()=>setSlideShow(false)}>×</div>

@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import DatePickerDay from './DatePickerDay';
 import { month } from './Month';
-import { setSecondDate } from '../../../Store/RentPage/actions';
 
 const DatePicker = ({onBlur
     , enabled
@@ -11,10 +10,6 @@ const DatePicker = ({onBlur
     , twoDate, carPage
     , isMobilFinder, forceSecondDate
 }) => {
-
-    useEffect(()=> {
-
-    })
 
     const dispatch = useDispatch();
     const isSecondDate = useSelector(state => state.RentPage.isSecondDate);

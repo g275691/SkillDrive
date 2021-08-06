@@ -7,7 +7,7 @@ export const defaultState = {
         brand: 'Acura',
         model: 'GT-500',
         year: '2002',
-        city: "Оренбург",
+        city: "Санкт-Петербург",
         category: "Легковая",
         driveUnit: "Передний",
         license: '34534',

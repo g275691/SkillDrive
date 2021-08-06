@@ -49,7 +49,6 @@ export const RentPage = ({carsList
     }
 
     useEffect(() => {
-        //sortCarsList(setCarsList, `http://localhost:8000/rent-car/start?city=Санкт-Петербург&category=Легковая`);
         sortCarsList(setCarsList
             , {
                 city: getValues().city,
@@ -71,7 +70,7 @@ export const RentPage = ({carsList
             setCarsCategory([...new Set(carsCategory)]);
           
         }))
-    }, [])
+    }, []);
 
     const dispatch = useDispatch();
     const { register, getValues } = useForm({

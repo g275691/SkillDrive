@@ -17,7 +17,6 @@ export const setFirstCarLocation = createAction('SET_FIRST_CAR_LOCATION');
 export const setFinderHeading = createAction("SET_FINDER_HEADING");
 
 export const sortCarsList = (getJson, data, mail) => {
-    console.log(mail)
     let findStartRent = mail || new Date(data.startRent).getTime();
     let findEndRent = mail || new Date(data.endRent).getTime();
 
@@ -36,7 +35,6 @@ export const sortCarsList = (getJson, data, mail) => {
                 dispatch(sortCarsListSuccess());
                 response.json()
                 .then(json => {
-                    console.log(json)
                     getJson(json);
                     dispatch(setFirstCarLocation(json[0].geo))
                 })

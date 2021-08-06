@@ -45,10 +45,12 @@
         flex-direction: column;
         margin-top: auto;
         width: 40%;  
-        margin-left: -40px;
+        
+        padding-bottom: 20px;
         @include breakpoint (medium) {
             width: 80%;
             margin-left: 0px;
+            padding-bottom: 0px;
         }
         input {
             width: 100%; 
@@ -174,18 +176,22 @@
         border-bottom-right-radius: 0px;
         width: 417px;
         margin-left: 20px;
+        .yandex-map > div {
+            @include breakpoint (medium) {
+            width: 200px !important;
+            height: 150px !important;
+            padding-bottom: 10px !important;
+            }
+        }
         @include breakpoint (medium) {
-            
             font-size: 14px;
         }
         &-bot {
             display: flex;
             align-items: center;
             padding-bottom: 10px;
-            .ymaps-2-1-78-map {
-                width: 364px !important;
-                height: 300px !important;
-            }
+
+
             img {
                 width: 32px;
                 height: 32px;
