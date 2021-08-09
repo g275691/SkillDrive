@@ -98,10 +98,20 @@ export const RegistrationRent = ({
             </div>
             <h3 className="h3-options">Дополнительные услуги</h3>
             <div className="registration-rent__container-options">
-                {step2Service.Services.map((el, i) => {
-                        return <Step2Item key={i} index={i+step2Options.length} service
-                        text={el.service} description={el.description} 
+                {/* {step2Service.Services.map((el, i) => {
+                    if(i+step2Options.length) console.log(el)
+                    return <Step2Item key={i} index={i+step2Options.length} service
+                    text={el.service} description={el.description} 
+                    />
+                })} */}
+                {carPage[0].options.map((el,i)=>{
+                    if(carPage[0].options[i + 14] == "true") {
+                        return <Step2Item key={i} index={i+14} service
+                        text={step2Service.Services[i].service} 
+                        description={step2Service.Services[i].description} 
                         />
+                    }
+                    
                 })}
             </div>
             <div className="registration-rent__container-check">
