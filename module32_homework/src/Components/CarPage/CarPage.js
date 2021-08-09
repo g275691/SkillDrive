@@ -14,12 +14,13 @@ import CarPageReview from './CarPageReview';
 export const CarPage = ({
     warning, setCarPage,
     carPage, buttonLoad,
-    createTrip
 }) => {
 
     useEffect(()=>{
         setCarPage(window.location.search.slice(1));
     },[])
+
+
 
     const setCarsRent = () => {
         let carRentId = `registration-rent?${carPage[0]._id}`;
@@ -179,7 +180,9 @@ export const CarPage = ({
         </div>
         <div className="submit-block-rect last"></div>
         <div className="button-wrapper">
-            <Link to={setCarsRent()}></Link>
+            {carPage[0].owner.mail == localStorage.getItem("userMail") 
+            ? ""
+            : <Link to={setCarsRent()}></Link>}
             <button type="submit"
             onClick={()=>{
                 carPage[0].owner.mail == localStorage.getItem("userMail") 

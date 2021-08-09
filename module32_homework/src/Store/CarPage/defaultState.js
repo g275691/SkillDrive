@@ -3,5 +3,5 @@ export const defaultState = {
     buttonLoad: true,
     isSuccess: false,
     trip: {},
-    successRent: false
+    successRent: false,
 }

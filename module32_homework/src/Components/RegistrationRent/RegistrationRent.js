@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { setCarPage } from '../../Store/CarPage/actions';
+import { createTrip, setCarPage } from '../../Store/CarPage/actions';
 import Header from '../Global/Header/Header';
 import SuccessRegistrationRent from './SuccessRegistrationRent';
 import { Link } from 'react-router-dom';
@@ -12,22 +12,27 @@ import { useForm  } from 'react-hook-form';
 import Step2Item from '../NewCar/Step2Item';
 import step2Service from '../NewCar/step2Service.json';
 import { step2Options } from '../NewCar/step2Options';
+import { getDaysBetweenDates } from './scripts/getDaysBetweenDates';
 
 export const RegistrationRent = ({
-
+    
 }) => {
 
+
+    
     const [active, setActive] = useState(false);
     const carPage = useSelector(state => state.CarPage.carPage);
-
-    const [successPage, setSuccessPage] = useState(false);
 
     let pageId = window.location.search.slice(1);
 
     const dispatch = useDispatch();
     const availableCar = useSelector(state => state.global.availableCar);
     const availableCar2 = useSelector(state => state.global.availableCar2);
+    
+    const warning = useSelector(state => state.CarPage.warning);
+    const successRent = useSelector(state => state.CarPage.successRent);
 
+    const [tripPlan, setTripPlan] = useState("Хочу покататься");
     const { register, getValues } = useForm({
         mode: 'onTouched',
     });
@@ -36,9 +41,17 @@ export const RegistrationRent = ({
         dispatch(setCarPage(pageId));
     },[])
 
+    const carOptions = useSelector(state => state.NewCar.step2Forms);
+    const [carOptionsCount, setCarOptionsCount] = useState(0);
+
+    useEffect(()=>{
+        setCarOptionsCount(carOptions.reduce((a,b)=> a + b));
+    },[carOptions, availableCar, availableCar2])
+
     if(!carPage[0]) return (<div><Header/></div>)
-    if(successPage) return <SuccessRegistrationRent />
+    if(successRent) return <SuccessRegistrationRent />
     return (<>
+        <div className={warning ? "warning is-active" : "warning"}>{warning}</div>
         <Header/>
         <div className="registration-rent__container">
             <div className="back-page-arrow">
@@ -47,9 +60,6 @@ export const RegistrationRent = ({
                 <Link to={`car-page?${pageId}`}></Link>
             </div>
             <h2>Оформление аренды</h2>
-
-
-
             <h3>Состав заказа</h3>
             <div className="wrapper">
                 <div className="registration-rent__container-order">
@@ -81,7 +91,7 @@ export const RegistrationRent = ({
                     </div>
                     <div>
                         <span>Планы на поездку</span>
-                        <textarea rows="8" 
+                        <textarea rows="8" value={tripPlan} onChange={e=>setTripPlan(e.target.value)}
                         placeholder="Опишите свои планы на поездку для вледельца автомобиля"> 
                         </textarea>
                     </div>
@@ -100,28 +110,38 @@ export const RegistrationRent = ({
                     <div className="wrapper">
                         <div className="registration-rent__container-check-left">
                             <div>Стоимость аренды</div>
-                            <div>1231231 123</div>
+                            <div>{`${setFormatDate(availableCar)} – ${setFormatDate(availableCar2)}`}</div>
                             <div>Доп. услуги</div>
                             <div>Комиссия сервиса</div>
                         </div>
                         <div className="registration-rent__container-check-right">
-                            <div>{carPage[0].price}</div>
-                            <div>{carPage[0].price}</div>
-                            <div>{carPage[0].price}</div>
+                            <div>{getDaysBetweenDates(availableCar, availableCar2)*carPage[0].price} ₽</div>
+                            <div style={{textDecoration: "line-through"}}>
+                                {getDaysBetweenDates(availableCar, availableCar2)*carPage[0].price + carPage[0].price} ₽
+                            </div>
+                            <div>{carOptionsCount*1000} ₽</div>
                             <div>1000 ₽</div>
                         </div>
                     </div>
                     <div className="registration-rent__container-check-rect-strip"></div>
                     <div className="wrapper wrapper-price">
                         <div>К оплате</div>
-                        <div>5 800 ₽</div>
+                        <div>
+                            {getDaysBetweenDates(availableCar, availableCar2)*carPage[0].price + 1000 + carOptionsCount * 1000} ₽
+                        </div>
                     </div>
                 </div>
                 </div>
             <div className="submit-block">
                 <div className="submit-block-rect"></div>
                 <div className="button-wrapper">
-                <button type="submit">Перейти к оплате</button>
+                <button type="submit"
+                onClick={()=>{
+                    dispatch(createTrip(
+                        getDaysBetweenDates(availableCar, availableCar2)*carPage[0].price + 1000 + carOptionsCount * 1000,
+                        tripPlan
+                    ))
+                }}>Перейти к оплате</button>
                 <div className="cssload-container">
                     {/* <div className={buttonLoad 
                         ? "cssload-zenith animate" : "cssload-zenith"}>

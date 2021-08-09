@@ -118,6 +118,7 @@ export const updateTrip = (payload, rate, review) => {
                         dispatch(createMessage(chatBot(
                             payload.fromUser, payload.toUser, "setRezerv", payload.lastTrip
                         )))
+                        dispatch(removeMessage(payload.time));
                         dispatch(createMessage(chatBot(
                             payload.toUser, payload.fromUser, "setRezerv", payload.lastTrip
                         ), 500))

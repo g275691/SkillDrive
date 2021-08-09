@@ -45,7 +45,7 @@ export const createTripRequest = createAction('CREATE_TRIP_REQUEST');
 export const createTripSuccess = createAction('CREATE_TRIP_SUCCESS');
 export const createTripFailure = createAction('CREATE_TRIP_FAILURE');
 
-export const createTrip = (cb) => {
+export const createTrip = (sumPrice, tripPlan) => {
     return (dispatch, getStore) => {
         let days = (new Date(getStore().global.availableCar2) - new Date(getStore().global.availableCar)) / (8.64e+7),
         client = localStorage.getItem("userMail"),
@@ -60,11 +60,12 @@ export const createTrip = (cb) => {
                 startRent: getStore().global.availableCar,
                 endRent: getStore().global.availableCar2,
                 days,
-                price: days * getStore().CarPage.carPage[0].price,
+                price: sumPrice,
                 comment: "Планирую посетить Санкт-Петербург, покататься по городу, съездить в Выборг и Петергоф.",
                 optionsDelivery: getStore().CarPage.carPage[0].options[15],
                 optionsBabyChair: getStore().CarPage.carPage[0].options[14],
                 optionsEndRentAnywhere: getStore().CarPage.carPage[0].options[16],
+                optionsEndRentAnywhere: getStore().CarPage.carPage[0].options[17],
                 statusStartTalkClient: true,
                 statusStartTalkOwner: false,
                 statusStartRent: false,
@@ -81,6 +82,16 @@ export const createTrip = (cb) => {
                 response.json()
                 .then(json=>{
                     dispatch(createTripSuccess());
+                    dispatch(createMessage(    {
+                        time: Date.now(),
+                        fromUser: client,
+                        toUser: toUser,
+                        message: tripPlan,
+                        isRead: false,
+                        emoji: [],
+                        chatBot: false,
+                        lastTrip: json
+                    }))
                     dispatch(createMessage(chatBot(
                         client, toUser, "setRentOwner", json
                     )))
