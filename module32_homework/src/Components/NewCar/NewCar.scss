@@ -101,6 +101,7 @@
                   border-radius: 6px;
                   padding: 23px 19px;
                   margin-top: 15px;
+                  
                   @include breakpoint (medium) {
                     width: auto;
                   }

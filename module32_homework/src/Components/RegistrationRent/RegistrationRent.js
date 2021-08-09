@@ -53,7 +53,48 @@ export const RegistrationRent = ({
             <h3>Состав заказа</h3>
             <div className="wrapper">
                 <div className="registration-rent__container-order">
-                <div className="registration-rent__container-check">
+
+                    <div className="wrapper">
+                        <img src={carPage[0].photosCars[0]}></img>
+                        <div className="car-info">
+                            <div>
+                                <span style={{color: "#F2C94C"}}>★</span> {`${carPage[0].rating}`} <span>{`(${carPage[0].ratingCount})`}</span>
+                            </div> 
+                            <div>{`${carPage[0].brand} ${carPage[0].model}, ${carPage[0].year}`}</div>
+                            <div>{`${carPage[0].price} ₽ в сутки`}</div>
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+            <h3>Информация о поездке</h3>
+                <div className="registration-rent__container-trip">
+                    <div>
+                        <span>Период аренды</span>
+                        <InputMenu
+                            name="date" value={`${setFormatDate(availableCar)} – ${setFormatDate(availableCar2)}`}
+                            ref={register({ required: true })} id="rent-date"
+                            datePicker stateDate={availableCar} stateDate2={availableCar2} 
+                            stateDispatch={setAvailableCar} stateDispatch2={setAvailableCar2}  
+                        />
+                    </div>
+                    <div>
+                        <span>Планы на поездку</span>
+                        <textarea rows="8" 
+                        placeholder="Опишите свои планы на поездку для вледельца автомобиля"> 
+                        </textarea>
+                    </div>
+            </div>
+            <h3 className="h3-options">Дополнительные услуги</h3>
+            <div className="registration-rent__container-options">
+                {step2Service.Services.map((el, i) => {
+                        return <Step2Item key={i} index={i+step2Options.length} service
+                        text={el.service} description={el.description} 
+                        />
+                })}
+            </div>
+            <div className="registration-rent__container-check">
                 <div className="registration-rent__container-check-rect">
                     <h4>Ваш чек</h4>
                     <div className="wrapper">
@@ -76,48 +117,7 @@ export const RegistrationRent = ({
                         <div>5 800 ₽</div>
                     </div>
                 </div>
-            </div>
-                    <div className="wrapper">
-                        <img src={carPage[0].photosCars[0]}></img>
-                        <div className="car-info">
-                            <div>
-                                <span style={{color: "#F2C94C"}}>★</span> {`${carPage[0].rating}`} <span>{`(${carPage[0].ratingCount})`}</span>
-                            </div> 
-                            <div>{`${carPage[0].brand} ${carPage[0].model}, ${carPage[0].year}`}</div>
-                            <div>{`${carPage[0].price} ₽ в сутки`}</div>
-                        </div>
-
-                    </div>
-
                 </div>
-            </div>
-            <h3>Информация о поездке</h3>
-                <div className="registration-rent__container-trip">
-                    <div>
-                        <span>Период аренды</span>
-                        <InputMenu
-                            name="date" label="Период аренды" value={`${setFormatDate(availableCar)} – ${setFormatDate(availableCar2)}`}
-                            ref={register({ required: true })} id="rent-date"
-                            datePicker stateDate={availableCar} stateDate2={availableCar2} 
-                            stateDispatch={setAvailableCar} stateDispatch2={setAvailableCar2}  
-                        />
-                    </div>
-                    <div>
-                        <span>Планы на поездку</span>
-                        <textarea rows="8" 
-                        placeholder="Опишите свои планы на поездку для вледельца автомобиля"> 
-                        </textarea>
-                    </div>
-            </div>
-            <h3 className="h3-options">Дополнительные услуги</h3>
-            <div className="registration-rent__container-options">
-                {step2Service.Services.map((el, i) => {
-                        return <Step2Item key={i} index={i+step2Options.length} service
-                        text={el.service} description={el.description} 
-                        />
-                })}
-            </div>
-
             <div className="submit-block">
                 <div className="submit-block-rect"></div>
                 <div className="button-wrapper">

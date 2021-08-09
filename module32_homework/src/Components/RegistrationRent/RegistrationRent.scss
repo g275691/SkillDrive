@@ -17,6 +17,10 @@
     h2 {
         align-self: center;
         margin-top: 30px;
+        @include breakpoint (medium) {
+            font-size: 32px;
+            width: 80%;
+          }
     }
     .wrapper {
         display: flex;
@@ -36,6 +40,10 @@
                 height: 111px;
                 border-radius: 10px;
                 object-fit: cover;
+                @include breakpoint (medium) {
+                    width: 98px;
+                    height: 72px;
+                  }
             }
             .car-info {
                 display: flex;
@@ -44,6 +52,10 @@
                 & > div {
                     &:first-child {
                         font-size: 14px;
+                        @include breakpoint (medium) {
+                            font-size: 12px;
+                            
+                          }
                         span:nth-child(2) {
                             opacity: 0.4;
                         }
@@ -51,9 +63,17 @@
                     &:nth-child(2) {
                         font-size: 24px;
                         margin-top: 10px;
+                        @include breakpoint (medium) {
+                            font-size: 18px;
+                            margin-top: 6px;
+                          }
                     }
                     &:nth-child(3) {
                         margin-top: 10px;
+                        @include breakpoint (medium) {
+                            font-size: 14px;
+                            margin-top: 6px;
+                          }
                     }
                 }
             }
@@ -65,8 +85,15 @@
         width: 80%;
         align-self: center;
         font-size: 36px;
+        @include breakpoint (medium) {
+            font-size: 20px;
+            margin-top: 40px;
+          }
         &.h3-options {
             margin-top: 60px;
+            @include breakpoint (medium) {
+                margin-top: 40px;
+              }
         }
     }
     &-trip {
@@ -74,11 +101,21 @@
         flex-direction: column;
         width: 80%;
         align-self: center;
+        @include breakpoint (medium) {
+            margin-top: 10px;
+          }
         & > div {
             display: flex;
             align-items: center;
+            @include breakpoint (medium) {
+                flex-direction: column;
+                align-items: flex-start;
+              }
             .input__menu__container {
                 width: 30%;
+                @include breakpoint (medium) {
+                    width: 100%;
+                  }
                 #rent-date {
                     width: auto;
                 }
@@ -88,6 +125,10 @@
                 border: 1px solid #E0E0E0;
                 resize: none;
                 border-radius: 4px;
+                @include breakpoint (medium) {
+                    width: 100%;
+                    margin-top: 12px;
+                  }
             }
             &:nth-child(2) {
                 align-items: start;
@@ -95,6 +136,9 @@
             }
             & > span {
                 width: 20%;
+                @include breakpoint (medium) {
+                    width: 100%;
+                  }
             }
         }
     }
@@ -106,17 +150,28 @@
         align-items: flex-end;
         flex-direction: column;
         position: absolute ;
-        margin-top: -80px;
+        align-self: center;
+        margin-top: 220px;
+        @include breakpoint (medium) {
+            position: relative;
+            margin-top: 40px;
+          }
         &-rect {
             width: 30%;
             background: #F7F7F8;
             padding: 30px;
             border-radius: 10px;
+            @include breakpoint (medium) {
+                width: 80%;
+              }
             h4 {
                 font-size: 24px;
                 margin-top: 0px;
                 margin-bottom: 20px;
                 font-weight: 500;
+                @include breakpoint (medium) {
+                    margin-bottom: 10px;
+                  }
             }
             &-strip {
                 width: 100%;
@@ -124,6 +179,10 @@
                 margin-top: 40px;
                 margin-bottom: 30px;
                 background: #E0E0E0;
+                @include breakpoint (medium) {
+                    margin-top: 20px;
+                    margin-bottom: 20px;
+                  }
             }
         }
         .wrapper {
@@ -133,6 +192,9 @@
             & > div {
                 & > div {
                     margin-top: 23px;
+                    @include breakpoint (medium) {
+                        margin-top: 16px;
+                      }
                     &:nth-child(2) {
                         margin-top: 1px;
                         color: #828282;
@@ -143,6 +205,9 @@
             &.wrapper-price {
                 font-weight: 700;
             }
+        }
+        &-right {
+            text-align: right;
         }
     }
     &-options {
@@ -247,6 +312,9 @@
         margin-top: 0px;
         button {
             width: 30%;
+            @include breakpoint (medium) {
+                width: 80%;
+              }
         }
     }
 }
