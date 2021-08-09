@@ -14,12 +14,17 @@ import CarPageReview from './CarPageReview';
 export const CarPage = ({
     warning, setCarPage,
     carPage, buttonLoad,
-    createTrip, successRent
+    createTrip
 }) => {
 
     useEffect(()=>{
         setCarPage(window.location.search.slice(1));
     },[])
+
+    const setCarsRent = () => {
+        let carRentId = `registration-rent?${carPage[0]._id}`;
+        return carRentId;
+    }
 
     const availableCar = useSelector(state => state.global.availableCar);
     const availableCar2 = useSelector(state => state.global.availableCar2);
@@ -32,28 +37,22 @@ export const CarPage = ({
 
     const areMonthsSame = new Date(availableCar).getMonth() == new Date(availableCar2).getMonth();
 
-    if(!carPage) return (<div><Header/></div>)
-    if(successRent) return (
-        <SuccessRegistrationRent />
-    )
+    if(!carPage[0]) return (<div><Header/></div>)
+    // if(successRent) return (
+    //     <SuccessRegistrationRent />
+    // )
     return (<>
     <div className={warning ? "warning is-active" : "warning"}>{warning}</div>
     <Header />
 
     <div className="car-page__container">
-        <div className="back-page-arrow" 
-            onClick={()=> {
-                }}>
+        <div className="back-page-arrow">
             <span className="icon-back"></span>
             <span>Назад</span>
             <Link to="rent-page"></Link>
         </div>
         <div className="photo__container">
-            
             <div className="wrapper">
-
-
-
                 <div className="main">
                     <img src={carPage[0].photosCars[0]} 
                     onClick={()=>{
@@ -180,12 +179,12 @@ export const CarPage = ({
         </div>
         <div className="submit-block-rect last"></div>
         <div className="button-wrapper">
-            {/* <Link to={setLinkToRent()}></Link> */}
+            <Link to={setCarsRent()}></Link>
             <button type="submit"
             onClick={()=>{
                 carPage[0].owner.mail == localStorage.getItem("userMail") 
-                ? console.log("Пока не готово") 
-                : createTrip()
+                ? console.log("Редактирование") 
+                : console.log("Переход к аренде") 
                 }}>
             {buttonLoad ? " " 
             : (carPage[0].owner.mail == localStorage.getItem("userMail") 

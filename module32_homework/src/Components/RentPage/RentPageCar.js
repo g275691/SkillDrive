@@ -27,7 +27,8 @@ export const RentPageCar = ({
     let driveUnit = carsList[index].driveUnit;
 
     let carPageId = `car-page?${carsList[index]._id}`;
-    let registrationRentId = `registration-rent?${carsList[index]._id}`;
+    let registrationRentId = `registration-rent?${carsList[index]._id}`,
+        carRentId = `registration-rent?${carsList[index]._id}`;
 
     return (<>
         <div className={isFinder ? "car-frame is-finder" : "car-frame"} >
@@ -71,7 +72,7 @@ export const RentPageCar = ({
             }
             {isFinder && !isMapOpen && !myCars ?  
             <div className="car-frame-button-wrapper">
-                <Link to={carPageId}></Link>
+                <Link to={carRentId}></Link>
                 <button className="car-frame-action">Арендовать</button>
             </div> : ""}
         </div>
