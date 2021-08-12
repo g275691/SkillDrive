@@ -15,6 +15,7 @@ export class TripController {
 
   @Get()
   find(@Query() data: string) {
+    console.log("test")
     return this.tripService.find(data);
   }
 

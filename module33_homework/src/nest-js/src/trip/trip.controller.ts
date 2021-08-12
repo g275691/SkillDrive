@@ -15,6 +15,7 @@ export class TripController {
 
   @Get()
   find(@Query() data: string) {
+    console.log("te22st")
     return this.tripService.find(data);
   }
 
@@ -26,5 +27,11 @@ export class TripController {
   @Delete(':id')
   remove(@Param('id') id: string) {
     return this.tripService.remove(+id);
+  }
+
+  @Get('test')
+  test() {
+    console.log("test")
+    return "test"
   }
 }

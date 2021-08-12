@@ -20,11 +20,11 @@
     "skipLibCheck": true,
     "strict": false,
     "forceConsistentCasingInFileNames": false,
-    "noEmit": true,
+    "noEmit": false,
     "esModuleInterop": true,
     "moduleResolution": "node",
     "resolveJsonModule": true,
-    "isolatedModules": false,
+    "isolatedModules": true,
     "jsx": "preserve"
   },
   "include": [

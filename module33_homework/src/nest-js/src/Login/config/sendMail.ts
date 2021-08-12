@@ -1,4 +1,4 @@
-const nodemailer = require('nodemailer');
+export const nodemailer = require('nodemailer');
 
 const sendMail = (name, link, mail) => {
     let transporter = nodemailer.createTransport({

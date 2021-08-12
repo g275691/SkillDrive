@@ -64,7 +64,7 @@ export class TripService {
   }
 
   async find(data) {
-    
+    console.log("test")
     const manager = getMongoManager();
     return await manager.find(TripEntity, data)
   }

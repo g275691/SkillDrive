@@ -4,15 +4,18 @@ import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { MongooseModule } from '@nestjs/mongoose';
-import { MulterModule } from '@nestjs/platform-express';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { RentCarModule } from './Rent-car/rent-car.module';
 import { TripModule } from './trip/trip.module';
 import { MessagesModule } from './messages/messages.module';
 
+import { RenderModule } from 'nest-next';
+import Next from 'next';
+
 @Module({
   imports: 
   [
+    RenderModule.forRootAsync(Next({ dev: true }), { viewsDir: null }),
     TypeOrmModule.forRoot({
       name: "default",
       type: "mongodb",
@@ -26,16 +29,11 @@ import { MessagesModule } from './messages/messages.module';
       ]
     }),
     MongooseModule.forRoot('mongodb://localhost/skilldrive2'),
-    // MulterModule.register({
-    //   dest: './files'
-    // }),
     RegistrationModule,
     LoginModule,
     RentCarModule,
     TripModule,
     MessagesModule,
-
-  
   ],
   controllers: [AppController],
   providers: [AppService],

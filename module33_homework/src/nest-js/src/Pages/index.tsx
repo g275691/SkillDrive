@@ -1,7 +1,10 @@
-import { FC } from 'react';
+import React, { useEffect, useState } from 'react';
 
-const Home: FC = () => {
-    return <h1>Home</h1>;
+const UserPage = ({
+
+}) => {
+    return (
+    <h1>Дом</h1>)
 };
 
-export default Home;
+export default UserPage;
